@@ -1,0 +1,7 @@
+@import 'protean-styles/styles/app';
+
+.app {
+    @include breakpoint(m) {
+        padding: 0;
+    }
+}
