@@ -13,6 +13,7 @@ interface IProteanButton {
     variant?: string;
     children?: unknown;
     ref?: unknown;
+    onClick?: (event?: CustomEvent) => void;
 };
 
 interface IProteanCheckbox {
@@ -24,6 +25,7 @@ interface IProteanCheckbox {
     label?: string;
     onchange?: (event: CustomEvent<any>) => void;
     variant?: string;
+    ref?: unknown;
 };
 
 interface IProteanClickElsewhere {

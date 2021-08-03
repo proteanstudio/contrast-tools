@@ -96,7 +96,7 @@ export default function APCAContrast(background: number, text: number) {
     // Essentially, 2.4 best models actual display
     // characteristics in combination with the total method
   
-    const mainTRCencode = 0.41666666666666666667; // = 1.0/mainTRC;
+    // const mainTRCencode = 0.41666666666666666667; // = 1.0/mainTRC;
   
     const Rco = 0.2126729, // sRGB Red Coefficient (from matrix)
       Gco = 0.7151522, // sRGB Green Coefficient (from matrix)

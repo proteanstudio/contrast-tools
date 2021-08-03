@@ -1,0 +1,35 @@
+.contrast-checker {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    --protean-input-margin: 0.25rem;
+
+    > div {
+        flex-basis: 33.333%;
+    }
+
+    protean-input[type="color-code"] {
+        flex: 1 1;
+    }
+
+    .contrast-value {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        h2 {
+            margin: 0;
+        }
+    }
+
+    .color-values {
+        display: flex;
+        font-size: 0.75rem;
+        font-weight: 500;
+
+        > div {
+            margin: 0 0.125rem;
+        }
+    }
+}

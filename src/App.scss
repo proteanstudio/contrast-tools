@@ -1,4 +1,5 @@
 @import 'protean-styles/styles/app';
+@import './styles/index';
 
 .app {
     @include breakpoint(m) {

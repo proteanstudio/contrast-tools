@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import APCARating from '../../utils/apca-rating';
 import './styles.scss';
 
 export interface LookupTableCellProps {
@@ -12,8 +13,11 @@ export interface LookupTableCellProps {
 
 export default class LookupTableCell extends Component<LookupTableCellProps> {
     get isIncalculable(): boolean {
-        return this.props.decorator ? ['copyright', 'prohibited', 'header'].includes(this.props.decorator) || (this.props.decorator === 'caution' && this.props.value === 'N'): false ;
-    } 
+        return this.props.decorator
+            ? ['copyright', 'prohibited', 'header'].includes(this.props.decorator) ||
+                  (this.props.decorator === 'caution' && this.props.value === 'N')
+            : false;
+    }
 
     get rating(): number {
         if (this.isIncalculable) {
@@ -22,20 +26,7 @@ export default class LookupTableCell extends Component<LookupTableCellProps> {
 
         if (this.props.rating) return this.props.rating;
 
-        const percentageDiff = (Math.abs(this.props.comparisonValue!)/(this.props.value as number) - 1) * 100;
-
-        switch (true) {
-            case (percentageDiff >= 0):
-                return 4;
-            case (percentageDiff >= -5):
-                return 3;
-            case (percentageDiff >= -10):
-                return 2;
-            case (percentageDiff >= -15):
-                return 1;
-            default:
-                return 0;
-        }
+        return APCARating(this.props.comparisonValue!, this.props.value as number);
     }
 
     get wrapperClasses(): string {
@@ -48,15 +39,19 @@ export default class LookupTableCell extends Component<LookupTableCellProps> {
             <this.props.tag className={this.wrapperClasses}>
                 <div className="cell-content">
                     <div className="cell-info">
-                        <div className="cell-value" aria-label={this.props.ariaLabel}>{this.props.value}</div>
+                        <div className="cell-value" aria-label={this.props.ariaLabel}>
+                            {this.props.value}
+                        </div>
                         {!this.isIncalculable && (
                             <ul className="cell-rating" aria-label={`WCAG 3.0 Rating ${this.rating}`}>
-                                {new Array(this.rating).fill(undefined).map(() => <li></li>)}
+                                {new Array(this.rating).fill(undefined).map((i, index) => (
+                                    <li key={index}></li>
+                                ))}
                             </ul>
                         )}
                     </div>
                 </div>
             </this.props.tag>
-        )
+        );
     }
 }

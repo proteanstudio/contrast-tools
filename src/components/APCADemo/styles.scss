@@ -24,7 +24,7 @@
         padding: 1rem;
 
         .lookup-table-cell {
-            flex: 0 0 3rem;
+            flex: 0 0 3.25rem;
             margin-right: 0.5rem;
         }
     }
@@ -41,9 +41,13 @@
         }
     }
 
-
     .lookup-table-weight-header {
         text-align: left;
         padding-left: 0.75rem;
+    }
+
+    .sample-container {
+        display: flex;
+        flex-wrap: wrap;
     }
 }
