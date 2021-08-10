@@ -1,14 +1,33 @@
+@import 'protean-styles/styles/mixins';
+
 .contrast-checker {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     --protean-input-margin: 0.25rem;
+    --protean-checkbox-margin: 1rem 0.25rem;
 
     > div {
         flex-basis: 33.333%;
+
+        @include breakpoint(m) {
+            flex-basis: 30%;
+
+            &.field-container {
+                flex: 1 0 70%;
+            }
+
+            &.sample-container {
+                flex: 1 1 100%;
+            }
+        }
+
+        @include breakpoint(s) {
+            flex-basis: 100%;
+        }
     }
 
-    protean-input[type="color-code"] {
+    protean-input[type='color-code'] {
         flex: 1 1;
     }
 
@@ -18,8 +37,30 @@
         justify-content: center;
         align-items: center;
 
+        @include breakpoint(m) {
+            @include breakpoint(s, min) {
+                align-items: flex-start;
+                padding-left: 1rem;
+
+                protean-button {
+                    margin-left: 2rem;
+                }
+            }
+        }
+
+        @include breakpoint(s) {
+            margin: 1rem 0 0;
+        }
+
         h2 {
             margin: 0;
+        }
+
+        sup {
+            font-size: 0.625em;
+            position: relative;
+            right: 0.5rem;
+            top: 0.1875rem;
         }
     }
 
@@ -30,6 +71,25 @@
 
         > div {
             margin: 0 0.125rem;
+        }
+    }
+
+    protean-button {
+        transition: transform 0.4s ease-in-out;
+        @include breakpoint(m) {
+            transform: rotate(-90deg);
+        }
+    }
+
+    .sample-text {
+        margin: 1rem 0.25rem;
+    }
+
+    .radio-list {
+        @include breakpoint(m) {
+            @include breakpoint(s, min) {
+                --protean-checkbox-margin: 0.5rem 1rem 1rem;
+            }
         }
     }
 }

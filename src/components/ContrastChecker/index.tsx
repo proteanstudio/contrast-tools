@@ -2,20 +2,31 @@ import { Component, ChangeEvent } from 'react';
 import ProteanInput from '../ProteanInput';
 import RadioButton from '../RadioButton';
 import SampleText from '../SampleText';
+import debounce from '../../utils/debounce/';
+import APCAContrast from '../../utils/apca-contrast/';
 import './styles.scss';
+import legacyContrast from '../../utils/legacy-ratio';
+import { createGuid } from '../../utils/guid';
 
 interface ContrastCheckerProps {
     foregroundColor: string;
     backgroundColor: string;
     contrastValue: number;
     isAPCA: boolean;
-    onColorChange: (foregroundColor: number, backgroundColor: number) => void;
+    onColorChange: (foregroundColor: number, backgroundColor: number, contrastValue: number) => void;
 }
 
 interface ContrastCheckerState {
     isHex: boolean;
     foregroundErrors?: string[];
     backgroundErrors?: string[];
+}
+
+interface CleanColor {
+    colorString: string;
+    cleanColor: number;
+    rgb: number[];
+    isValid: boolean;
 }
 
 export default class ContrastChecker extends Component<ContrastCheckerProps, ContrastCheckerState> {
@@ -28,12 +39,15 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
 
         this.cleanForeground = this.cleanHex(props.foregroundColor, 'foreground');
         this.cleanBackground = this.cleanHex(props.backgroundColor, 'background');
+
         this.activeForeground = props.foregroundColor;
         this.activeBackground = props.backgroundColor;
     }
 
     activeForeground: string;
     activeBackground: string;
+
+    radioName: string = `color-type-${createGuid()}`;
 
     get inputFormat(): 'hex' | 'rgb' {
         return this.state.isHex ? 'hex' : 'rgb';
@@ -55,6 +69,14 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
         return this.props.backgroundColor;
     }
 
+    get contrastValue(): number {
+        if (this.props.isAPCA) {
+            return APCAContrast(this.cleanBackground.cleanColor, this.cleanForeground.cleanColor);
+        }
+
+        return legacyContrast(this.cleanBackground.rgb, this.cleanForeground.rgb);
+    }
+
     hexToRGB(hex: string): string {
         const r = parseInt(hex.substr(1, 2), 16);
         const g = parseInt(hex.substr(3, 2), 16);
@@ -74,23 +96,18 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
         const fg = this.cleanBackground;
         const bg = this.cleanForeground;
 
-        this.props.onColorChange(fg, bg);
         this.cleanForeground = fg;
         this.cleanBackground = bg;
 
-        if (this.state.isHex) {
-            this.activeForeground = this.hexBackground;
-            this.activeBackground = this.hexForeground;
-        } else {
-            this.activeForeground = this.rgbBackground;
-            this.activeBackground = this.rgbForeground;
-        }
+        this.setActiveColor();
+
+        this.props.onColorChange(fg.cleanColor, bg.cleanColor, this.contrastValue);
     };
 
-    cleanForeground: number = 0;
-    cleanBackground: number = 0;
+    cleanForeground: CleanColor;
+    cleanBackground: CleanColor;
 
-    cleanHex = (color: string, type: 'foreground' | 'background'): number => {
+    cleanHex = (color: string, type: 'foreground' | 'background'): CleanColor => {
         let workingColor = color.substring(1);
         let colorObj: {
             r: string;
@@ -100,6 +117,13 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
         };
 
         switch (workingColor.length) {
+            case 1:
+                colorObj = {
+                    r: workingColor + workingColor,
+                    g: workingColor + workingColor,
+                    b: workingColor + workingColor,
+                };
+                break;
             case 2:
                 colorObj = {
                     r: workingColor,
@@ -123,50 +147,77 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
                 break;
             default:
                 this.setError(type);
-                return 0; //revisit
+                return {
+                    colorString: '',
+                    cleanColor: 0,
+                    rgb: [],
+                    isValid: false,
+                };
         }
 
         for (const colorVal in colorObj!) {
             if (!/^[0-9A-F]{2}$/i.test(colorObj[colorVal])) {
                 this.setError(type);
-                return 0; //revisit
+                return {
+                    colorString: '',
+                    cleanColor: 0,
+                    rgb: [],
+                    isValid: false,
+                };
             }
         }
 
         this.clearError(type);
         workingColor = colorObj.r + colorObj.g + colorObj.b;
-        return parseInt(workingColor, 16);
+        return {
+            colorString: `#${workingColor}`,
+            cleanColor: parseInt(workingColor, 16),
+            rgb: Object.values(colorObj).map((num) => parseInt(num, 16)),
+            isValid: true,
+        };
     };
 
-    cleanRGB = (color: string, type: 'foreground' | 'background'): number => {
+    cleanRGB = (color: string, type: 'foreground' | 'background'): CleanColor => {
         const regex = /rgb\(\d{1,3}, \d{1,3}, \d{1,3}\)/g;
 
         if (!regex.test(color)) {
             this.setError(type);
-            return 0;
+            return {
+                colorString: '',
+                cleanColor: 0,
+                rgb: [],
+                isValid: false,
+            };
         }
 
-        const { workingColor, isValid } = color.match(/\d{1,3}/g)?.reduce(
-            (acc, item) => {
-                let num = Number(item);
-                console.log(item, num);
-                if (num > 255) {
-                    this.setError(type);
-                    acc.isValid = false;
-                }
+        const { workingColor, isValid, rgb } = color
+            .match(/\d{1,3}/g)
+            ?.reduce<{ workingColor: string; isValid: boolean; rgb: number[] }>(
+                (acc, item) => {
+                    let num = Number(item);
+                    if (num > 255) {
+                        this.setError(type);
+                        acc.isValid = false;
+                    }
 
-                acc.workingColor += num.toString(16).padStart(2, '0');
+                    acc.workingColor += num.toString(16).padStart(2, '0');
+                    acc.rgb.push(num);
 
-                return acc;
-            },
-            { workingColor: '', isValid: true }
-        )!;
+                    return acc;
+                },
+                { workingColor: '', isValid: true, rgb: [] }
+            )!;
 
         if (isValid) {
             this.clearError(type);
         }
 
-        return parseInt(workingColor!, 16);
+        return {
+            colorString: `#${workingColor}`,
+            cleanColor: parseInt(workingColor!, 16),
+            rgb,
+            isValid,
+        };
     };
 
     setError = (type: 'foreground' | 'background'): void => {
@@ -189,44 +240,76 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
         this.setState({ backgroundErrors: undefined });
     };
 
+    setActiveColor = (isHex = this.state.isHex) => {
+        const { colorString: fg } = this.cleanForeground;
+        const { colorString: bg } = this.cleanBackground;
+
+        if (isHex) {
+            this.activeForeground = fg;
+            this.activeBackground = bg;
+        } else {
+            this.activeForeground = this.hexToRGB(fg);
+            this.activeBackground = this.hexToRGB(bg);
+        }
+    };
+
     onForegroundInput = (event: CustomEvent) => {
-        this.onColorInput(event.detail.formattedValue, 'foreground');
+        let color = event.detail.formattedValue;
+        const isColorInput = (event.target as HTMLInputElement).type === 'color';
+
+        if (isColorInput && !this.state.isHex) {
+            color = this.hexToRGB(color);
+        }
+
+        this.activeForeground = color;
+
+        this.debouncedColorInputHandler(color, 'foreground');
     };
 
     onBackgroundInput = (event: CustomEvent) => {
-        this.onColorInput(event.detail.formattedValue, 'background');
+        let color = event.detail.formattedValue;
+        const isColorInput = (event.target as HTMLInputElement).type === 'color';
+
+        if (isColorInput && !this.state.isHex) {
+            color = this.hexToRGB(color);
+        }
+
+        this.activeBackground = color;
+
+        this.debouncedColorInputHandler(color, 'background');
     };
 
     onColorInput = (color: string, type: 'foreground' | 'background') => {
-        let cleanColor;
+        const { isHex } = this.state;
+        let cleanColorObj;
 
-        if (this.state.isHex) {
-            cleanColor = this.cleanHex(color, type);
+        if (isHex) {
+            cleanColorObj = this.cleanHex(color, type);
         } else {
-            cleanColor = this.cleanRGB(color, type);
+            cleanColorObj = this.cleanRGB(color, type);
         }
 
         if (type === 'foreground') {
-            this.cleanForeground = cleanColor;
+            this.cleanForeground = cleanColorObj;
         } else {
-            this.cleanBackground = cleanColor;
+            this.cleanBackground = cleanColorObj;
         }
 
-        if (!this.state.backgroundErrors && !this.state.foregroundErrors) {
-            this.props.onColorChange(this.cleanForeground, this.cleanBackground);
+        if (cleanColorObj.isValid) {
+            this.props.onColorChange(
+                this.cleanForeground.cleanColor,
+                this.cleanBackground.cleanColor,
+                this.contrastValue
+            );
         }
     };
+
+    debouncedColorInputHandler = debounce(this.onColorInput.bind(this), 15);
 
     onHexSwap = (event: ChangeEvent) => {
         const isHex = (event.target as HTMLInputElement).value === 'hex';
 
-        if (isHex) {
-            this.activeForeground = this.hexForeground;
-            this.activeBackground = this.hexBackground;
-        } else {
-            this.activeForeground = this.rgbForeground;
-            this.activeBackground = this.rgbBackground;
-        }
+        this.setActiveColor(isHex);
 
         this.setState({
             isHex,
@@ -236,7 +319,7 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
     render() {
         return (
             <section className="contrast-checker">
-                <div>
+                <div className="field-container">
                     <div className="flex">
                         <ProteanInput
                             label="Text color"
@@ -262,13 +345,21 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
                 <div className="contrast-value">
                     <div>Contrast value</div>
                     <h2>
-                        {this.props.contrastValue.toFixed(3)}{this.props.isAPCA ? (<span> L<sup>c</sup></span>) : (<span>:1</span>)}
+                        {this.props.contrastValue.toFixed(3)}
+                        {this.props.isAPCA ? (
+                            <span>
+                                {' '}
+                                L<sup>c</sup>
+                            </span>
+                        ) : (
+                            <span>:1</span>
+                        )}
                     </h2>
                     <protean-button variant="icon" onClick={this.swapColors}>
                         <protean-icon type="swap"></protean-icon>
                     </protean-button>
                 </div>
-                <div>
+                <div className="field-container">
                     <div className="flex">
                         <ProteanInput
                             label="Background color"
@@ -291,23 +382,23 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
                         <div>{this.rgbBackground}</div>
                     </div>
                 </div>
-                <div>
+                <div className="radio-list">
                     <RadioButton
                         value="rgb"
                         label="Use RGB"
-                        name="color-type"
+                        name={this.radioName}
                         checked={!this.state.isHex}
                         handleChange={this.onHexSwap}
                     />
                     <RadioButton
                         value="hex"
                         label="Use Hex"
-                        name="color-type"
+                        name={this.radioName}
                         checked={this.state.isHex}
                         handleChange={this.onHexSwap}
                     />
                 </div>
-                <div>
+                <div className="sample-container">
                     <SampleText
                         fontSize="16px"
                         fontWeight={600}

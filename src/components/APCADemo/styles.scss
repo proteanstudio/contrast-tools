@@ -17,7 +17,6 @@
         th {
             font-weight: 400;
         }
-
     }
 
     .lookup-table-key {
@@ -49,5 +48,9 @@
     .sample-container {
         display: flex;
         flex-wrap: wrap;
+
+        .sample-text {
+            flex-grow: 1;
+        }
     }
 }

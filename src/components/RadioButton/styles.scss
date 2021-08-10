@@ -6,7 +6,6 @@
         align-items: center;
         cursor: pointer;
     }
-    
 
     .radio-symbol {
         flex: 0 0 24px;
@@ -24,7 +23,7 @@
         fill: none;
     }
 
-    &[data-checked="true"] .radio-outer {
+    &[data-checked='true'] .radio-outer {
         fill: var(--action-color);
     }
 

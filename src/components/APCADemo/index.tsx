@@ -1,6 +1,6 @@
 import { Component } from 'react';
-import APCAContrast from '../../utils/apca-contrast';
-import APCARating from '../../utils/apca-rating';
+import APCAContrast from '../../utils/apca-contrast/';
+import APCARating from '../../utils/apca-rating/';
 import LookupTableCell from '../LookupTableCell';
 import { lookupTableItems } from './static';
 import './styles.scss';
@@ -18,20 +18,17 @@ export default class APCADemo extends Component<{}, APCADemoState> {
         super(props);
 
         this.state = {
-            foregroundColor: '#dcdcdc',
-            backgroundColor: '#8f0081',
-            contrastValue: APCAContrast(parseInt('8f0081', 16), parseInt('dcdcdc', 16))
+            foregroundColor: '#1a1a1a',
+            backgroundColor: '#c7b5fb',
+            contrastValue: APCAContrast(parseInt('c7b5fb', 16), parseInt('1a1a1a', 16)),
         };
     }
 
-    onColorChange = (foregroundColor: number, backgroundColor: number) => {
+    onColorChange = (foregroundColor: number, backgroundColor: number, contrastValue: number) => {
         this.setState({
-            foregroundColor: `#${foregroundColor.toString(16)}`,
-            backgroundColor: `#${backgroundColor.toString(16)}`,
-        });
-
-        this.setState({
-            contrastValue: APCAContrast(backgroundColor, foregroundColor) 
+            foregroundColor: `#${foregroundColor.toString(16).padStart(6, '0')}`,
+            backgroundColor: `#${backgroundColor.toString(16).padStart(6, '0')}`,
+            contrastValue,
         });
     };
 
@@ -53,7 +50,7 @@ export default class APCADemo extends Component<{}, APCADemoState> {
                                 <tr>
                                     <th></th>
                                     <th colSpan={9} className="lookup-table-weight-header">
-                                        Font weight →
+                                        <strong>Font weight →</strong>
                                     </th>
                                 </tr>
                                 <tr>
@@ -89,7 +86,7 @@ export default class APCADemo extends Component<{}, APCADemoState> {
                             </tbody>
                         </table>
                         <section className="lookup-table-key">
-                            <h3>Table Color Codes</h3>
+                            <h3>Table key</h3>
                             <ul className="lookup-table-key-list">
                                 <li>
                                     <LookupTableCell value="N" rating={4} tag="div" />
@@ -141,7 +138,7 @@ export default class APCADemo extends Component<{}, APCADemoState> {
                             text="14px/400"
                             foregroundColor={this.state.foregroundColor}
                             backgroundColor={this.state.backgroundColor}
-                            rating={APCARating(this.state.contrastValue, 90)}
+                            rating={APCARating(this.state.contrastValue, 100)}
                         />
                         <SampleText
                             fontSize="16px"
@@ -161,19 +158,19 @@ export default class APCADemo extends Component<{}, APCADemoState> {
                         />
                         <SampleText
                             fontSize="24px"
-                            fontWeight={400}
-                            text="24px/400"
-                            foregroundColor={this.state.foregroundColor}
-                            backgroundColor={this.state.backgroundColor}
-                            rating={APCARating(this.state.contrastValue, 60)}
-                        />
-                        <SampleText
-                            fontSize="30px"
-                            fontWeight={400}
-                            text="30px/400"
+                            fontWeight={500}
+                            text="24px/500"
                             foregroundColor={this.state.foregroundColor}
                             backgroundColor={this.state.backgroundColor}
                             rating={APCARating(this.state.contrastValue, 55)}
+                        />
+                        <SampleText
+                            fontSize="30px"
+                            fontWeight={300}
+                            text="30px/300"
+                            foregroundColor={this.state.foregroundColor}
+                            backgroundColor={this.state.backgroundColor}
+                            rating={APCARating(this.state.contrastValue, 70)}
                         />
                     </div>
                 </section>

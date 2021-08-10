@@ -5,7 +5,11 @@
     "scripts": {
         "start": "node scripts/start.js",
         "build": "node scripts/build.js",
-        "test": "node scripts/test.js"
+        "test": "node scripts/test.js",
+        "format": "prettier --check 'src'",
+        "format:fix": "prettier --write 'src'",
+        "lint": "eslint src/",
+        "lint:fix": "eslint --fix src/"
     },
     "eslintConfig": {
         "extends": [
@@ -77,6 +81,7 @@
         "postcss-normalize": "8.0.1",
         "postcss-preset-env": "6.7.0",
         "postcss-safe-parser": "5.0.2",
+        "prettier": "^2.3.2",
         "prompts": "2.4.0",
         "protean-elements": "^0.2.0",
         "protean-styles": "^0.2.0",

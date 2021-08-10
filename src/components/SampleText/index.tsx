@@ -7,30 +7,34 @@ interface SampleTextProps {
     text: string;
     fontSize: string;
     fontWeight: number;
-    rating?: number; 
+    rating?: number;
 }
 
 export default class SampleText extends Component<SampleTextProps> {
     render() {
-        const { backgroundColor, foregroundColor, text, fontSize, fontWeight, rating} = this.props;
+        const { backgroundColor, foregroundColor, text, fontSize, fontWeight, rating } = this.props;
 
         const wrapperStyle = {
             backgroundColor,
-            color: foregroundColor
-        }
+            color: foregroundColor,
+        };
 
         const mainTextStyle = {
             fontSize,
-            fontWeight
-        }
+            fontWeight,
+        };
 
         return (
             <div className="sample-text" style={wrapperStyle}>
-                <div className="main-text" style={mainTextStyle}>{text}</div>
+                <div className="main-text" style={mainTextStyle}>
+                    {text}
+                </div>
                 {rating !== undefined && (
-                    <div className="rating-text">Rating: <strong>{rating}</strong></div>
+                    <div className="rating-text">
+                        Rating: <strong>{rating}</strong>
+                    </div>
                 )}
             </div>
-        )
+        );
     }
 }

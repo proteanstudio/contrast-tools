@@ -2,8 +2,8 @@
 /// <reference types="react" />
 /// <reference types="react-dom" />
 
-interface IDict<T=unknown> {
-    [key: string]: T
+interface IDict<T = unknown> {
+    [key: string]: T;
 }
 
 interface IProteanButton {
@@ -14,7 +14,7 @@ interface IProteanButton {
     children?: unknown;
     ref?: unknown;
     onClick?: (event?: CustomEvent) => void;
-};
+}
 
 interface IProteanCheckbox {
     a11yLabel?: string;
@@ -26,20 +26,20 @@ interface IProteanCheckbox {
     onchange?: (event: CustomEvent<any>) => void;
     variant?: string;
     ref?: unknown;
-};
+}
 
 interface IProteanClickElsewhere {
     onchange?: (event: CustomEvent<any>) => void;
     children?: unknown;
     ref?: unknown;
-};
+}
 
 interface IProteanIcon {
     type?: string;
     use?: string;
     children?: unknown;
     ref?: unknown;
-};
+}
 
 interface IProteanInput {
     a11yLabel?: string;
@@ -61,7 +61,7 @@ interface IProteanInput {
     value?: string;
     children?: unknown;
     ref?: unknown;
-};
+}
 
 interface IProteanMessage {
     level?: string;
@@ -69,14 +69,14 @@ interface IProteanMessage {
     variant?: string;
     children?: unknown;
     ref?: unknown;
-};
+}
 
 interface IProteanOptgroup {
     disabled?: boolean;
     label?: string;
     children?: unknown;
     ref?: unknown;
-};
+}
 
 interface IProteanOption {
     active?: boolean;
@@ -87,7 +87,7 @@ interface IProteanOption {
     value?: string;
     children?: unknown;
     ref?: unknown;
-};
+}
 
 interface IProteanSelect {
     a11yLabel?: string;
@@ -101,7 +101,7 @@ interface IProteanSelect {
     value?: string;
     children?: unknown;
     ref?: unknown;
-};
+}
 
 interface IProteanTabContainer {
     name?: string;
@@ -109,7 +109,7 @@ interface IProteanTabContainer {
     value?: string;
     children?: unknown;
     ref?: unknown;
-};
+}
 
 interface IProteanTabPane {
     guid?: number;
@@ -120,21 +120,21 @@ interface IProteanTabPane {
     value?: string;
     children?: unknown;
     ref?: unknown;
-};
+}
 
 declare namespace JSX {
     interface IntrinsicElements {
-        'protean-button': IProteanButton
+        'protean-button': IProteanButton;
         'protean-checkbox': IProteanCheckbox;
-        'protean-click-elsewhere': IProteanClickElsewhere
+        'protean-click-elsewhere': IProteanClickElsewhere;
         'protean-icon': IProteanIcon;
-        'protean-input': IProteanInput
+        'protean-input': IProteanInput;
         'protean-message': IProteanMessage;
         'protean-optgroup': IProteanOptgroup;
         'protean-option': IProteanOption;
         'protean-select': IProteanSelect;
         'protean-tab-container': IProteanTabContainer;
-        'protean-tab-pane': IProteanTabPane
+        'protean-tab-pane': IProteanTabPane;
     }
 }
 

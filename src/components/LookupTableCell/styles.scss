@@ -2,7 +2,7 @@
 
 .lookup-table-cell {
     --lookup-cell-background: #ededed;
-    --lookup-cell-text: var(--body-text-color, #1a1a1a);
+    --lookup-cell-text: #1a1a1a;
     --lookup-cell-font-size: 1rem;
     --lookup-cell-rating-background: transparent;
 
@@ -11,7 +11,7 @@
 
     &.rating-4 {
         --lookup-cell-background: #ddecdb;
-        --lookup-cell-rating-background: #52c741;
+        --lookup-cell-rating-background: #31bb1d; //#52c741;
     }
 
     &.rating-3 {

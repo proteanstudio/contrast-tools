@@ -9,11 +9,15 @@ export default class ProteanTabContainer extends Component<IProteanTabContainer>
 
     bindChange() {
         if (this.elementRef?.current) {
-            this.elementRef.current.onchange = this.props.onchange
+            this.elementRef.current.onchange = this.props.onchange;
         }
     }
 
     render() {
-        return <protean-tab-container value={this.props.value} name={this.props.name} ref={this.elementRef}>{this.props.children}</protean-tab-container>;
+        return (
+            <protean-tab-container value={this.props.value} name={this.props.name} ref={this.elementRef}>
+                {this.props.children}
+            </protean-tab-container>
+        );
     }
 }

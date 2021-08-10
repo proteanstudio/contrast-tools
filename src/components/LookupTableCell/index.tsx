@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import APCARating from '../../utils/apca-rating';
+import APCARating from '../../utils/apca-rating/';
 import './styles.scss';
 
 export interface LookupTableCellProps {
