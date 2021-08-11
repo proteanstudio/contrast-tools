@@ -232,12 +232,12 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
     };
 
     clearError = (type: 'foreground' | 'background'): void => {
-        if (type === 'foreground') {
+        if (type === 'foreground' && !!this.state.foregroundErrors) {
             this.setState({ foregroundErrors: undefined });
             return;
         }
 
-        this.setState({ backgroundErrors: undefined });
+        !!this.state.backgroundErrors && this.setState({ backgroundErrors: undefined });
     };
 
     setActiveColor = (isHex = this.state.isHex) => {
