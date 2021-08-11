@@ -79,9 +79,9 @@
 /////  DO NOT use a Y from any other method  /////
 
 export default function APCAContrast(background: number, text: number) {
-    let Rbg = (background & 0xff0000) >> 16,
-        Gbg = (background & 0x00ff00) >> 8,
-        Bbg = background & 0x0000ff;
+    let Rbg = (background & 0xff0000) >> 16;
+    let Gbg = (background & 0x00ff00) >> 8;
+    let Bbg = background & 0x0000ff;
 
     let Rtxt = (text & 0xff0000) >> 16,
         Gtxt = (text & 0x00ff00) >> 8,

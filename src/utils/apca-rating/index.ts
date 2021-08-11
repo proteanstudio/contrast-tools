@@ -1,16 +1,15 @@
 export default function APCARating(comparisonValue: number, value: number): number {
     const percentageDiff = (Math.abs(comparisonValue) / value - 1) * 100;
 
-    switch (true) {
-        case percentageDiff >= 0:
-            return 4;
-        case percentageDiff >= -5:
-            return 3;
-        case percentageDiff >= -10:
-            return 2;
-        case percentageDiff >= -15:
-            return 1;
-        default:
-            return 0;
-    }
+    if (percentageDiff >= 0) return 4;
+
+    const normalizedDiff = Math.floor(percentageDiff / 5) * 5;
+    const rangeMap = new Map<number, number>([
+        [0, 4],
+        [-5, 3],
+        [-10, 2],
+        [-15, 1],
+    ]);
+
+    return rangeMap.get(normalizedDiff) ?? 0;
 }

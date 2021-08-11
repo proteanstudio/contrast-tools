@@ -323,14 +323,14 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
                     <div className="flex">
                         <ProteanInput
                             label="Text color"
-                            value={this.activeForeground}
                             type="color-code"
                             format={this.inputFormat}
+                            value={this.activeForeground}
                             errors={this.state.foregroundErrors}
                             oninput={this.onForegroundInput}
                         />
                         <ProteanInput
-                            a11y-label="Text color"
+                            a11yLabel="Text color"
                             value={this.hexForeground}
                             type="color"
                             oninput={this.onForegroundInput}
@@ -355,7 +355,7 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
                             <span>:1</span>
                         )}
                     </h2>
-                    <protean-button variant="icon" onClick={this.swapColors}>
+                    <protean-button variant="icon" onClick={this.swapColors} a11y-label="Swap colors">
                         <protean-icon type="swap"></protean-icon>
                     </protean-button>
                 </div>
@@ -370,7 +370,7 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
                             oninput={this.onBackgroundInput}
                         />
                         <ProteanInput
-                            a11y-label="Background color"
+                            a11yLabel="Background color"
                             value={this.hexBackground}
                             type="color"
                             oninput={this.onBackgroundInput}

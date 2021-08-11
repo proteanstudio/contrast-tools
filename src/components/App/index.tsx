@@ -33,10 +33,10 @@ export default class App extends Component<{}, AppState> {
                         Contrast <span className="hidden-s">checker</span>
                     </h1>
                     <ProteanCheckbox
+                        label="Dark mode"
                         variant="toggle"
                         alignment="right"
                         checked={this.state.darkModeEnabled}
-                        label="Dark mode"
                         onchange={this.onLightModeToggle}
                     />
                 </div>

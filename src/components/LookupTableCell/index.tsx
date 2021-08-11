@@ -6,8 +6,8 @@ export interface LookupTableCellProps {
     value: string | number;
     comparisonValue?: number;
     decorator?: string;
-    ariaLabel?: string;
     rating?: number;
+    ariaLabel?: string;
     tag: 'td' | 'th' | 'div';
 }
 

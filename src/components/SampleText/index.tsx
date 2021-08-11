@@ -4,9 +4,9 @@ import './styles.scss';
 interface SampleTextProps {
     foregroundColor: string;
     backgroundColor: string;
-    text: string;
     fontSize: string;
     fontWeight: number;
+    text: string;
     rating?: number;
 }
 

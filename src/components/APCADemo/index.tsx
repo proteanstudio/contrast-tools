@@ -36,10 +36,10 @@ export default class APCADemo extends Component<{}, APCADemoState> {
         return (
             <div className="apca-demo">
                 <ContrastChecker
+                    isAPCA={true}
                     foregroundColor={this.state.foregroundColor}
                     backgroundColor={this.state.backgroundColor}
                     contrastValue={this.state.contrastValue}
-                    isAPCA={true}
                     onColorChange={this.onColorChange}
                 />
                 <section>
