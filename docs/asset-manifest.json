@@ -1,7 +1,8 @@
 {
   "files": {
-    "main.css": "./static/css/main.ff605f2d.chunk.css",
+    "main.css": "./static/css/main.e55def52.chunk.css",
     "main.js": "./static/js/main.79f737eb.chunk.js",
+    "main.css.map": "./static/css/main.e55def52.chunk.css.map",
     "main.js.map": "./static/js/main.79f737eb.chunk.js.map",
     "polyfills-core-js.js": "./static/js/polyfills-core-js.afa0100e.chunk.js",
     "polyfills-core-js.js.map": "./static/js/polyfills-core-js.afa0100e.chunk.js.map",
@@ -14,7 +15,6 @@
     "static/js/5.87b9d405.chunk.js": "./static/js/5.87b9d405.chunk.js",
     "static/js/5.87b9d405.chunk.js.map": "./static/js/5.87b9d405.chunk.js.map",
     "index.html": "./index.html",
-    "static/css/main.ff605f2d.chunk.css.map": "./static/css/main.ff605f2d.chunk.css.map",
     "static/js/4.a8d69ce8.chunk.js.LICENSE.txt": "./static/js/4.a8d69ce8.chunk.js.LICENSE.txt",
     "static/js/main.79f737eb.chunk.js.LICENSE.txt": "./static/js/main.79f737eb.chunk.js.LICENSE.txt",
     "static/js/polyfills-dom.84170e14.chunk.js.LICENSE.txt": "./static/js/polyfills-dom.84170e14.chunk.js.LICENSE.txt"
@@ -22,7 +22,7 @@
   "entrypoints": [
     "static/js/runtime-main.edbd5bef.js",
     "static/js/4.a8d69ce8.chunk.js",
-    "static/css/main.ff605f2d.chunk.css",
+    "static/css/main.e55def52.chunk.css",
     "static/js/main.79f737eb.chunk.js"
   ]
 }
