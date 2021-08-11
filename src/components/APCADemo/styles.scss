@@ -17,10 +17,20 @@
         th {
             font-weight: 400;
         }
+
+        tbody th {
+                position: sticky;
+                left: 0;
+        }
     }
 
     .lookup-table-key {
         padding: 1rem;
+
+        @include breakpoint(m) {
+            position: sticky;
+            left: 0;
+        }
 
         .lookup-table-cell {
             flex: 0 0 3.25rem;
