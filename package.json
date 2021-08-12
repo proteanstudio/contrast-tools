@@ -153,6 +153,7 @@
     },
     "babel": {
         "presets": [
+            "@babel/preset-env",
             "react-app"
         ]
     }

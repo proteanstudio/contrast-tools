@@ -376,7 +376,6 @@ module.exports = function (webpackEnv) {
                                 configFile: false,
                                 compact: false,
                                 presets: [
-                                    '@babel/preset-env',
                                     [require.resolve('babel-preset-react-app/dependencies'), { helpers: true }],
                                 ],
                                 cacheDirectory: true,
