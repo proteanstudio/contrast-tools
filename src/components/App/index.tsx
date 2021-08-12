@@ -4,6 +4,7 @@ import APCADemo from '../APCADemo';
 import RatioDemo from '../RatioDemo';
 import ProteanTabPane from '../ProteanTabPane';
 import ProteanCheckbox from '../ProteanCheckbox';
+import ProteanTabContainer from '../ProteanTabContainer';
 
 interface AppState {
     activeTab: string;
@@ -13,7 +14,13 @@ interface AppState {
 export default class App extends Component<{}, AppState> {
     constructor(props: {}) {
         super(props);
-        this.state = { activeTab: 'wcag-30', darkModeEnabled: false };
+
+        const darkModeEnabled = localStorage.getItem('darkModeEnabled') === 'true';
+        if (darkModeEnabled) {
+            document.documentElement.classList.remove('light');
+        }
+
+        this.state = { activeTab: 'wcag-30', darkModeEnabled };
     }
 
     onTabChange = (event: CustomEvent) => {
@@ -21,7 +28,9 @@ export default class App extends Component<{}, AppState> {
     };
 
     onLightModeToggle = (event: CustomEvent) => {
-        this.setState({ darkModeEnabled: event.detail.checked });
+        const darkModeEnabled = event.detail.checked;
+        localStorage.setItem('darkModeEnabled', darkModeEnabled);
+        this.setState({ darkModeEnabled });
         document.documentElement.classList.toggle('light');
     };
 
@@ -33,6 +42,7 @@ export default class App extends Component<{}, AppState> {
                         Contrast <span className="hidden-s">checker</span>
                     </h1>
                     <ProteanCheckbox
+                        className="dark-mode-toggle"
                         label="Dark mode"
                         variant="toggle"
                         alignment="right"
@@ -40,14 +50,14 @@ export default class App extends Component<{}, AppState> {
                         onchange={this.onLightModeToggle}
                     />
                 </div>
-                <protean-tab-container value={this.state.activeTab}>
+                <ProteanTabContainer value={this.state.activeTab} onchange={this.onTabChange}>
                     <ProteanTabPane value="wcag-30" label="WCAG 3.0">
                         <APCADemo />
                     </ProteanTabPane>
                     <protean-tab-pane value="wcag-21" label="WCAG 2.1">
                         <RatioDemo />
                     </protean-tab-pane>
-                </protean-tab-container>
+                </ProteanTabContainer>
             </div>
         );
     }

@@ -7,6 +7,7 @@ interface IDict<T = unknown> {
 }
 
 interface IProteanButton {
+    className?: string;
     a11yLabel?: string;
     disabled?: boolean;
     type?: string;
@@ -17,6 +18,7 @@ interface IProteanButton {
 }
 
 interface IProteanCheckbox {
+    className?: string;
     a11yLabel?: string;
     alignment?: 'left' | 'right';
     checked?: boolean;
@@ -42,6 +44,7 @@ interface IProteanIcon {
 }
 
 interface IProteanInput {
+    className?: string;
     a11yLabel?: string;
     ariaExpanded?: boolean | undefined;
     ariaHasPopup?: string;
@@ -64,6 +67,7 @@ interface IProteanInput {
 }
 
 interface IProteanMessage {
+    className?: string;
     level?: string;
     type?: string;
     variant?: string;
@@ -72,6 +76,7 @@ interface IProteanMessage {
 }
 
 interface IProteanOptgroup {
+    className?: string;
     disabled?: boolean;
     label?: string;
     children?: unknown;
@@ -90,6 +95,7 @@ interface IProteanOption {
 }
 
 interface IProteanSelect {
+    className?: string;
     a11yLabel?: string;
     disabled?: boolean;
     errors?: string[];
@@ -104,6 +110,7 @@ interface IProteanSelect {
 }
 
 interface IProteanTabContainer {
+    className?: string;
     name?: string;
     onchange?: (event: CustomEvent<any>) => void;
     value?: string;
@@ -112,6 +119,7 @@ interface IProteanTabContainer {
 }
 
 interface IProteanTabPane {
+    className?: string;
     guid?: number;
     index?: number;
     label?: string;
