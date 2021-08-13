@@ -27,7 +27,7 @@ interface IProteanCheckbox {
     label?: string;
     onchange?: (event: CustomEvent<any>) => void;
     variant?: string;
-    ref?: unknown;
+    ref?: RefObject<IProteanCheckbox>;
 }
 
 interface IProteanClickElsewhere {
