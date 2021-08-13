@@ -16,7 +16,7 @@ export default class LookupTableCell extends Component<LookupTableCellProps> {
         return this.props.decorator
             ? ['copyright', 'prohibited', 'header'].includes(this.props.decorator) ||
                   (this.props.decorator === 'caution' && this.props.value === 'N')
-            : false;
+            : this.props.comparisonValue === undefined || false;
     }
 
     get rating(): number {
