@@ -1,4 +1,4 @@
-function luminance(rgb: number[]) {
+export function luminance(rgb: number[]) {
     const multipliers = [0.2126, 0.7152, 0.0722];
     return rgb.reduce((acc, item, index) => {
         let num = item / 255;
