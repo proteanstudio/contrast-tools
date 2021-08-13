@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import './styles.scss';
 
-interface SampleTextProps {
+export interface SampleTextProps {
     foregroundColor: string;
     backgroundColor: string;
     fontSize: string;
