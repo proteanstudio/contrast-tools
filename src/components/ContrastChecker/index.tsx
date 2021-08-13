@@ -307,6 +307,7 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
     debouncedColorInputHandler = debounce(this.onColorInput.bind(this), 15);
 
     onHexSwap = (event: ChangeEvent) => {
+        console.log('here');
         const isHex = (event.target as HTMLInputElement).value === 'hex';
 
         this.setActiveColor(isHex);

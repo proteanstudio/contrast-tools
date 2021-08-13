@@ -2,13 +2,13 @@ import { Component, ChangeEvent } from 'react';
 import { createGuid } from '../../utils/guid/';
 import './styles.scss';
 
-interface RadioButtonProps {
+export interface RadioButtonProps {
     checked: boolean;
     label: string;
     name: string;
     value: string;
     disabled?: boolean;
-    handleChange?: (event: ChangeEvent) => void;
+    handleChange: (event: ChangeEvent) => void;
 }
 
 export default class RadioButton extends Component<RadioButtonProps> {

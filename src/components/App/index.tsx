@@ -24,6 +24,8 @@ export default class App extends Component<{}, AppState> {
     }
 
     onTabChange = (event: CustomEvent) => {
+        if ((event.target as HTMLElement).localName !== 'protean-tab-container') return;
+
         this.setState({ activeTab: event.detail.value });
     };
 
