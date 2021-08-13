@@ -1,26 +1,26 @@
 import { fireEvent, render } from '@testing-library/react';
-import APCADemo from '.';
+import RatioDemo from '.';
 
-describe('APCA Demo', () => {
+describe('Ratio Demo', () => {
     it('renders default state', () => {
-        const { container } = render(<APCADemo />);
+        const { container } = render(<RatioDemo />);
 
         const component = container.children[0];
-        expect(component).toHaveClass('apca-demo');
+        expect(component).toHaveClass('ratio-demo');
 
         const contrastValueContainer = container.querySelector<HTMLDivElement>('.contrast-value')!;
-        const sampleTextItem = container.querySelector<HTMLDivElement>('.sample-container .sample-text')!;
+        const sampleTextItem = container.querySelector<HTMLDivElement>('.sample-text')!;
 
         const foregroundColor = sampleTextItem.style.color;
         const backgroundColor = sampleTextItem.style.backgroundColor;
 
         expect(foregroundColor).toEqual('rgb(26, 26, 26)');
         expect(backgroundColor).toEqual('rgb(199, 181, 251)');
-        expect(contrastValueContainer.textContent).toContain('67.677');
+        expect(contrastValueContainer.textContent).toContain('9.474');
     });
 
     it('updates state onColorChange', () => {
-        const { container } = render(<APCADemo />);
+        const { container } = render(<RatioDemo />);
 
         const contrastValueContainer = container.querySelector<HTMLDivElement>('.contrast-value')!;
         const sampleTextItem = container.querySelector<HTMLDivElement>('.sample-container .sample-text')!;
@@ -29,7 +29,7 @@ describe('APCA Demo', () => {
 
         expect(foregroundColor).toEqual('rgb(26, 26, 26)');
         expect(backgroundColor).toEqual('rgb(199, 181, 251)');
-        expect(contrastValueContainer.textContent).toContain('67.677');
+        expect(contrastValueContainer.textContent).toContain('9.474');
 
         const colorSwapBtn = container.querySelector('.contrast-checker protean-button')!;
 
@@ -40,6 +40,6 @@ describe('APCA Demo', () => {
 
         expect(foregroundColor).toEqual('rgb(199, 181, 251)');
         expect(backgroundColor).toEqual('rgb(26, 26, 26)');
-        expect(contrastValueContainer.textContent).toContain('-66.807');
+        expect(contrastValueContainer.textContent).toContain('9.474');
     });
 });
