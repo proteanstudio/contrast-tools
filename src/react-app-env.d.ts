@@ -62,8 +62,7 @@ interface IProteanInput {
     suppressMessages?: boolean;
     type?: string;
     value?: string;
-    children?: unknown;
-    ref?: unknown;
+    ref?: RefObject<IProteanInput>;
 }
 
 interface IProteanMessage {
