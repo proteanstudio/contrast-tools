@@ -1,5 +1,5 @@
 import { Component, ChangeEvent } from 'react';
-import { createGuid } from '../../utils/guid/';
+import createGuid from '../../utils/guid/';
 import './styles.scss';
 
 export interface RadioButtonProps {

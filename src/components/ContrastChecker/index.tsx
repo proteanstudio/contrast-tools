@@ -6,7 +6,7 @@ import debounce from '../../utils/debounce/';
 import APCAContrast from '../../utils/apca-contrast/';
 import './styles.scss';
 import legacyContrast from '../../utils/legacy-ratio';
-import { createGuid } from '../../utils/guid';
+import createGuid from '../../utils/guid';
 
 interface ContrastCheckerProps {
     foregroundColor: string;
