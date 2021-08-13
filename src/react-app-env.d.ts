@@ -119,14 +119,11 @@ interface IProteanTabContainer {
 
 interface IProteanTabPane {
     className?: string;
-    guid?: number;
-    index?: number;
     label?: string;
     name?: string;
-    selected?: boolean;
     value?: string;
-    children?: unknown;
-    ref?: unknown;
+    children?: React.ReactNode;
+    ref?: RefObject<IProteanTabContainer>;
 }
 
 declare namespace JSX {
