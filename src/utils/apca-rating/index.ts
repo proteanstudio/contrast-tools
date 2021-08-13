@@ -1,5 +1,5 @@
 export default function APCARating(comparisonValue: number, value: number): number {
-    const percentageDiff = (Math.abs(comparisonValue) / value - 1) * 100;
+    const percentageDiff = (Math.abs(comparisonValue) * 100) / value - 100;
 
     if (percentageDiff >= 0) return 4;
 
