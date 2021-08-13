@@ -113,8 +113,8 @@ interface IProteanTabContainer {
     name?: string;
     onchange?: (event: CustomEvent<any>) => void;
     value?: string;
-    children?: unknown;
-    ref?: unknown;
+    children?: React.ReactNode;
+    ref?: RefObject<IProteanTabContainer>;
 }
 
 interface IProteanTabPane {

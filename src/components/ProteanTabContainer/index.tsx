@@ -4,20 +4,26 @@ export default class ProteanTabContainer extends Component<IProteanTabContainer>
     elementRef: RefObject<IProteanTabContainer> = createRef();
 
     componentDidMount() {
-        this.bindChange();
+        this.bindProps();
     }
 
-    bindChange() {
-        if (this.elementRef?.current) {
-            this.elementRef.current.onchange = this.props.onchange;
+    componentDidUpdate() {
+        this.bindProps();
+    }
+
+    bindProps() {
+        const tabContainer = this.elementRef?.current as IProteanTabContainer & IDict;
+
+        if (tabContainer) {
+            const { children, ref, ...propsToCopy } = this.props;
+
+            Object.entries(propsToCopy).forEach(([key, value]) => {
+                tabContainer[key] = value;
+            });
         }
     }
 
     render() {
-        return (
-            <protean-tab-container value={this.props.value} name={this.props.name} ref={this.elementRef}>
-                {this.props.children}
-            </protean-tab-container>
-        );
+        return <protean-tab-container ref={this.elementRef}>{this.props.children}</protean-tab-container>;
     }
 }

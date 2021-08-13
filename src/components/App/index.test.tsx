@@ -12,7 +12,7 @@ describe('App', () => {
         expect(container.querySelector('h1')?.textContent?.trim()).toEqual('Contrast checker');
 
         const tabContainer = container.querySelector('protean-tab-container');
-        expect(tabContainer?.getAttribute('value')).toEqual('wcag-30');
+        expect(tabContainer?.value).toEqual('wcag-30');
 
         const darkModeToggle = container.querySelector<HTMLProteanCheckboxElement>('.dark-mode-toggle');
         expect(darkModeToggle?.checked).toEqual(false);
@@ -23,7 +23,7 @@ describe('App', () => {
         const { container } = render(<App />);
 
         const tabContainer = container.querySelector('protean-tab-container')!;
-        expect(tabContainer.getAttribute('value')).toEqual('wcag-30');
+        expect(tabContainer.value).toEqual('wcag-30');
 
         fireEvent(
             tabContainer,
@@ -34,7 +34,7 @@ describe('App', () => {
             })
         );
 
-        expect(tabContainer.getAttribute('value')).toEqual('wcag-21');
+        expect(tabContainer.value).toEqual('wcag-21');
     });
 
     it('toggles dark mode', () => {
