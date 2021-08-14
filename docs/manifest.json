@@ -3,8 +3,8 @@
   "name": "Protean Studio contrast checker",
   "icons": [
     {
-      "src": "favicon.png",
-      "sizes": "97x97",
+      "src": "logo.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ],

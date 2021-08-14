@@ -1,6 +1,13 @@
 @import 'protean-styles/styles/app';
 @import '../../styles/index';
 
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .app {
     @include breakpoint(m) {
         padding: 0;
@@ -21,4 +28,9 @@
             flex: 0 1 9rem;
         }
     }
+}
+
+footer {
+    text-align: center;
+    font-size: 0.875rem;
 }

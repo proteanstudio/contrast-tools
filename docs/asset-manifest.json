@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.css": "./static/css/main.d28d624b.chunk.css",
-    "main.js": "./static/js/main.6acb2bc7.chunk.js",
-    "main.css.map": "./static/css/main.d28d624b.chunk.css.map",
-    "main.js.map": "./static/js/main.6acb2bc7.chunk.js.map",
+    "main.css": "./static/css/main.0394e336.chunk.css",
+    "main.js": "./static/js/main.5379155c.chunk.js",
+    "main.css.map": "./static/css/main.0394e336.chunk.css.map",
+    "main.js.map": "./static/js/main.5379155c.chunk.js.map",
     "polyfills-core-js.js": "./static/js/polyfills-core-js.afa0100e.chunk.js",
     "polyfills-core-js.js.map": "./static/js/polyfills-core-js.afa0100e.chunk.js.map",
     "polyfills-dom.js": "./static/js/polyfills-dom.84170e14.chunk.js",
@@ -16,13 +16,13 @@
     "static/js/5.dd1f1bc8.chunk.js.map": "./static/js/5.dd1f1bc8.chunk.js.map",
     "index.html": "./index.html",
     "static/js/4.a8d69ce8.chunk.js.LICENSE.txt": "./static/js/4.a8d69ce8.chunk.js.LICENSE.txt",
-    "static/js/main.6acb2bc7.chunk.js.LICENSE.txt": "./static/js/main.6acb2bc7.chunk.js.LICENSE.txt",
+    "static/js/main.5379155c.chunk.js.LICENSE.txt": "./static/js/main.5379155c.chunk.js.LICENSE.txt",
     "static/js/polyfills-dom.84170e14.chunk.js.LICENSE.txt": "./static/js/polyfills-dom.84170e14.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.ebd8cb9e.js",
     "static/js/4.a8d69ce8.chunk.js",
-    "static/css/main.d28d624b.chunk.css",
-    "static/js/main.6acb2bc7.chunk.js"
+    "static/css/main.0394e336.chunk.css",
+    "static/js/main.5379155c.chunk.js"
   ]
 }
