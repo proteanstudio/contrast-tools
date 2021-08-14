@@ -8,7 +8,7 @@ import './styles.scss';
 import legacyContrast from '../../utils/legacy-ratio';
 import createGuid from '../../utils/guid';
 
-interface ContrastCheckerProps {
+export interface ContrastCheckerProps {
     foregroundColor: string;
     backgroundColor: string;
     contrastValue: number;
@@ -221,7 +221,8 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
     };
 
     setError = (type: 'foreground' | 'background'): void => {
-        const msg = ['Please enter a valid hex color code'];
+        const formatStr = this.state.isHex ? 'hex' : 'rgb';
+        const msg = [`Please enter a valid ${formatStr} color code`];
 
         if (type === 'foreground') {
             this.setState({ foregroundErrors: msg });
@@ -324,6 +325,7 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
                         <ProteanInput
                             label="Text color"
                             type="color-code"
+                            className="foreground-input"
                             format={this.inputFormat}
                             value={this.activeForeground}
                             errors={this.state.foregroundErrors}
@@ -331,6 +333,7 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
                         />
                         <ProteanInput
                             a11yLabel="Text color"
+                            className="foreground-color-input"
                             value={this.hexForeground}
                             type="color"
                             oninput={this.onForegroundInput}
@@ -364,6 +367,7 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
                         <ProteanInput
                             label="Background color"
                             value={this.activeBackground}
+                            className="background-input"
                             type="color-code"
                             format={this.inputFormat}
                             errors={this.state.backgroundErrors}
@@ -371,6 +375,7 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
                         />
                         <ProteanInput
                             a11yLabel="Background color"
+                            className="background-color-input"
                             value={this.hexBackground}
                             type="color"
                             oninput={this.onBackgroundInput}
