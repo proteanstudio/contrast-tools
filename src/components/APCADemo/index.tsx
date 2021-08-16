@@ -48,9 +48,10 @@ export default class APCADemo extends Component<{}, APCADemoState> {
                         Color contrast value in WCAG 3.0 is calculated using the{' '}
                         <a href="https://www.myndex.com/APCA/" rel="noreferrer" target="_blank">
                             Advanced Perception of Color Algorithm (APCA)
-                        </a>{' '}. Unlike previous contrast calculations,
-                        the APCA considers the context in which colors are used to determine their readability. The font
-                        size, font weight, and sequence of background and text colors all impact the final WCAG rating.
+                        </a>{' '}
+                        . Unlike previous contrast calculations, the APCA considers the context in which colors are used
+                        to determine their readability. The font size, font weight, and sequence of background and text
+                        colors all impact the final WCAG rating.
                     </p>
                     <p>
                         WCAG 3.0 ratings for text contrast are based on the proximity of a calculated contrast value (L

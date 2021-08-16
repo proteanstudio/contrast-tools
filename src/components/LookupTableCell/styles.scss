@@ -10,7 +10,7 @@
     color: var(--lookup-cell-text);
 
     &.rating-4 {
-        --lookup-cell-background: #ddecdb;
+        --lookup-cell-background: var(--pass-bg-color);
         --lookup-cell-rating-background: #31bb1d; //#52c741;
     }
 
@@ -30,7 +30,7 @@
     }
 
     &.rating-0 {
-        --lookup-cell-background: #ffe0e0;
+        --lookup-cell-background: var(--fail-bg-color);
     }
 
     &.copyright {
