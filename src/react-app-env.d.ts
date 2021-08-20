@@ -6,6 +6,14 @@ interface IDict<T = unknown> {
     [key: string]: T;
 }
 
+interface IColorData {
+    hexString: string;
+    rgbString: string;
+    activeColor: string;
+    hexNumber: number;
+    rgb: number[];
+}
+
 interface IProteanButton {
     className?: string;
     a11yLabel?: string;

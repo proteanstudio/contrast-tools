@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import APCAContrast from '../../utils/apca-contrast/';
 import APCARating from '../../utils/apca-rating/';
 import LookupTableCell from '../LookupTableCell';
 import { lookupTableItems } from './static';
@@ -7,40 +6,27 @@ import './styles.scss';
 import SampleText from '../SampleText';
 import ContrastChecker from '../ContrastChecker';
 
-interface APCADemoState {
-    foregroundColor: string;
-    backgroundColor: string;
+export interface APCADemoProps {
+    foregroundColor: IColorData;
+    backgroundColor: IColorData;
     contrastValue: number;
+    isHex: boolean;
+    onColorChange: (foregroundColor: IColorData, backgroundColor: IColorData) => void;
+    onHexSwap: (isHex: boolean) => void;
 }
 
-export default class APCADemo extends Component<{}, APCADemoState> {
-    constructor(props: {}) {
-        super(props);
-
-        this.state = {
-            foregroundColor: '#1a1a1a',
-            backgroundColor: '#c7b5fb',
-            contrastValue: APCAContrast(parseInt('c7b5fb', 16), parseInt('1a1a1a', 16)),
-        };
-    }
-
-    onColorChange = (foregroundColor: number, backgroundColor: number, contrastValue: number) => {
-        this.setState({
-            foregroundColor: `#${foregroundColor.toString(16).padStart(6, '0')}`,
-            backgroundColor: `#${backgroundColor.toString(16).padStart(6, '0')}`,
-            contrastValue,
-        });
-    };
-
+export default class APCADemo extends Component<APCADemoProps> {
     render() {
         return (
             <div className="apca-demo">
                 <ContrastChecker
                     isAPCA={true}
-                    foregroundColor={this.state.foregroundColor}
-                    backgroundColor={this.state.backgroundColor}
-                    contrastValue={this.state.contrastValue}
-                    onColorChange={this.onColorChange}
+                    foregroundColor={this.props.foregroundColor}
+                    backgroundColor={this.props.backgroundColor}
+                    contrastValue={this.props.contrastValue}
+                    isHex={this.props.isHex}
+                    onColorChange={this.props.onColorChange}
+                    onHexSwap={this.props.onHexSwap}
                 />
                 <section>
                     <h2>Color contrast in WCAG 3.0</h2>
@@ -91,7 +77,7 @@ export default class APCADemo extends Component<{}, APCADemoState> {
                                                         tag={tag}
                                                         value={cell.value}
                                                         decorator={cell.decorator}
-                                                        comparisonValue={this.state.contrastValue}
+                                                        comparisonValue={this.props.contrastValue}
                                                         key={`lookup-table-cell-${rowIndex}-${index}`}
                                                     />
                                                 );
@@ -149,41 +135,41 @@ export default class APCADemo extends Component<{}, APCADemoState> {
                             fontSize="14px"
                             fontWeight={400}
                             text="14px/400"
-                            foregroundColor={this.state.foregroundColor}
-                            backgroundColor={this.state.backgroundColor}
-                            rating={APCARating(this.state.contrastValue, 100)}
+                            foregroundColor={this.props.foregroundColor.hexString}
+                            backgroundColor={this.props.backgroundColor.hexString}
+                            rating={APCARating(this.props.contrastValue, 100)}
                         />
                         <SampleText
                             fontSize="16px"
                             fontWeight={400}
                             text="16px/400"
-                            foregroundColor={this.state.foregroundColor}
-                            backgroundColor={this.state.backgroundColor}
-                            rating={APCARating(this.state.contrastValue, 90)}
+                            foregroundColor={this.props.foregroundColor.hexString}
+                            backgroundColor={this.props.backgroundColor.hexString}
+                            rating={APCARating(this.props.contrastValue, 90)}
                         />
                         <SampleText
                             fontSize="16px"
                             fontWeight={600}
                             text="16px/600"
-                            foregroundColor={this.state.foregroundColor}
-                            backgroundColor={this.state.backgroundColor}
-                            rating={APCARating(this.state.contrastValue, 60)}
+                            foregroundColor={this.props.foregroundColor.hexString}
+                            backgroundColor={this.props.backgroundColor.hexString}
+                            rating={APCARating(this.props.contrastValue, 60)}
                         />
                         <SampleText
                             fontSize="24px"
                             fontWeight={500}
                             text="24px/500"
-                            foregroundColor={this.state.foregroundColor}
-                            backgroundColor={this.state.backgroundColor}
-                            rating={APCARating(this.state.contrastValue, 55)}
+                            foregroundColor={this.props.foregroundColor.hexString}
+                            backgroundColor={this.props.backgroundColor.hexString}
+                            rating={APCARating(this.props.contrastValue, 55)}
                         />
                         <SampleText
                             fontSize="30px"
                             fontWeight={300}
                             text="30px/300"
-                            foregroundColor={this.state.foregroundColor}
-                            backgroundColor={this.state.backgroundColor}
-                            rating={APCARating(this.state.contrastValue, 70)}
+                            foregroundColor={this.props.foregroundColor.hexString}
+                            backgroundColor={this.props.backgroundColor.hexString}
+                            rating={APCARating(this.props.contrastValue, 70)}
                         />
                     </div>
                 </section>

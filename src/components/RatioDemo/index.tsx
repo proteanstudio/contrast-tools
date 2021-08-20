@@ -1,38 +1,22 @@
 import { Component } from 'react';
-import legacyContrast from '../../utils/legacy-ratio';
 import ContrastChecker from '../ContrastChecker';
 import './styles.scss';
 
-interface RatioDemoState {
-    foregroundColor: string;
-    backgroundColor: string;
+export interface RatioDemoProps {
+    foregroundColor: IColorData;
+    backgroundColor: IColorData;
     contrastValue: number;
+    isHex: boolean;
+    onColorChange: (foregroundColor: IColorData, backgroundColor: IColorData) => void;
+    onHexSwap: (isHex: boolean) => void;
 }
 
 type RatioGradeText = 'pass' | 'fail';
 
-export default class RatioDemo extends Component<{}, RatioDemoState> {
-    constructor(props: {}) {
-        super(props);
-
-        this.state = {
-            foregroundColor: '#1a1a1a',
-            backgroundColor: '#c7b5fb',
-            contrastValue: legacyContrast([199, 181, 251], [26, 26, 26]),
-        };
-    }
-
+export default class RatioDemo extends Component<RatioDemoProps> {
     getGradeText(threshold: number): RatioGradeText {
-        return this.state.contrastValue < threshold ? 'fail' : 'pass';
+        return this.props.contrastValue < threshold ? 'fail' : 'pass';
     }
-
-    onColorChange = (foregroundColor: number, backgroundColor: number, contrastValue: number) => {
-        this.setState({
-            foregroundColor: `#${foregroundColor.toString(16).padStart(6, '0')}`,
-            backgroundColor: `#${backgroundColor.toString(16).padStart(6, '0')}`,
-            contrastValue,
-        });
-    };
 
     render() {
         const grade3 = this.getGradeText(3);
@@ -43,11 +27,13 @@ export default class RatioDemo extends Component<{}, RatioDemoState> {
             <div className="ratio-demo">
                 <section>
                     <ContrastChecker
-                        foregroundColor={this.state.foregroundColor}
-                        backgroundColor={this.state.backgroundColor}
-                        contrastValue={this.state.contrastValue}
+                        foregroundColor={this.props.foregroundColor}
+                        backgroundColor={this.props.backgroundColor}
+                        contrastValue={this.props.contrastValue}
                         isAPCA={false}
-                        onColorChange={this.onColorChange}
+                        isHex={this.props.isHex}
+                        onColorChange={this.props.onColorChange}
+                        onHexSwap={this.props.onHexSwap}
                     />
                 </section>
                 <section>

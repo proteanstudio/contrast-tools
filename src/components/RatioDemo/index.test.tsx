@@ -1,10 +1,33 @@
 import { fireEvent, render } from '@testing-library/react';
-import RatioDemo from '.';
-import wait from '../../utils/test-helpers/wait';
+import RatioDemo, { RatioDemoProps } from '.';
+import legacyContrast from '../../utils/legacy-ratio';
 
 describe('Ratio Demo', () => {
+    const foregroundColor = {
+        hexString: '#1a1a1a',
+        rgbString: 'rgb(26, 26, 26)',
+        activeColor: '#1a1a1a',
+        hexNumber: parseInt('1a1a1a', 16),
+        rgb: [26, 26, 26],
+    };
+
+    const backgroundColor = {
+        hexString: '#c7b5fb',
+        rgbString: 'rgb(199, 181, 251)',
+        activeColor: '#c7b5fb',
+        hexNumber: parseInt('c7b5fb', 16),
+        rgb: [199, 181, 251],
+    };
     it('renders default state', () => {
-        const { container } = render(<RatioDemo />);
+        const props: RatioDemoProps = {
+            contrastValue: legacyContrast(foregroundColor.rgb, backgroundColor.rgb),
+            foregroundColor,
+            backgroundColor,
+            onColorChange: jest.fn(),
+            onHexSwap: jest.fn(),
+            isHex: true,
+        };
+        const { container } = render(<RatioDemo {...props} />);
 
         const component = container.children[0];
         expect(component).toHaveClass('ratio-demo');
@@ -16,11 +39,11 @@ describe('Ratio Demo', () => {
         const largeAAGradeItem = container.querySelector<HTMLDivElement>('.large-aa-grade')!;
         const largeAAAGradeItem = container.querySelector<HTMLDivElement>('.large-aaa-grade')!;
 
-        const foregroundColor = sampleTextItem.style.color;
-        const backgroundColor = sampleTextItem.style.backgroundColor;
+        const fgColor = sampleTextItem.style.color;
+        const bgColor = sampleTextItem.style.backgroundColor;
 
-        expect(foregroundColor).toEqual('rgb(26, 26, 26)');
-        expect(backgroundColor).toEqual('rgb(199, 181, 251)');
+        expect(fgColor).toEqual('rgb(26, 26, 26)');
+        expect(bgColor).toEqual('rgb(199, 181, 251)');
         expect(contrastValueContainer.textContent).toContain('9.474');
         expect(normalAAGradeItem.textContent).toEqual('pass');
         expect(normalAAAGradeItem.textContent).toEqual('pass');
@@ -29,31 +52,60 @@ describe('Ratio Demo', () => {
     });
 
     it('updates state onColorChange', () => {
-        const { container } = render(<RatioDemo />);
+        const props: RatioDemoProps = {
+            contrastValue: legacyContrast(foregroundColor.rgb, backgroundColor.rgb),
+            foregroundColor,
+            backgroundColor,
+            onColorChange: jest.fn(),
+            onHexSwap: jest.fn(),
+            isHex: true,
+        };
 
-        const contrastValueContainer = container.querySelector<HTMLDivElement>('.contrast-value')!;
-        const sampleTextItem = container.querySelector<HTMLDivElement>('.sample-container .sample-text')!;
-        let foregroundColor = sampleTextItem.style.color;
-        let backgroundColor = sampleTextItem.style.backgroundColor;
+        const { container } = render(<RatioDemo {...props} />);
 
-        expect(foregroundColor).toEqual('rgb(26, 26, 26)');
-        expect(backgroundColor).toEqual('rgb(199, 181, 251)');
-        expect(contrastValueContainer.textContent).toContain('9.474');
+        expect(props.onColorChange).toHaveBeenCalledTimes(0);
 
         const colorSwapBtn = container.querySelector('.contrast-checker protean-button')!;
 
         fireEvent.click(colorSwapBtn);
 
-        foregroundColor = sampleTextItem.style.color;
-        backgroundColor = sampleTextItem.style.backgroundColor;
-
-        expect(foregroundColor).toEqual('rgb(199, 181, 251)');
-        expect(backgroundColor).toEqual('rgb(26, 26, 26)');
-        expect(contrastValueContainer.textContent).toContain('9.474');
+        expect(props.onColorChange).toHaveBeenCalledTimes(1);
+        expect(props.onColorChange).toHaveBeenCalledWith(backgroundColor, foregroundColor);
     });
 
-    it('correctly calculates 4.5 grades', async () => {
-        const { container } = render(<RatioDemo />);
+    it('updates state onHexSwap', () => {
+        const props: RatioDemoProps = {
+            contrastValue: legacyContrast(foregroundColor.rgb, backgroundColor.rgb),
+            foregroundColor,
+            backgroundColor,
+            onColorChange: jest.fn(),
+            onHexSwap: jest.fn(),
+            isHex: true,
+        };
+
+        const { container } = render(<RatioDemo {...props} />);
+
+        expect(props.onHexSwap).toHaveBeenCalledTimes(0);
+
+        const rgbRadio = container.querySelector<HTMLInputElement>('input[type="radio"][value="rgb"]')!;
+
+        fireEvent.click(rgbRadio);
+
+        expect(props.onHexSwap).toHaveBeenCalledTimes(1);
+        expect(props.onHexSwap).toHaveBeenCalledWith(false);
+    });
+
+    it('correctly calculates 4.5 grades', () => {
+        let props: RatioDemoProps = {
+            contrastValue: legacyContrast(foregroundColor.rgb, backgroundColor.rgb),
+            foregroundColor,
+            backgroundColor,
+            onColorChange: jest.fn(),
+            onHexSwap: jest.fn(),
+            isHex: true,
+        };
+
+        const { container, rerender } = render(<RatioDemo {...props} />);
 
         const contrastValueContainer = container.querySelector<HTMLDivElement>('.contrast-value')!;
         const normalAAGradeItem = container.querySelector<HTMLDivElement>('.normal-aa-grade')!;
@@ -63,43 +115,32 @@ describe('Ratio Demo', () => {
         expect(normalAAGradeItem.textContent).toEqual('pass');
         expect(largeAAAGradeItem.textContent).toEqual('pass');
 
-        const bgInput = container.querySelector<HTMLProteanInputElement>('.background-input')!;
-
-        fireEvent(
-            bgInput,
-            new CustomEvent('input', {
-                detail: {
-                    value: '#818181',
-                    formattedValue: '#818181',
-                },
-            })
-        );
-
-        await wait(15);
+        props.contrastValue = 4.468453; // #818181 bg
+        rerender(<RatioDemo {...props} />);
 
         expect(contrastValueContainer.textContent).toContain('4.468');
         expect(normalAAGradeItem.textContent).toEqual('fail');
         expect(largeAAAGradeItem.textContent).toEqual('fail');
 
-        fireEvent(
-            bgInput,
-            new CustomEvent('input', {
-                detail: {
-                    value: '#828282',
-                    formattedValue: '#828282',
-                },
-            })
-        );
-
-        await wait(15);
+        props.contrastValue = 4.529232; // #828282 bg
+        rerender(<RatioDemo {...props} />);
 
         expect(contrastValueContainer.textContent).toContain('4.529');
         expect(normalAAGradeItem.textContent).toEqual('pass');
         expect(largeAAAGradeItem.textContent).toEqual('pass');
     });
 
-    it('correctly calculates 7 grade', async () => {
-        const { container } = render(<RatioDemo />);
+    it('correctly calculates 7 grade', () => {
+        let props: RatioDemoProps = {
+            contrastValue: legacyContrast(foregroundColor.rgb, backgroundColor.rgb),
+            foregroundColor,
+            backgroundColor,
+            onColorChange: jest.fn(),
+            onHexSwap: jest.fn(),
+            isHex: true,
+        };
+
+        const { container, rerender } = render(<RatioDemo {...props} />);
 
         const contrastValueContainer = container.querySelector<HTMLDivElement>('.contrast-value')!;
         const normalAAAGradeItem = container.querySelector<HTMLDivElement>('.normal-aaa-grade')!;
@@ -107,41 +148,30 @@ describe('Ratio Demo', () => {
         expect(contrastValueContainer.textContent).toContain('9.474');
         expect(normalAAAGradeItem.textContent).toEqual('pass');
 
-        const bgInput = container.querySelector<HTMLProteanInputElement>('.background-input')!;
-
-        fireEvent(
-            bgInput,
-            new CustomEvent('input', {
-                detail: {
-                    value: '#a4a4a4',
-                    formattedValue: '#a4a4a4',
-                },
-            })
-        );
-
-        await wait(15);
+        props.contrastValue = 6.982; // #a4a4a4 bg
+        rerender(<RatioDemo {...props} />);
 
         expect(contrastValueContainer.textContent).toContain('6.982');
         expect(normalAAAGradeItem.textContent).toEqual('fail');
 
-        fireEvent(
-            bgInput,
-            new CustomEvent('input', {
-                detail: {
-                    value: '#a5a5a5',
-                    formattedValue: '#a5a5a5',
-                },
-            })
-        );
-
-        await wait(15);
+        props.contrastValue = 7.066; // #a5a5a5 bg
+        rerender(<RatioDemo {...props} />);
 
         expect(contrastValueContainer.textContent).toContain('7.066');
         expect(normalAAAGradeItem.textContent).toEqual('pass');
     });
 
-    it('correctly calculates 3 grade', async () => {
-        const { container } = render(<RatioDemo />);
+    it('correctly calculates 3 grade', () => {
+        let props: RatioDemoProps = {
+            contrastValue: legacyContrast(foregroundColor.rgb, backgroundColor.rgb),
+            foregroundColor,
+            backgroundColor,
+            onColorChange: jest.fn(),
+            onHexSwap: jest.fn(),
+            isHex: true,
+        };
+
+        const { container, rerender } = render(<RatioDemo {...props} />);
 
         const contrastValueContainer = container.querySelector<HTMLDivElement>('.contrast-value')!;
         const largeAAGradeItem = container.querySelector<HTMLDivElement>('.large-aa-grade')!;
@@ -149,34 +179,14 @@ describe('Ratio Demo', () => {
         expect(contrastValueContainer.textContent).toContain('9.474');
         expect(largeAAGradeItem.textContent).toEqual('pass');
 
-        const bgInput = container.querySelector<HTMLProteanInputElement>('.background-input')!;
-
-        fireEvent(
-            bgInput,
-            new CustomEvent('input', {
-                detail: {
-                    value: '#656565',
-                    formattedValue: '#656565',
-                },
-            })
-        );
-
-        await wait(15);
+        props.contrastValue = 2.986; // #656565 bg
+        rerender(<RatioDemo {...props} />);
 
         expect(contrastValueContainer.textContent).toContain('2.986');
         expect(largeAAGradeItem.textContent).toEqual('fail');
 
-        fireEvent(
-            bgInput,
-            new CustomEvent('input', {
-                detail: {
-                    value: '#666666',
-                    formattedValue: '#666666',
-                },
-            })
-        );
-
-        await wait(15);
+        props.contrastValue = 3.031; // #666666 bg
+        rerender(<RatioDemo {...props} />);
 
         expect(contrastValueContainer.textContent).toContain('3.031');
         expect(largeAAGradeItem.textContent).toEqual('pass');

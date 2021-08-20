@@ -1,9 +1,35 @@
 import { fireEvent, render } from '@testing-library/react';
-import APCADemo from '.';
+import APCADemo, { APCADemoProps } from '.';
+import APCAContrast from '../../utils/apca-contrast';
 
 describe('APCA Demo', () => {
+    const foregroundColor = {
+        hexString: '#1a1a1a',
+        rgbString: 'rgb(26, 26, 26)',
+        activeColor: '#1a1a1a',
+        hexNumber: parseInt('1a1a1a', 16),
+        rgb: [26, 26, 26],
+    };
+
+    const backgroundColor = {
+        hexString: '#c7b5fb',
+        rgbString: 'rgb(199, 181, 251)',
+        activeColor: '#c7b5fb',
+        hexNumber: parseInt('c7b5fb', 16),
+        rgb: [199, 181, 251],
+    };
+
     it('renders default state', () => {
-        const { container } = render(<APCADemo />);
+        const props: APCADemoProps = {
+            contrastValue: APCAContrast(backgroundColor.hexNumber, foregroundColor.hexNumber),
+            foregroundColor,
+            backgroundColor,
+            onColorChange: jest.fn(),
+            onHexSwap: jest.fn(),
+            isHex: true,
+        };
+
+        const { container } = render(<APCADemo {...props} />);
 
         const component = container.children[0];
         expect(component).toHaveClass('apca-demo');
@@ -11,35 +37,55 @@ describe('APCA Demo', () => {
         const contrastValueContainer = container.querySelector<HTMLDivElement>('.contrast-value')!;
         const sampleTextItem = container.querySelector<HTMLDivElement>('.sample-container .sample-text')!;
 
-        const foregroundColor = sampleTextItem.style.color;
-        const backgroundColor = sampleTextItem.style.backgroundColor;
+        const fgColor = sampleTextItem.style.color;
+        const bgColor = sampleTextItem.style.backgroundColor;
 
-        expect(foregroundColor).toEqual('rgb(26, 26, 26)');
-        expect(backgroundColor).toEqual('rgb(199, 181, 251)');
+        expect(fgColor).toEqual('rgb(26, 26, 26)');
+        expect(bgColor).toEqual('rgb(199, 181, 251)');
         expect(contrastValueContainer.textContent).toContain('67.677');
     });
 
-    it('updates state onColorChange', () => {
-        const { container } = render(<APCADemo />);
+    it('fires onColorChange', () => {
+        const props: APCADemoProps = {
+            contrastValue: APCAContrast(backgroundColor.hexNumber, foregroundColor.hexNumber),
+            foregroundColor,
+            backgroundColor,
+            onColorChange: jest.fn(),
+            onHexSwap: jest.fn(),
+            isHex: true,
+        };
 
-        const contrastValueContainer = container.querySelector<HTMLDivElement>('.contrast-value')!;
-        const sampleTextItem = container.querySelector<HTMLDivElement>('.sample-container .sample-text')!;
-        let foregroundColor = sampleTextItem.style.color;
-        let backgroundColor = sampleTextItem.style.backgroundColor;
+        const { container } = render(<APCADemo {...props} />);
 
-        expect(foregroundColor).toEqual('rgb(26, 26, 26)');
-        expect(backgroundColor).toEqual('rgb(199, 181, 251)');
-        expect(contrastValueContainer.textContent).toContain('67.677');
+        expect(props.onColorChange).toHaveBeenCalledTimes(0);
 
         const colorSwapBtn = container.querySelector('.contrast-checker protean-button')!;
 
         fireEvent.click(colorSwapBtn);
 
-        foregroundColor = sampleTextItem.style.color;
-        backgroundColor = sampleTextItem.style.backgroundColor;
+        expect(props.onColorChange).toHaveBeenCalledTimes(1);
+        expect(props.onColorChange).toHaveBeenCalledWith(backgroundColor, foregroundColor);
+    });
 
-        expect(foregroundColor).toEqual('rgb(199, 181, 251)');
-        expect(backgroundColor).toEqual('rgb(26, 26, 26)');
-        expect(contrastValueContainer.textContent).toContain('-66.807');
+    it('fires onHexSwap', () => {
+        const props: APCADemoProps = {
+            contrastValue: APCAContrast(backgroundColor.hexNumber, foregroundColor.hexNumber),
+            foregroundColor,
+            backgroundColor,
+            onColorChange: jest.fn(),
+            onHexSwap: jest.fn(),
+            isHex: true,
+        };
+
+        const { container } = render(<APCADemo {...props} />);
+
+        expect(props.onHexSwap).toHaveBeenCalledTimes(0);
+
+        const rgbRadio = container.querySelector<HTMLInputElement>('input[type="radio"][value="rgb"]')!;
+
+        fireEvent.click(rgbRadio);
+
+        expect(props.onHexSwap).toHaveBeenCalledTimes(1);
+        expect(props.onHexSwap).toHaveBeenCalledWith(false);
     });
 });
