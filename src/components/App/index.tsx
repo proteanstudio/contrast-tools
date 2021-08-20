@@ -100,7 +100,7 @@ export default class App extends Component<{}, AppState> {
             <div className="app content">
                 <div className="header-content">
                     <h1>
-                        Contrast <span className="hidden-s">checker</span>
+                        Contrast <span className="hidden-s">tools</span>
                     </h1>
                     <ProteanCheckbox
                         className="dark-mode-toggle"

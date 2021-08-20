@@ -49,7 +49,7 @@
         }
 
         @include breakpoint(s) {
-            margin: 1rem 0 0;
+            margin: 0.5rem 0 0;
         }
 
         h2 {
@@ -83,6 +83,10 @@
 
     .sample-text {
         margin: 1rem 0.25rem;
+
+        @include breakpoint(s) {
+            margin: 0 0.25rem;
+        }
     }
 
     .radio-list {

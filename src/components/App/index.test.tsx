@@ -11,7 +11,7 @@ describe('App', () => {
         const component = container.children[0];
         expect(component).toHaveClass('app', 'content');
 
-        expect(container.querySelector('h1')?.textContent?.trim()).toEqual('Contrast checker');
+        expect(container.querySelector('h1')?.textContent?.trim()).toEqual('Contrast tools');
 
         const tabContainer = container.querySelector('protean-tab-container');
         expect(tabContainer?.value).toEqual('wcag-30');
