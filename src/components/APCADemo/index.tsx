@@ -51,7 +51,7 @@ export default class APCADemo extends Component<APCADemoProps> {
                                     <tr>
                                         <th></th>
                                         <th colSpan={9} className="lookup-table-weight-header">
-                                            <strong>Font weight →</strong>
+                                            <strong>Font weight</strong>
                                         </th>
                                     </tr>
                                     <tr>
