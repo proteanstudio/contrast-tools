@@ -11,10 +11,10 @@
         flex-basis: 33.333%;
 
         @include breakpoint(m) {
-            flex-basis: 30%;
+            flex-basis: 10rem;
 
             &.field-container {
-                flex: 1 0 70%;
+                flex: 1 0 calc(100% - 10rem);
             }
 
             &.sample-container {
