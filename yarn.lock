@@ -8676,15 +8676,15 @@ prop-types@^15.7.2:
     object-assign "^4.1.1"
     react-is "^16.8.1"
 
-protean-elements@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/protean-elements/-/protean-elements-0.2.0.tgz#f29ba22622d86bcf1388de49fe263ad1d86c5c16"
-  integrity sha512-x/R/Lpco8rLyST5HOU2c5vUKEvEYnEtK4iexJOzhBcvCdkjp7bpqILWb7utUMnm7rTNPjvIw1zcUv8MoKHS0eA==
+protean-elements@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/protean-elements/-/protean-elements-0.3.0.tgz#a587e733e4b882a7e37eea757a7b7b460d6a176b"
+  integrity sha512-ek2v0CFno+auE99Ly5VWGshsyTZgDM6sXIL33SrvPxCmtT3b3yvEYZ97MV68OkEQtvhutg790Uu2XFpce9yIJg==
 
-protean-styles@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/protean-styles/-/protean-styles-0.2.0.tgz#1783e443c49e82abdc2566039628857f8ee86988"
-  integrity sha512-0w6yoKVSkQ8QuVQBN9zcjXZ2Dj8c7bLK0TRAlGASaIgWwiJuiCCAn0B2c+mmeR4R17PmBToCWREhmt7m+qMLCA==
+protean-styles@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/protean-styles/-/protean-styles-0.3.0.tgz#fb6d9119a626454a72cf3860e33eb63a6ce53d3a"
+  integrity sha512-M0llAUlXU4IgHmqa1DvHdt61cw5TpbyQMbzKENr0eW8nKkxMRwIjGx53IPbgno5NheSq1n+IXxk94Ze7g7yxLg==
 
 proxy-addr@~2.0.5:
   version "2.0.6"
