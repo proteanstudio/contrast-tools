@@ -147,6 +147,28 @@ describe('LookupTableCell', () => {
         expect(cellRatingList).toBeNull();
     });
 
+    it('renders placeholder not-recommended cells', () => {
+        const props: LookupTableCellProps = {
+            value: 'N',
+            decorator: 'not-recommended',
+            tag: 'div',
+        };
+
+        const { container } = render(<LookupTableCell {...props} />);
+
+        const component = container.querySelector<HTMLDivElement>('.lookup-table-cell')!;
+
+        expect(component).toHaveClass('not-recommended');
+
+        const cellValueElement = container.querySelector<HTMLDivElement>('.cell-value')!;
+
+        expect(cellValueElement.textContent?.trim()).toEqual('N');
+
+        const cellRatingList = container.querySelector('.cell-rating');
+
+        expect(cellRatingList).toBeNull();
+    });
+
     it('renders standard cells', () => {
         const props: LookupTableCellProps = {
             value: 100,
@@ -184,6 +206,31 @@ describe('LookupTableCell', () => {
         const component = container.querySelector<HTMLDivElement>('.lookup-table-cell')!;
 
         expect(component).toHaveClass('rating-2', 'caution');
+
+        const cellValueElement = container.querySelector<HTMLDivElement>('.cell-value')!;
+
+        expect(cellValueElement.textContent?.trim()).toEqual('100');
+
+        const cellRatingList = container.querySelector('.cell-rating');
+
+        expect(cellRatingList).not.toBeNull();
+        expect(cellRatingList?.getAttribute('aria-label')).toEqual('WCAG 3.0 Rating 2');
+        expect(cellRatingList?.children.length).toEqual(2);
+    });
+
+    it('renders standard not-recommended cells', () => {
+        const props: LookupTableCellProps = {
+            value: 100,
+            comparisonValue: 93,
+            decorator: 'not-recommended',
+            tag: 'div',
+        };
+
+        const { container } = render(<LookupTableCell {...props} />);
+
+        const component = container.querySelector<HTMLDivElement>('.lookup-table-cell')!;
+
+        expect(component).toHaveClass('rating-2', 'not-recommended');
 
         const cellValueElement = container.querySelector<HTMLDivElement>('.cell-value')!;
 

@@ -13,9 +13,10 @@ export interface LookupTableCellProps {
 
 export default class LookupTableCell extends Component<LookupTableCellProps> {
     get isIncalculable(): boolean {
-        return this.props.decorator
-            ? ['copyright', 'prohibited', 'header'].includes(this.props.decorator) ||
-                  (this.props.decorator === 'caution' && this.props.value === 'N')
+        const decorator = this.props.decorator;
+        return decorator
+            ? ['copyright', 'prohibited', 'header'].includes(decorator) ||
+                  (['caution', 'not-recommended'].includes(decorator) && this.props.value === 'N')
             : this.props.comparisonValue === undefined || false;
     }
 

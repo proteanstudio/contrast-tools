@@ -116,6 +116,10 @@ export default class APCADemo extends Component<APCADemoProps> {
                                         <div>Not recommended for blocks of text</div>
                                     </li>
                                     <li>
+                                        <LookupTableCell value="N" tag="div" decorator="not-recommended" />
+                                        <div>Font weight 100 should be avoided</div>
+                                    </li>
+                                    <li>
                                         <LookupTableCell value="X" decorator="prohibited" tag="div" />
                                         <div>Prohibited except for decorative purposes</div>
                                     </li>

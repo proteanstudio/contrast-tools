@@ -5,48 +5,6 @@ export interface LookupTableItem {
 }
 
 export const lookupTableItems: LookupTableItem[][] = [
-    /* [
-            {
-                value: '',
-                ariaLabel: 'Font size',
-            },
-            {
-                value: '100',
-                ariaLabel: 'Font weight 100',
-            },
-            {
-                value: '200',
-                ariaLabel: 'Font weight 200',
-            },
-            {
-                value: '300',
-                ariaLabel: 'Font weight 300',
-            },
-            {
-                value: '400',
-                ariaLabel: 'Font weight 400',
-            },
-            {
-                value: '500',
-                ariaLabel: 'Font weight 500',
-            },
-            {
-                value: '600',
-                ariaLabel: 'Font weight 600',
-            },
-            {
-                value: '700',
-                ariaLabel: 'Font weight 700',
-            },
-            {
-                value: '800',
-                ariaLabel: 'Font weight 800',
-            },
-            {
-                value: '900',
-                ariaLabel: 'Font weight 900',
-            },
-        ], */
     [
         {
             value: '10px',
@@ -395,6 +353,7 @@ export const lookupTableItems: LookupTableItem[][] = [
         },
         {
             value: 100,
+            decorator: 'not-recommended',
         },
         {
             value: 70,
@@ -428,6 +387,7 @@ export const lookupTableItems: LookupTableItem[][] = [
         },
         {
             value: 90,
+            decorator: 'not-recommended',
         },
         {
             value: 60,
@@ -461,6 +421,7 @@ export const lookupTableItems: LookupTableItem[][] = [
         },
         {
             value: 80,
+            decorator: 'not-recommended',
         },
         {
             value: 55,
@@ -494,6 +455,7 @@ export const lookupTableItems: LookupTableItem[][] = [
         },
         {
             value: 70,
+            decorator: 'not-recommended',
         },
         {
             value: 50,
@@ -527,6 +489,7 @@ export const lookupTableItems: LookupTableItem[][] = [
         },
         {
             value: 60,
+            decorator: 'not-recommended',
         },
         {
             value: 40,
