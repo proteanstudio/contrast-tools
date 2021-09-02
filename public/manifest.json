@@ -1,0 +1,15 @@
+{
+  "short_name": "Contrast checker",
+  "name": "Protean Studio contrast checker",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#7209b7"
+}

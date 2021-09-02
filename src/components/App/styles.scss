@@ -1,0 +1,41 @@
+@import 'protean-styles/styles/app';
+@import '../../styles/index';
+
+:root {
+    --pass-bg-color: #ddecdb;
+    --fail-bg-color: #ffe0e0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.app {
+    @include breakpoint(m) {
+        padding: 0;
+    }
+
+    .header-content {
+        display: flex;
+        margin: 0 1rem;
+        align-items: center;
+
+        h1 {
+            flex: 1 0;
+        }
+
+        protean-checkbox {
+            --protean-checkbox-margin: 1rem 0 1rem 0.5rem;
+
+            flex: 0 1 9rem;
+        }
+    }
+}
+
+footer {
+    text-align: center;
+    font-size: 0.875rem;
+}

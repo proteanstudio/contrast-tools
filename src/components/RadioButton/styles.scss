@@ -1,0 +1,35 @@
+.radio-button {
+    margin: var(--protean-checkbox-margin);
+
+    label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .radio-symbol {
+        flex: 0 0 24px;
+        margin-right: 0.625rem;
+        border-radius: 12px;
+    }
+
+    input:focus + label .radio-symbol {
+        outline: auto;
+    }
+
+    .radio-outer {
+        stroke-width: 2;
+        stroke: var(--action-color);
+        fill: none;
+    }
+
+    &[data-checked='true'] .radio-outer {
+        fill: var(--action-color);
+    }
+
+    .radio-inner {
+        stroke-width: 2;
+        stroke: var(--action-contrast-color);
+        fill: none;
+    }
+}

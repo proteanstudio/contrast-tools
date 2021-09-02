@@ -1,0 +1,66 @@
+@import 'protean-styles/styles/mixins';
+
+.apca-demo {
+    .lookup-table-wrapper {
+        display: flex;
+        overflow-x: auto;
+
+        @include breakpoint(m) {
+            flex-direction: column;
+        }
+    }
+
+    .lookup-table {
+        border: none;
+        table-layout: fixed;
+
+        th {
+            font-weight: 400;
+        }
+
+        tbody th {
+            position: sticky;
+            left: 0;
+        }
+    }
+
+    .lookup-table-key {
+        padding: 1rem;
+
+        @include breakpoint(m) {
+            position: sticky;
+            left: 0;
+        }
+
+        .lookup-table-cell {
+            flex: 0 0 3.25rem;
+            margin-right: 0.5rem;
+        }
+    }
+
+    .lookup-table-key-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        > li {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+        }
+    }
+
+    .lookup-table-weight-header {
+        text-align: left;
+        padding-left: 0.75rem;
+    }
+
+    .sample-container {
+        display: flex;
+        flex-wrap: wrap;
+
+        .sample-text {
+            flex-grow: 1;
+        }
+    }
+}

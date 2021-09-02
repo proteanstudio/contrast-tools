@@ -1,0 +1,114 @@
+@import 'protean-styles/styles/mixins';
+
+.lookup-table-cell {
+    --lookup-cell-background: #ededed;
+    --lookup-cell-text: #1a1a1a;
+    --lookup-cell-font-size: 1rem;
+    --lookup-cell-rating-background: transparent;
+    --lookup-cell-secondary-decorator: rgba(0, 0, 0, 0.45);
+
+    background-color: var(--lookup-cell-background);
+    color: var(--lookup-cell-text);
+
+    &.rating-4 {
+        --lookup-cell-background: var(--pass-bg-color);
+        --lookup-cell-rating-background: #31bb1d; //#52c741;
+    }
+
+    &.rating-3 {
+        --lookup-cell-background: #dbe9f5;
+        --lookup-cell-rating-background: #4d91cc;
+    }
+
+    &.rating-2 {
+        --lookup-cell-background: #efe3f7;
+        --lookup-cell-rating-background: #bf73ee;
+    }
+
+    &.rating-1 {
+        --lookup-cell-background: #f8edb3;
+        --lookup-cell-rating-background: #ceb000;
+    }
+
+    &.rating-0 {
+        --lookup-cell-background: var(--fail-bg-color);
+    }
+
+    &.copyright {
+        --lookup-cell-background: #ffd2ab;
+        --lookup-cell-font-size: 1.25rem;
+    }
+
+    &.prohibited {
+        --lookup-cell-background: #4a4a4a;
+        --lookup-cell-text: #ffffff;
+        --lookup-cell-font-size: 1.25rem;
+    }
+
+    &.header {
+        --lookup-cell-background: var(--body-background-color, #fcfcfc);
+        --lookup-cell-text: var(--body-text-color, #1a1a1a);
+    }
+
+    &.caution {
+        background-image: radial-gradient(circle at 3px 3px, var(--lookup-cell-secondary-decorator) 1px, transparent 0);
+        background-size: 6px 6px;
+    }
+
+    &.not-recommended {
+        background-image: repeating-linear-gradient(
+            -45deg,
+            var(--lookup-cell-secondary-decorator),
+            1px,
+            var(--lookup-cell-background) 1px,
+            var(--lookup-cell-background) 0.625rem
+        );
+    }
+
+    .cell-content,
+    .cell-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cell-content {
+        padding: 0 0.5rem;
+        min-height: 3rem;
+        min-width: 3.25rem;
+
+        @include breakpoint(m) {
+            padding: 0 0.25rem;
+            min-height: 2.25rem;
+            min-width: 2.25rem;
+        }
+    }
+
+    .cell-info {
+        flex-direction: column;
+        font-size: var(--lookup-cell-font-size);
+        padding: 4px 2px;
+        background-color: var(--lookup-cell-background);
+
+        @include breakpoint(m) {
+            padding: 2px;
+        }
+    }
+
+    .cell-rating {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+            display: block;
+            height: 4px;
+            width: 4px;
+            border-radius: 2px;
+            margin: 0 2px;
+            background-color: var(--lookup-cell-rating-background);
+        }
+    }
+}
