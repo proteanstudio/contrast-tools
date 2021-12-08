@@ -1,17 +1,17 @@
-import APCAContrast from '.';
+import { APCAcontrast, sRGBtoY } from '.';
 
 describe('APCAContrast', () => {
     it('correctly calculates contrast', () => {
-        const foregroundColor = parseInt('1a1a1a', 16);
-        const backgroundColor = parseInt('c7b5fb', 16);
+        const foregroundColor = sRGBtoY(parseInt('1a1a1a', 16));
+        const backgroundColor = sRGBtoY(parseInt('c7b5fb', 16));
 
-        let contrastValue = APCAContrast(backgroundColor, foregroundColor);
+        let contrastValue = APCAcontrast(foregroundColor, backgroundColor);
 
-        expect(contrastValue.toFixed(3)).toEqual('67.677');
+        expect(contrastValue).toEqual(68);
 
         //different value when inverted
-        contrastValue = APCAContrast(foregroundColor, backgroundColor);
+        contrastValue = APCAcontrast(backgroundColor, foregroundColor);
 
-        expect(contrastValue.toFixed(3)).toEqual('-66.807');
+        expect(contrastValue).toEqual(-67);
     });
 });
