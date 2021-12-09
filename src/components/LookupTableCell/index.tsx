@@ -15,8 +15,8 @@ export default class LookupTableCell extends Component<LookupTableCellProps> {
     get isIncalculable(): boolean {
         const decorator = this.props.decorator;
         return decorator
-            ? ['copyright', 'prohibited', 'header'].includes(decorator) ||
-                  (['caution', 'not-recommended'].includes(decorator) && this.props.value === 'N')
+            ? ['copyright', 'prohibited', 'header', 'non-text'].includes(decorator) ||
+                  (['caution', 'not-recommended', 'preferred'].includes(decorator) && this.props.value === 'N')
             : this.props.comparisonValue === undefined || false;
     }
 
@@ -42,6 +42,7 @@ export default class LookupTableCell extends Component<LookupTableCellProps> {
                     <div className="cell-info">
                         <div className="cell-value" aria-label={this.props.ariaLabel}>
                             {this.props.value}
+                            {this.props.decorator === 'preferred' && <sup>P</sup>}
                         </div>
                         {!this.isIncalculable && (
                             <ul className="cell-rating" aria-label={`WCAG 3.0 Rating ${this.rating}`}>
