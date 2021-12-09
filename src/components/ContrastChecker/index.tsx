@@ -294,14 +294,12 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
                 <div className="contrast-value">
                     <div>Contrast value</div>
                     <h2>
-                        {this.props.contrastValue.toFixed(3)}
                         {this.props.isAPCA ? (
                             <span>
-                                {' '}
-                                L<sup>c</sup>
+                                {this.props.contrastValue} L<sup>c</sup>
                             </span>
                         ) : (
-                            <span>:1</span>
+                            <span>{this.props.contrastValue.toFixed(2)}:1</span>
                         )}
                     </h2>
                     <protean-button variant="icon" onClick={this.swapColors} a11y-label="Swap colors">

@@ -1,8 +1,7 @@
 import { render, fireEvent } from '@testing-library/react';
 import ContrastChecker, { ContrastCheckerProps } from '.';
-import APCAContrast from '../../utils/apca-contrast';
-import legacyContrast from '../../utils/legacy-ratio';
 import wait from '../../utils/test-helpers/wait';
+import { APCAcontrast, sRGBtoY } from '../../utils/apca-contrast';
 
 describe('ContrastChecker', () => {
     const foregroundColor = {
@@ -25,7 +24,7 @@ describe('ContrastChecker', () => {
         const props: ContrastCheckerProps = {
             foregroundColor,
             backgroundColor,
-            contrastValue: APCAContrast(backgroundColor.hexNumber, foregroundColor.hexNumber),
+            contrastValue: APCAcontrast(sRGBtoY(foregroundColor.hexNumber), sRGBtoY(backgroundColor.hexNumber)),
             isAPCA: true,
             isHex: true,
             onColorChange: jest.fn(),
@@ -51,7 +50,7 @@ describe('ContrastChecker', () => {
         expect(bgCVElement.textContent).toContain('#c7b5fb|rgb(199, 181, 251)');
 
         const contrastValueElement = container.querySelector<HTMLElement>('.contrast-value')!;
-        expect(contrastValueElement.textContent?.trim()).toContain('67.677 Lc');
+        expect(contrastValueElement.textContent?.trim()).toContain('68 Lc');
 
         const checkedRadio = container.querySelector<HTMLInputElement>('input[checked]')!;
         expect(checkedRadio.value).toEqual('hex');
@@ -61,7 +60,7 @@ describe('ContrastChecker', () => {
         const props: ContrastCheckerProps = {
             foregroundColor,
             backgroundColor,
-            contrastValue: APCAContrast(backgroundColor.hexNumber, foregroundColor.hexNumber),
+            contrastValue: APCAcontrast(sRGBtoY(foregroundColor.hexNumber), sRGBtoY(backgroundColor.hexNumber)),
             isAPCA: true,
             isHex: true,
             onColorChange: jest.fn(),
@@ -220,7 +219,7 @@ describe('ContrastChecker', () => {
         const props: ContrastCheckerProps = {
             foregroundColor,
             backgroundColor,
-            contrastValue: APCAContrast(backgroundColor.hexNumber, foregroundColor.hexNumber),
+            contrastValue: APCAcontrast(sRGBtoY(foregroundColor.hexNumber), sRGBtoY(backgroundColor.hexNumber)),
             isAPCA: true,
             isHex: true,
             onColorChange: jest.fn(),
@@ -261,7 +260,7 @@ describe('ContrastChecker', () => {
         const props: ContrastCheckerProps = {
             foregroundColor,
             backgroundColor,
-            contrastValue: APCAContrast(backgroundColor.hexNumber, foregroundColor.hexNumber),
+            contrastValue: APCAcontrast(sRGBtoY(foregroundColor.hexNumber), sRGBtoY(backgroundColor.hexNumber)),
             isAPCA: true,
             isHex: true,
             onColorChange: jest.fn(),
@@ -342,7 +341,7 @@ describe('ContrastChecker', () => {
         const props: ContrastCheckerProps = {
             foregroundColor,
             backgroundColor,
-            contrastValue: APCAContrast(backgroundColor.hexNumber, foregroundColor.hexNumber),
+            contrastValue: APCAcontrast(sRGBtoY(foregroundColor.hexNumber), sRGBtoY(backgroundColor.hexNumber)),
             isAPCA: true,
             isHex: true,
             onColorChange: jest.fn(),
@@ -383,7 +382,7 @@ describe('ContrastChecker', () => {
         let props: ContrastCheckerProps = {
             foregroundColor,
             backgroundColor,
-            contrastValue: APCAContrast(backgroundColor.hexNumber, foregroundColor.hexNumber),
+            contrastValue: APCAcontrast(sRGBtoY(foregroundColor.hexNumber), sRGBtoY(backgroundColor.hexNumber)),
             isAPCA: true,
             isHex: true,
             onColorChange: jest.fn(),
@@ -451,7 +450,7 @@ describe('ContrastChecker', () => {
         let props: ContrastCheckerProps = {
             foregroundColor,
             backgroundColor,
-            contrastValue: APCAContrast(backgroundColor.hexNumber, foregroundColor.hexNumber),
+            contrastValue: APCAcontrast(sRGBtoY(foregroundColor.hexNumber), sRGBtoY(backgroundColor.hexNumber)),
             isAPCA: true,
             isHex: true,
             onColorChange: jest.fn(),

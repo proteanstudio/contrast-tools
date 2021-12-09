@@ -5,7 +5,7 @@
     --lookup-cell-text: #1a1a1a;
     --lookup-cell-font-size: 1rem;
     --lookup-cell-rating-background: transparent;
-    --lookup-cell-secondary-decorator: rgba(0, 0, 0, 0.45);
+    --lookup-cell-secondary-decorator: rgba(0, 0, 0, 0.5);
 
     background-color: var(--lookup-cell-background);
     color: var(--lookup-cell-text);
@@ -50,12 +50,12 @@
         --lookup-cell-text: var(--body-text-color, #1a1a1a);
     }
 
-    &.caution {
+    &.not-recommended {
         background-image: radial-gradient(circle at 3px 3px, var(--lookup-cell-secondary-decorator) 1px, transparent 0);
         background-size: 6px 6px;
     }
 
-    &.not-recommended {
+    &.caution {
         background-image: repeating-linear-gradient(
             -45deg,
             var(--lookup-cell-secondary-decorator),
@@ -63,6 +63,19 @@
             var(--lookup-cell-background) 1px,
             var(--lookup-cell-background) 0.625rem
         );
+    }
+
+    &.non-text {
+        --lookup-cell-background: #f1e8d6;
+    }
+
+    &.preferred {
+        position: relative;
+        sup {
+            font-size: 0.75rem;
+            font-weight: 500;
+            position: absolute;
+        }
     }
 
     .cell-content,

@@ -1,6 +1,6 @@
 import { fireEvent, render } from '@testing-library/react';
 import APCADemo, { APCADemoProps } from '.';
-import APCAContrast from '../../utils/apca-contrast';
+import { APCAcontrast, sRGBtoY } from '../../utils/apca-contrast';
 
 describe('APCA Demo', () => {
     const foregroundColor = {
@@ -20,8 +20,9 @@ describe('APCA Demo', () => {
     };
 
     it('renders default state', () => {
+        const contrastValue = APCAcontrast(sRGBtoY(foregroundColor.hexNumber), sRGBtoY(backgroundColor.hexNumber));
         const props: APCADemoProps = {
-            contrastValue: APCAContrast(backgroundColor.hexNumber, foregroundColor.hexNumber),
+            contrastValue,
             foregroundColor,
             backgroundColor,
             onColorChange: jest.fn(),
@@ -42,12 +43,13 @@ describe('APCA Demo', () => {
 
         expect(fgColor).toEqual('rgb(26, 26, 26)');
         expect(bgColor).toEqual('rgb(199, 181, 251)');
-        expect(contrastValueContainer.textContent).toContain('67.677');
+        expect(contrastValueContainer.textContent).toContain('68');
     });
 
     it('fires onColorChange', () => {
+        const contrastValue = APCAcontrast(sRGBtoY(foregroundColor.hexNumber), sRGBtoY(backgroundColor.hexNumber));
         const props: APCADemoProps = {
-            contrastValue: APCAContrast(backgroundColor.hexNumber, foregroundColor.hexNumber),
+            contrastValue,
             foregroundColor,
             backgroundColor,
             onColorChange: jest.fn(),
@@ -68,8 +70,9 @@ describe('APCA Demo', () => {
     });
 
     it('fires onHexSwap', () => {
+        const contrastValue = APCAcontrast(sRGBtoY(foregroundColor.hexNumber), sRGBtoY(backgroundColor.hexNumber));
         const props: APCADemoProps = {
-            contrastValue: APCAContrast(backgroundColor.hexNumber, foregroundColor.hexNumber),
+            contrastValue,
             foregroundColor,
             backgroundColor,
             onColorChange: jest.fn(),
