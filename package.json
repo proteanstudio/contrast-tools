@@ -9,8 +9,7 @@
         "format": "prettier --check 'src'",
         "format:fix": "prettier --write 'src'",
         "lint": "eslint src/",
-        "lint:fix": "eslint --fix src/",
-        "copy-apca": "cp -R node_modules/apca-w3/src/* src/utils/apca-contrast/"
+        "lint:fix": "eslint --fix src/"
     },
     "eslintConfig": {
         "extends": [
@@ -44,7 +43,7 @@
         "@types/react-dom": "^17.0.0",
         "@typescript-eslint/eslint-plugin": "^4.5.0",
         "@typescript-eslint/parser": "^4.5.0",
-        "apca-w3": "^0.0.98-g-4g-w3",
+        "apca-w3": "^0.1.1",
         "babel-eslint": "^10.1.0",
         "babel-jest": "^26.6.0",
         "babel-loader": "8.1.0",

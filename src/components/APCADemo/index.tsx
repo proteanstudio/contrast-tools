@@ -116,8 +116,10 @@ export default class APCADemo extends Component<APCADemoProps> {
                                         <div>Preferred for blocks of text</div>
                                     </li>
                                     <li>
-                                        <LookupTableCell value="N" tag="div" decorator="caution" />
-                                        <div>Not recommended for blocks of text</div>
+                                        <LookupTableCell value="N" tag="div" decorator="body-plus" />
+                                        <div>
+                                            Add 15 L<sup>c</sup> to use for blocks of text
+                                        </div>
                                     </li>
                                     <li>
                                         <LookupTableCell value="N" tag="div" decorator="not-recommended" />
@@ -130,10 +132,6 @@ export default class APCADemo extends Component<APCADemoProps> {
                                     <li>
                                         <LookupTableCell value="©" decorator="copyright" tag="div" />
                                         <div>Use for copyright/by-line only</div>
-                                    </li>
-                                    <li>
-                                        <LookupTableCell value="NT" decorator="non-text" tag="div" />
-                                        <div>Non-text only</div>
                                     </li>
                                 </ul>
                             </section>

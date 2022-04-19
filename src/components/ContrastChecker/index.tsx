@@ -296,7 +296,7 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
                     <h2>
                         {this.props.isAPCA ? (
                             <span>
-                                {this.props.contrastValue} L<sup>c</sup>
+                                {this.props.contrastValue.toFixed(2)} L<sup>c</sup>
                             </span>
                         ) : (
                             <span>{this.props.contrastValue.toFixed(2)}:1</span>
