@@ -6,7 +6,8 @@ import ProteanTabPane from '../ProteanTabPane';
 import ProteanCheckbox from '../ProteanCheckbox';
 import ProteanTabContainer from '../ProteanTabContainer';
 import legacyContrast from '../../utils/legacy-ratio';
-import { APCAcontrast, sRGBtoY } from '../../utils/apca-contrast';
+// import { APCAcontrast, sRGBtoY } from 'apca-w3';
+import { APCAcontrast, sRGBtoY } from 'apca-w3';
 
 interface AppState {
     activeTab: string;
@@ -48,7 +49,7 @@ export default class App extends Component<{}, AppState> {
             darkModeEnabled,
             foregroundColor,
             backgroundColor,
-            APCAContrastValue: APCAcontrast(sRGBtoY(foregroundColor.hexNumber), sRGBtoY(backgroundColor.hexNumber)),
+            APCAContrastValue: APCAcontrast(sRGBtoY(foregroundColor.rgb), sRGBtoY(backgroundColor.rgb)),
             legacyContrastRatio: legacyContrast(foregroundColor.rgb, backgroundColor.rgb),
             isHex: true,
         };
@@ -68,7 +69,7 @@ export default class App extends Component<{}, AppState> {
     };
 
     onColorChange = (foregroundColor: IColorData, backgroundColor: IColorData) => {
-        const APCAContrastValue = APCAcontrast(sRGBtoY(foregroundColor.hexNumber), sRGBtoY(backgroundColor.hexNumber));
+        const APCAContrastValue = APCAcontrast(sRGBtoY(foregroundColor.rgb), sRGBtoY(backgroundColor.rgb));
         const legacyContrastRatio = legacyContrast(foregroundColor.rgb, backgroundColor.rgb);
 
         this.setState({

@@ -51,11 +51,6 @@
     }
 
     &.not-recommended {
-        background-image: radial-gradient(circle at 3px 3px, var(--lookup-cell-secondary-decorator) 1px, transparent 0);
-        background-size: 6px 6px;
-    }
-
-    &.caution {
         background-image: repeating-linear-gradient(
             -45deg,
             var(--lookup-cell-secondary-decorator),
@@ -65,17 +60,21 @@
         );
     }
 
-    &.non-text {
-        --lookup-cell-background: #f1e8d6;
-    }
-
-    &.preferred {
+    &.preferred,
+    &.body-plus {
         position: relative;
         sup {
             font-size: 0.75rem;
             font-weight: 500;
             position: absolute;
+            line-height: 1;
+            top: 0.675rem;
+            margin-left: 0.0625rem;
         }
+    }
+
+    &.body-plus sup {
+        font-weight: 600;
     }
 
     .cell-content,
