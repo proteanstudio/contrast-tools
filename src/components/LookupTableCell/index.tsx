@@ -15,8 +15,8 @@ export default class LookupTableCell extends Component<LookupTableCellProps> {
     get isIncalculable(): boolean {
         const decorator = this.props.decorator;
         return decorator
-            ? ['copyright', 'prohibited', 'header', 'non-text'].includes(decorator) ||
-                  (['caution', 'not-recommended', 'preferred'].includes(decorator) && this.props.value === 'N')
+            ? ['copyright', 'prohibited', 'header'].includes(decorator) ||
+                  (['body-plus', 'not-recommended', 'preferred'].includes(decorator) && this.props.value === 'N')
             : this.props.comparisonValue === undefined || false;
     }
 
@@ -35,6 +35,14 @@ export default class LookupTableCell extends Component<LookupTableCellProps> {
         return `lookup-table-cell${ratingClass} ${this.props.decorator || ''}`;
     }
 
+    renderSup() {
+        const sups = new Map([
+            ['preferred', <sup>P</sup>],
+            ['body-plus', <sup>+</sup>],
+        ]);
+        return sups.get(this.props.decorator ?? '') ?? null;
+    }
+
     render() {
         return (
             <this.props.tag className={this.wrapperClasses}>
@@ -42,7 +50,7 @@ export default class LookupTableCell extends Component<LookupTableCellProps> {
                     <div className="cell-info">
                         <div className="cell-value" aria-label={this.props.ariaLabel}>
                             {this.props.value}
-                            {this.props.decorator === 'preferred' && <sup>P</sup>}
+                            {this.renderSup()}
                         </div>
                         {!this.isIncalculable && (
                             <ul className="cell-rating" aria-label={`WCAG 3.0 Rating ${this.rating}`}>

@@ -1,6 +1,6 @@
 import { fireEvent, render } from '@testing-library/react';
 import APCADemo, { APCADemoProps } from '.';
-import { APCAcontrast, sRGBtoY } from '../../utils/apca-contrast';
+import { APCAcontrast, sRGBtoY } from 'apca-w3';
 
 describe('APCA Demo', () => {
     const foregroundColor = {
@@ -20,7 +20,7 @@ describe('APCA Demo', () => {
     };
 
     it('renders default state', () => {
-        const contrastValue = APCAcontrast(sRGBtoY(foregroundColor.hexNumber), sRGBtoY(backgroundColor.hexNumber));
+        const contrastValue = APCAcontrast(sRGBtoY(foregroundColor.rgb), sRGBtoY(backgroundColor.rgb));
         const props: APCADemoProps = {
             contrastValue,
             foregroundColor,
@@ -47,7 +47,7 @@ describe('APCA Demo', () => {
     });
 
     it('fires onColorChange', () => {
-        const contrastValue = APCAcontrast(sRGBtoY(foregroundColor.hexNumber), sRGBtoY(backgroundColor.hexNumber));
+        const contrastValue = APCAcontrast(sRGBtoY(foregroundColor.rgb), sRGBtoY(backgroundColor.rgb));
         const props: APCADemoProps = {
             contrastValue,
             foregroundColor,
@@ -70,7 +70,7 @@ describe('APCA Demo', () => {
     });
 
     it('fires onHexSwap', () => {
-        const contrastValue = APCAcontrast(sRGBtoY(foregroundColor.hexNumber), sRGBtoY(backgroundColor.hexNumber));
+        const contrastValue = APCAcontrast(sRGBtoY(foregroundColor.rgb), sRGBtoY(backgroundColor.rgb));
         const props: APCADemoProps = {
             contrastValue,
             foregroundColor,

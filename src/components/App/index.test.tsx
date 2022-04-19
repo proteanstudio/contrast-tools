@@ -2,7 +2,7 @@ import { render, fireEvent } from '@testing-library/react';
 import App from '.';
 import legacyContrast from '../../utils/legacy-ratio';
 import wait from '../../utils/test-helpers/wait';
-import { APCAcontrast, sRGBtoY } from '../../utils/apca-contrast';
+import { APCAcontrast, sRGBtoY } from 'apca-w3';
 
 describe('App', () => {
     it('renders default state', () => {
@@ -20,10 +20,10 @@ describe('App', () => {
         expect(darkModeToggle?.checked).toEqual(false);
         expect(localStorage.getItem('darkModeEnabled')).toEqual(null);
 
-        const APCAContrastValue = APCAcontrast(sRGBtoY(parseInt('1a1a1a', 16)), sRGBtoY(parseInt('c7b5fb', 16)));
+        const APCAContrastValue = APCAcontrast(sRGBtoY([26, 26, 26]), sRGBtoY([199, 181, 251]));
         const APCAContrastValueElem = container.querySelector<HTMLDivElement>('.apca-demo .contrast-value')!;
 
-        expect(APCAContrastValueElem.textContent).toContain(APCAContrastValue);
+        expect(APCAContrastValueElem.textContent).toContain(APCAContrastValue.toFixed(2));
 
         const legacyContrastValue = legacyContrast([26, 26, 26], [199, 181, 251]);
 
@@ -91,10 +91,10 @@ describe('App', () => {
     it('updates state onColorChange', async () => {
         const { container } = render(<App />);
 
-        let APCAContrastValue = APCAcontrast(sRGBtoY(parseInt('1a1a1a', 16)), sRGBtoY(parseInt('c7b5fb', 16)));
+        let APCAContrastValue = APCAcontrast(sRGBtoY([26, 26, 26]), sRGBtoY([199, 181, 251]));
         const APCAContrastValueElem = container.querySelector<HTMLDivElement>('.apca-demo .contrast-value')!;
 
-        expect(APCAContrastValueElem.textContent).toContain(APCAContrastValue.toString());
+        expect(APCAContrastValueElem.textContent).toContain(APCAContrastValue.toFixed(2));
 
         let legacyContrastValue = legacyContrast([26, 26, 26], [199, 181, 251]);
 

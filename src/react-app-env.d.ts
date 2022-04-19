@@ -215,3 +215,10 @@ declare module '*.module.sass' {
     const classes: { readonly [key: string]: string };
     export default classes;
 }
+
+declare module 'apca-w3' {
+    const sRGBtoY: (sRGBcolor: number[]) => number;
+    const APCAcontrast: (txtY: number, bgY: number) => number;
+
+    export { sRGBtoY, APCAcontrast }
+}

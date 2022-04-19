@@ -125,10 +125,10 @@ describe('LookupTableCell', () => {
         expect(cellRatingList).toBeNull();
     });
 
-    it('renders placeholder caution cells', () => {
+    it('renders placeholder body-plus cells', () => {
         const props: LookupTableCellProps = {
             value: 'N',
-            decorator: 'caution',
+            decorator: 'body-plus',
             tag: 'div',
         };
 
@@ -136,11 +136,11 @@ describe('LookupTableCell', () => {
 
         const component = container.querySelector<HTMLDivElement>('.lookup-table-cell')!;
 
-        expect(component).toHaveClass('caution');
+        expect(component).toHaveClass('body-plus');
 
         const cellValueElement = container.querySelector<HTMLDivElement>('.cell-value')!;
 
-        expect(cellValueElement.textContent?.trim()).toEqual('N');
+        expect(cellValueElement.textContent?.trim()).toEqual('N+');
 
         const cellRatingList = container.querySelector('.cell-rating');
 
@@ -193,11 +193,11 @@ describe('LookupTableCell', () => {
         expect(cellRatingList?.children.length).toEqual(2);
     });
 
-    it('renders standard caution cells', () => {
+    it('renders standard body-plus cells', () => {
         const props: LookupTableCellProps = {
             value: 100,
             comparisonValue: 93,
-            decorator: 'caution',
+            decorator: 'body-plus',
             tag: 'div',
         };
 
@@ -205,11 +205,11 @@ describe('LookupTableCell', () => {
 
         const component = container.querySelector<HTMLDivElement>('.lookup-table-cell')!;
 
-        expect(component).toHaveClass('rating-2', 'caution');
+        expect(component).toHaveClass('rating-2', 'body-plus');
 
         const cellValueElement = container.querySelector<HTMLDivElement>('.cell-value')!;
 
-        expect(cellValueElement.textContent?.trim()).toEqual('100');
+        expect(cellValueElement.textContent?.trim()).toEqual('100+');
 
         const cellRatingList = container.querySelector('.cell-rating');
 
