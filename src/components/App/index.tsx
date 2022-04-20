@@ -6,7 +6,6 @@ import ProteanTabPane from '../ProteanTabPane';
 import ProteanCheckbox from '../ProteanCheckbox';
 import ProteanTabContainer from '../ProteanTabContainer';
 import legacyContrast from '../../utils/legacy-ratio';
-// import { APCAcontrast, sRGBtoY } from 'apca-w3';
 import { APCAcontrast, sRGBtoY } from 'apca-w3';
 
 interface AppState {
