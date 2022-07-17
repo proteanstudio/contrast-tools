@@ -65,15 +65,15 @@ export const lookupTableItems: LookupTableItem[][] = [
             decorator: 'copyright',
         },
         {
-            value: 95,
+            value: 100,
+            decorator: 'preferred',
+        },
+        {
+            value: 100,
             decorator: 'preferred',
         },
         {
             value: 90,
-            decorator: 'preferred',
-        },
-        {
-            value: 85,
             decorator: 'preferred',
         },
         {
@@ -107,11 +107,11 @@ export const lookupTableItems: LookupTableItem[][] = [
             decorator: 'copyright',
         },
         {
-            value: 90,
+            value: 100,
             decorator: 'preferred',
         },
         {
-            value: 85,
+            value: 90,
             decorator: 'preferred',
         },
         {
@@ -120,7 +120,7 @@ export const lookupTableItems: LookupTableItem[][] = [
         },
         {
             value: 70,
-            decorator: 'preferred',
+            decorator: 'body-plus',
         },
         {
             value: 'X',
@@ -149,48 +149,7 @@ export const lookupTableItems: LookupTableItem[][] = [
             decorator: 'copyright',
         },
         {
-            value: 85,
-            decorator: 'preferred',
-        },
-        {
-            value: 80,
-            decorator: 'preferred',
-        },
-        {
-            value: 70,
-            decorator: 'preferred',
-        },
-        {
-            value: 60,
-            decorator: 'body-plus',
-        },
-        {
-            value: 55,
-        },
-        {
-            value: 'X',
-            decorator: 'prohibited',
-        },
-    ],
-    [
-        {
-            value: '17px',
-            decorator: 'header',
-        },
-        {
-            value: 'X',
-            decorator: 'prohibited',
-        },
-        {
-            value: 'X',
-            decorator: 'prohibited',
-        },
-        {
-            value: '©',
-            decorator: 'copyright',
-        },
-        {
-            value: 80,
+            value: 90,
             decorator: 'preferred',
         },
         {
@@ -198,18 +157,19 @@ export const lookupTableItems: LookupTableItem[][] = [
             decorator: 'preferred',
         },
         {
-            value: 65,
+            value: 70,
             decorator: 'body-plus',
         },
         {
-            value: 55,
+            value: 60,
             decorator: 'body-plus',
         },
         {
-            value: 50,
+            value: 60,
         },
         {
-            value: '45',
+            value: 'X',
+            decorator: 'prohibited',
         },
     ],
     [
@@ -226,7 +186,7 @@ export const lookupTableItems: LookupTableItem[][] = [
             decorator: 'copyright',
         },
         {
-            value: 95,
+            value: 100,
             decorator: 'preferred',
         },
         {
@@ -235,21 +195,21 @@ export const lookupTableItems: LookupTableItem[][] = [
         },
         {
             value: 70,
-            decorator: 'preferred',
+            decorator: 'body-plus',
         },
         {
             value: 60,
             decorator: 'body-plus',
         },
         {
-            value: 50,
+            value: 55,
             decorator: 'body-plus',
         },
         {
-            value: 45,
+            value: 55,
         },
         {
-            value: 40,
+            value: 55,
         },
     ],
     [
@@ -278,18 +238,18 @@ export const lookupTableItems: LookupTableItem[][] = [
             decorator: 'body-plus',
         },
         {
+            value: 55,
+            decorator: 'body-plus',
+        },
+        {
             value: 50,
             decorator: 'body-plus',
         },
         {
-            value: 45,
-            decorator: 'body-plus',
+            value: 50,
         },
         {
-            value: 40,
-        },
-        {
-            value: 35,
+            value: 50,
         },
     ],
     [
@@ -318,17 +278,18 @@ export const lookupTableItems: LookupTableItem[][] = [
             decorator: 'body-plus',
         },
         {
+            value: 50,
+            decorator: 'body-plus',
+        },
+        {
             value: 45,
             decorator: 'body-plus',
         },
         {
-            value: 40,
+            value: 45,
         },
         {
-            value: 40,
-        },
-        {
-            value: 35,
+            value: 45,
         },
     ],
     [
@@ -341,11 +302,11 @@ export const lookupTableItems: LookupTableItem[][] = [
             decorator: 'prohibited',
         },
         {
-            value: 95,
+            value: 100,
         },
         {
             value: 70,
-            decorator: 'preferred',
+            decorator: 'body-plus',
         },
         {
             value: 55,
@@ -356,16 +317,18 @@ export const lookupTableItems: LookupTableItem[][] = [
             decorator: 'body-plus',
         },
         {
-            value: 40,
+            value: 45,
+            decorator: 'body-plus',
         },
         {
-            value: 40,
+            value: 43,
+            decorator: 'body-plus',
         },
         {
-            value: 35,
+            value: 43,
         },
         {
-            value: 35,
+            value: 43,
         },
     ],
     [
@@ -378,7 +341,7 @@ export const lookupTableItems: LookupTableItem[][] = [
             decorator: 'prohibited',
         },
         {
-            value: 85,
+            value: 90,
         },
         {
             value: 65,
@@ -393,16 +356,18 @@ export const lookupTableItems: LookupTableItem[][] = [
             decorator: 'body-plus',
         },
         {
+            value: 43,
+            decorator: 'body-plus',
+        },
+        {
+            value: 40,
+            decorator: 'body-plus',
+        },
+        {
             value: 40,
         },
         {
-            value: 35,
-        },
-        {
-            value: 35,
-        },
-        {
-            value: 30,
+            value: 40,
         },
     ],
     [
@@ -419,24 +384,63 @@ export const lookupTableItems: LookupTableItem[][] = [
         },
         {
             value: 60,
+            decorator: 'body-plus',
         },
         {
             value: 45,
+            decorator: 'body-plus',
+        },
+        {
+            value: 43,
+            decorator: 'body-plus',
+        },
+        {
+            value: 40,
+            decorator: 'body-plus',
+        },
+        {
+            value: 38,
+            decorator: 'body-plus',
+        },
+        {
+            value: 38,
+        },
+        {
+            value: 38,
+        },
+    ],
+    [
+        {
+            value: '42px',
+            decorator: 'header',
+        },
+        {
+            value: 100,
+            decorator: 'not-recommended',
+        },
+        {
+            value: 70,
+        },
+        {
+            value: 55,
+        },
+        {
+            value: 43,
         },
         {
             value: 40,
         },
         {
-            value: 35,
+            value: 38,
         },
         {
             value: 35,
         },
         {
-            value: 30,
+            value: 35,
         },
         {
-            value: 30,
+            value: 35,
         },
     ],
     [
@@ -445,7 +449,7 @@ export const lookupTableItems: LookupTableItem[][] = [
             decorator: 'header',
         },
         {
-            value: 95,
+            value: 90,
             decorator: 'not-recommended',
         },
         {
@@ -458,19 +462,19 @@ export const lookupTableItems: LookupTableItem[][] = [
             value: 40,
         },
         {
-            value: 35,
+            value: 38,
         },
         {
             value: 35,
         },
         {
-            value: 30,
+            value: 33,
         },
         {
-            value: 30,
+            value: 33,
         },
         {
-            value: '30',
+            value: 33,
         },
     ],
     [
@@ -483,19 +487,19 @@ export const lookupTableItems: LookupTableItem[][] = [
             decorator: 'not-recommended',
         },
         {
-            value: 50,
+            value: 55,
         },
         {
             value: 45,
         },
         {
-            value: 40,
+            value: 38,
         },
         {
             value: 35,
         },
         {
-            value: 30,
+            value: 33,
         },
         {
             value: 30,
@@ -513,11 +517,11 @@ export const lookupTableItems: LookupTableItem[][] = [
             decorator: 'header',
         },
         {
-            value: 65,
+            value: 60,
             decorator: 'not-recommended',
         },
         {
-            value: 45,
+            value: 50,
         },
         {
             value: 40,
@@ -526,7 +530,7 @@ export const lookupTableItems: LookupTableItem[][] = [
             value: 35,
         },
         {
-            value: 30,
+            value: 33,
         },
         {
             value: 30,
@@ -551,13 +555,13 @@ export const lookupTableItems: LookupTableItem[][] = [
             decorator: 'not-recommended',
         },
         {
-            value: 40,
+            value: 45,
         },
         {
             value: 35,
         },
         {
-            value: 30,
+            value: 33,
         },
         {
             value: 30,
