@@ -1,7 +1,6 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import App from '.';
 import legacyContrast from '../../utils/legacy-ratio';
-import wait from '../../utils/test-helpers/wait';
 import { APCAcontrast, sRGBtoY } from 'apca-w3';
 
 describe('App', () => {
@@ -102,8 +101,8 @@ describe('App', () => {
 
         expect(legacyContrastValueElem.textContent).toContain(legacyContrastValue.toFixed(2));
 
-        const fgInput = container.querySelector<HTMLProteanInputElement>('.apca-demo .foreground-input')!;
-        const fgRatioInput = container.querySelector<HTMLProteanInputElement>('.ratio-demo .foreground-input')!;
+        const fgInput = container.querySelector('.apca-demo .foreground-input')! as unknown as HTMLProteanInputElement;
+        const fgRatioInput = container.querySelector('.ratio-demo .foreground-input')! as unknown as HTMLProteanInputElement;
 
         expect(fgInput.value).toEqual('#1a1a1a');
         expect(fgRatioInput.value).toEqual('#1a1a1a');
@@ -126,9 +125,7 @@ describe('App', () => {
             })
         );
 
-        await wait(5);
-
-        expect(fgInput.value).toEqual('#ff');
+        await waitFor(() => expect(fgInput.value).toEqual('#ff'));
         expect(fgRatioInput.value).toEqual('#ff');
         expect(fgValue.textContent).toContain('#ffffff');
         expect(fgValue.textContent).toContain('rgb(255, 255, 255)');
@@ -139,8 +136,8 @@ describe('App', () => {
     it('updates state onHexSwap', () => {
         const { container } = render(<App />);
 
-        const fgInput = container.querySelector<HTMLProteanInputElement>('.apca-demo .foreground-input')!;
-        const fgRatioInput = container.querySelector<HTMLProteanInputElement>('.ratio-demo .foreground-input')!;
+        const fgInput = container.querySelector('.apca-demo .foreground-input')! as unknown as HTMLProteanInputElement;
+        const fgRatioInput = container.querySelector('.ratio-demo .foreground-input')! as unknown as HTMLProteanInputElement;
 
         expect(fgInput.value).toEqual('#1a1a1a');
         expect(fgRatioInput.value).toEqual('#1a1a1a');
