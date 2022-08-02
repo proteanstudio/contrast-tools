@@ -307,7 +307,7 @@ describe('ContrastChecker', () => {
             })
         );
 
-       await waitFor(() => expect(bgInput.errors).toEqual(undefined));
+        await waitFor(() => expect(bgInput.errors).toEqual(undefined));
         expect(props.onColorChange).toHaveBeenCalledTimes(2);
 
         updatedBackgroundColor = {
@@ -414,7 +414,7 @@ describe('ContrastChecker', () => {
             })
         );
 
-        await waitFor(() =>expect(fgInput.errors).toEqual(undefined));
+        await waitFor(() => expect(fgInput.errors).toEqual(undefined));
         expect(props.onColorChange).toHaveBeenCalledTimes(1);
 
         const updatedForegroundColor: IColorData = {

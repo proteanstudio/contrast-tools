@@ -102,7 +102,9 @@ describe('App', () => {
         expect(legacyContrastValueElem.textContent).toContain(legacyContrastValue.toFixed(2));
 
         const fgInput = container.querySelector('.apca-demo .foreground-input')! as unknown as HTMLProteanInputElement;
-        const fgRatioInput = container.querySelector('.ratio-demo .foreground-input')! as unknown as HTMLProteanInputElement;
+        const fgRatioInput = container.querySelector(
+            '.ratio-demo .foreground-input'
+        )! as unknown as HTMLProteanInputElement;
 
         expect(fgInput.value).toEqual('#1a1a1a');
         expect(fgRatioInput.value).toEqual('#1a1a1a');
@@ -137,7 +139,9 @@ describe('App', () => {
         const { container } = render(<App />);
 
         const fgInput = container.querySelector('.apca-demo .foreground-input')! as unknown as HTMLProteanInputElement;
-        const fgRatioInput = container.querySelector('.ratio-demo .foreground-input')! as unknown as HTMLProteanInputElement;
+        const fgRatioInput = container.querySelector(
+            '.ratio-demo .foreground-input'
+        )! as unknown as HTMLProteanInputElement;
 
         expect(fgInput.value).toEqual('#1a1a1a');
         expect(fgRatioInput.value).toEqual('#1a1a1a');

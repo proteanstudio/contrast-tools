@@ -1,0 +1,9 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "extends": ["eslint:recommended"],
+    "plugins": [ "react", "jest", "import", "testing-library", "@typescript-eslint"],
+    "rules": {
+        "no-unused-vars": "error"
+    },
+    "ignorePatterns": ["*.config.js", "docs/**/*"]
+}
