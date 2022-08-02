@@ -50,6 +50,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/parser", "virtual:0fef9cfdefbf5bcc1b98d95cca7d10065348c88dbe3025bbe0f92d899edcc67c639c426285ce0190a7cdc210b883cdaf0f5ba3e4a9b02b6ccff1ba8b79191f72#npm:4.15.2"],\
             ["apca-w3", "npm:0.1.1"],\
             ["babel-loader", "virtual:0fef9cfdefbf5bcc1b98d95cca7d10065348c88dbe3025bbe0f92d899edcc67c639c426285ce0190a7cdc210b883cdaf0f5ba3e4a9b02b6ccff1ba8b79191f72#npm:8.2.5"],\
+            ["copy-webpack-plugin", "virtual:0fef9cfdefbf5bcc1b98d95cca7d10065348c88dbe3025bbe0f92d899edcc67c639c426285ce0190a7cdc210b883cdaf0f5ba3e4a9b02b6ccff1ba8b79191f72#npm:11.0.0"],\
             ["css-loader", "virtual:0fef9cfdefbf5bcc1b98d95cca7d10065348c88dbe3025bbe0f92d899edcc67c639c426285ce0190a7cdc210b883cdaf0f5ba3e4a9b02b6ccff1ba8b79191f72#npm:6.7.1"],\
             ["eslint", "npm:8.20.0"],\
             ["eslint-plugin-import", "virtual:0fef9cfdefbf5bcc1b98d95cca7d10065348c88dbe3025bbe0f92d899edcc67c639c426285ce0190a7cdc210b883cdaf0f5ba3e4a9b02b6ccff1ba8b79191f72#npm:2.26.0"],\
@@ -6899,6 +6900,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/parser", "virtual:0fef9cfdefbf5bcc1b98d95cca7d10065348c88dbe3025bbe0f92d899edcc67c639c426285ce0190a7cdc210b883cdaf0f5ba3e4a9b02b6ccff1ba8b79191f72#npm:4.15.2"],\
             ["apca-w3", "npm:0.1.1"],\
             ["babel-loader", "virtual:0fef9cfdefbf5bcc1b98d95cca7d10065348c88dbe3025bbe0f92d899edcc67c639c426285ce0190a7cdc210b883cdaf0f5ba3e4a9b02b6ccff1ba8b79191f72#npm:8.2.5"],\
+            ["copy-webpack-plugin", "virtual:0fef9cfdefbf5bcc1b98d95cca7d10065348c88dbe3025bbe0f92d899edcc67c639c426285ce0190a7cdc210b883cdaf0f5ba3e4a9b02b6ccff1ba8b79191f72#npm:11.0.0"],\
             ["css-loader", "virtual:0fef9cfdefbf5bcc1b98d95cca7d10065348c88dbe3025bbe0f92d899edcc67c639c426285ce0190a7cdc210b883cdaf0f5ba3e4a9b02b6ccff1ba8b79191f72#npm:6.7.1"],\
             ["eslint", "npm:8.20.0"],\
             ["eslint-plugin-import", "virtual:0fef9cfdefbf5bcc1b98d95cca7d10065348c88dbe3025bbe0f92d899edcc67c639c426285ce0190a7cdc210b883cdaf0f5ba3e4a9b02b6ccff1ba8b79191f72#npm:2.26.0"],\
@@ -6989,6 +6991,34 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/cookie-signature-npm-1.0.6-93f325f7f0-f4e1b0a98a.zip/node_modules/cookie-signature/",\
           "packageDependencies": [\
             ["cookie-signature", "npm:1.0.6"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["copy-webpack-plugin", [\
+        ["npm:11.0.0", {\
+          "packageLocation": "./.yarn/cache/copy-webpack-plugin-npm-11.0.0-9a07415855-df4f8743f0.zip/node_modules/copy-webpack-plugin/",\
+          "packageDependencies": [\
+            ["copy-webpack-plugin", "npm:11.0.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:0fef9cfdefbf5bcc1b98d95cca7d10065348c88dbe3025bbe0f92d899edcc67c639c426285ce0190a7cdc210b883cdaf0f5ba3e4a9b02b6ccff1ba8b79191f72#npm:11.0.0", {\
+          "packageLocation": "./.yarn/__virtual__/copy-webpack-plugin-virtual-5382e188eb/0/cache/copy-webpack-plugin-npm-11.0.0-9a07415855-df4f8743f0.zip/node_modules/copy-webpack-plugin/",\
+          "packageDependencies": [\
+            ["copy-webpack-plugin", "virtual:0fef9cfdefbf5bcc1b98d95cca7d10065348c88dbe3025bbe0f92d899edcc67c639c426285ce0190a7cdc210b883cdaf0f5ba3e4a9b02b6ccff1ba8b79191f72#npm:11.0.0"],\
+            ["@types/webpack", null],\
+            ["fast-glob", "npm:3.2.11"],\
+            ["glob-parent", "npm:6.0.2"],\
+            ["globby", "npm:13.1.2"],\
+            ["normalize-path", "npm:3.0.0"],\
+            ["schema-utils", "npm:4.0.0"],\
+            ["serialize-javascript", "npm:6.0.0"],\
+            ["webpack", "virtual:0fef9cfdefbf5bcc1b98d95cca7d10065348c88dbe3025bbe0f92d899edcc67c639c426285ce0190a7cdc210b883cdaf0f5ba3e4a9b02b6ccff1ba8b79191f72#npm:5.73.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/webpack",\
+            "webpack"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -8916,6 +8946,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ignore", "npm:5.2.0"],\
             ["merge2", "npm:1.4.1"],\
             ["slash", "npm:3.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:13.1.2", {\
+          "packageLocation": "./.yarn/cache/globby-npm-13.1.2-3d26efd428-c148fcda0c.zip/node_modules/globby/",\
+          "packageDependencies": [\
+            ["globby", "npm:13.1.2"],\
+            ["dir-glob", "npm:3.0.1"],\
+            ["fast-glob", "npm:3.2.11"],\
+            ["ignore", "npm:5.2.0"],\
+            ["merge2", "npm:1.4.1"],\
+            ["slash", "npm:4.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\
