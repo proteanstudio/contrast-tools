@@ -48,9 +48,9 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
     };
 
     hexToRGB(hex: string): string {
-        const r = parseInt(hex.substr(1, 2), 16);
-        const g = parseInt(hex.substr(3, 2), 16);
-        const b = parseInt(hex.substr(5, 2), 16);
+        const r = parseInt(hex.substring(1, 3), 16);
+        const g = parseInt(hex.substring(3, 5), 16);
+        const b = parseInt(hex.substring(5, 7), 16);
         return `rgb(${r}, ${g}, ${b})`;
     }
 
@@ -87,16 +87,16 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
                 break;
             case 3:
                 colorObj = {
-                    r: workingColor.substr(0, 1) + workingColor.substr(0, 1),
-                    g: workingColor.substr(1, 1) + workingColor.substr(1, 1),
-                    b: workingColor.substr(2, 1) + workingColor.substr(2, 1),
+                    r: workingColor.substring(0, 1) + workingColor.substring(0, 1),
+                    g: workingColor.substring(1, 2) + workingColor.substring(1, 2),
+                    b: workingColor.substring(2, 3) + workingColor.substring(2, 3),
                 };
                 break;
             case 6:
                 colorObj = {
-                    r: workingColor.substr(0, 2),
-                    g: workingColor.substr(2, 2),
-                    b: workingColor.substr(4, 2),
+                    r: workingColor.substring(0, 2),
+                    g: workingColor.substring(2, 4),
+                    b: workingColor.substring(4, 6),
                 };
                 break;
             default:

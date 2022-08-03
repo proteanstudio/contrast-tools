@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react';
+import { act, render, fireEvent, waitFor } from '@testing-library/react';
 import ContrastChecker, { ContrastCheckerProps } from '.';
 import wait from '../../utils/test-helpers/wait';
 import { APCAcontrast, sRGBtoY } from 'apca-w3';
@@ -36,8 +36,8 @@ describe('ContrastChecker', () => {
         const component = container.children[0];
         expect(component).toHaveClass('contrast-checker');
 
-        const fgInput = container.querySelector<HTMLProteanInputElement>('.foreground-input')!;
-        const bgInput = container.querySelector<HTMLProteanInputElement>('.background-input')!;
+        const fgInput = container.querySelector('.foreground-input')! as unknown as HTMLProteanInputElement;
+        const bgInput = container.querySelector('.background-input')! as unknown as HTMLProteanInputElement;
 
         expect(fgInput.value).toEqual('#1a1a1a');
         expect(fgInput.type).toEqual('color-code');
@@ -68,8 +68,8 @@ describe('ContrastChecker', () => {
         };
         const { container } = render(<ContrastChecker {...props} />);
 
-        const fgInput = container.querySelector<HTMLProteanInputElement>('.foreground-input')!;
-        const bgInput = container.querySelector<HTMLProteanInputElement>('.background-input')!;
+        const fgInput = container.querySelector('.foreground-input')! as unknown as HTMLProteanInputElement;
+        const bgInput = container.querySelector('.background-input')! as unknown as HTMLProteanInputElement;
 
         expect(fgInput.value).toEqual('#1a1a1a');
         expect(bgInput.value).toEqual('#c7b5fb');
@@ -84,9 +84,7 @@ describe('ContrastChecker', () => {
             })
         );
 
-        await wait(5); //debounce timer - can mock if time becomes a problem
-
-        expect(fgInput.errors).toEqual(['Please enter a valid hex color code']);
+        await waitFor(() => expect(fgInput.errors).toEqual(['Please enter a valid hex color code']));
         expect(props.onColorChange).toHaveBeenCalledTimes(0);
 
         fireEvent(
@@ -99,9 +97,7 @@ describe('ContrastChecker', () => {
             })
         );
 
-        await wait(5); //debounce timer
-
-        expect(fgInput.errors).toEqual(undefined);
+        await waitFor(() => expect(fgInput.errors).toEqual(undefined));
         expect(props.onColorChange).toHaveBeenCalledTimes(1);
 
         let updatedForegroundColor: IColorData = {
@@ -124,10 +120,8 @@ describe('ContrastChecker', () => {
             })
         );
 
-        await wait(5); //debounce timer
-
+        await waitFor(() => expect(props.onColorChange).toHaveBeenCalledTimes(2));
         expect(fgInput.errors).toEqual(undefined);
-        expect(props.onColorChange).toHaveBeenCalledTimes(2);
 
         updatedForegroundColor = {
             ...foregroundColor,
@@ -145,10 +139,8 @@ describe('ContrastChecker', () => {
             })
         );
 
-        await wait(5); //debounce timer
-
+        await waitFor(() => expect(props.onColorChange).toHaveBeenCalledTimes(3));
         expect(fgInput.errors).toEqual(undefined);
-        expect(props.onColorChange).toHaveBeenCalledTimes(3);
 
         updatedForegroundColor = {
             hexString: '#11aa22',
@@ -170,9 +162,7 @@ describe('ContrastChecker', () => {
             })
         );
 
-        await wait(5); //debounce timer
-
-        expect(fgInput.errors).toEqual(['Please enter a valid hex color code']);
+        await waitFor(() => expect(fgInput.errors).toEqual(['Please enter a valid hex color code']));
         expect(props.onColorChange).toHaveBeenCalledTimes(3);
 
         fireEvent(
@@ -185,7 +175,7 @@ describe('ContrastChecker', () => {
             })
         );
 
-        await wait(5); //debounce timer
+        await act(async () => wait(5)); //debounce timer
 
         expect(fgInput.errors).toEqual(['Please enter a valid hex color code']);
         expect(props.onColorChange).toHaveBeenCalledTimes(3);
@@ -200,9 +190,7 @@ describe('ContrastChecker', () => {
             })
         );
 
-        await wait(5); //debounce timer
-
-        expect(fgInput.errors).toEqual(undefined);
+        await waitFor(() => expect(fgInput.errors).toEqual(undefined));
         expect(props.onColorChange).toHaveBeenCalledTimes(4);
 
         updatedForegroundColor = {
@@ -227,7 +215,7 @@ describe('ContrastChecker', () => {
         };
         const { container } = render(<ContrastChecker {...props} />);
 
-        const fgInput = container.querySelector<HTMLProteanInputElement>('.foreground-color-input')!;
+        const fgInput = container.querySelector('.foreground-color-input')! as unknown as HTMLProteanInputElement;
 
         expect(fgInput.value).toEqual('#1a1a1a');
 
@@ -268,7 +256,7 @@ describe('ContrastChecker', () => {
         };
         const { container } = render(<ContrastChecker {...props} />);
 
-        const bgInput = container.querySelector<HTMLProteanInputElement>('.background-input')!;
+        const bgInput = container.querySelector('.background-input')! as unknown as HTMLProteanInputElement;
 
         expect(bgInput.value).toEqual('#c7b5fb');
 
@@ -306,9 +294,7 @@ describe('ContrastChecker', () => {
             })
         );
 
-        await wait(5); //debounce timer
-
-        expect(bgInput.errors).toEqual(['Please enter a valid hex color code']);
+        await waitFor(() => expect(bgInput.errors).toEqual(['Please enter a valid hex color code']));
         expect(props.onColorChange).toHaveBeenCalledTimes(1);
 
         fireEvent(
@@ -321,9 +307,7 @@ describe('ContrastChecker', () => {
             })
         );
 
-        await wait(5); //debounce timer
-
-        expect(bgInput.errors).toEqual(undefined);
+        await waitFor(() => expect(bgInput.errors).toEqual(undefined));
         expect(props.onColorChange).toHaveBeenCalledTimes(2);
 
         updatedBackgroundColor = {
@@ -349,7 +333,7 @@ describe('ContrastChecker', () => {
         };
         const { container } = render(<ContrastChecker {...props} />);
 
-        const bgInput = container.querySelector<HTMLProteanInputElement>('.background-color-input')!;
+        const bgInput = container.querySelector('.background-color-input')! as unknown as HTMLProteanInputElement;
 
         expect(bgInput.value).toEqual('#c7b5fb');
 
@@ -392,7 +376,7 @@ describe('ContrastChecker', () => {
 
         expect(props.onHexSwap).toHaveBeenCalledTimes(0);
 
-        const fgInput = container.querySelector<HTMLProteanInputElement>('.foreground-input')!;
+        const fgInput = container.querySelector('.foreground-input')! as unknown as HTMLProteanInputElement;
 
         expect(fgInput.value).toEqual('#1a1a1a');
         expect(fgInput.format).toEqual('hex');
@@ -416,9 +400,8 @@ describe('ContrastChecker', () => {
                 },
             })
         );
-        await wait(5); //debounce timer
 
-        expect(fgInput.errors).toEqual(['Please enter a valid rgb color code']);
+        await waitFor(() => expect(fgInput.errors).toEqual(['Please enter a valid rgb color code']));
         expect(props.onColorChange).toHaveBeenCalledTimes(0);
 
         fireEvent(
@@ -430,9 +413,8 @@ describe('ContrastChecker', () => {
                 },
             })
         );
-        await wait(5); //debounce timer
 
-        expect(fgInput.errors).toEqual(undefined);
+        await waitFor(() => expect(fgInput.errors).toEqual(undefined));
         expect(props.onColorChange).toHaveBeenCalledTimes(1);
 
         const updatedForegroundColor: IColorData = {
