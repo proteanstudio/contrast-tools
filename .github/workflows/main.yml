@@ -1,6 +1,7 @@
 
 name: Build Production
 
+on:
   push:
     branches: [ "main" ]
 
