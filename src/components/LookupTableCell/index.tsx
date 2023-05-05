@@ -21,10 +21,6 @@ export default class LookupTableCell extends Component<LookupTableCellProps> {
     }
 
     get rating(): number {
-        if (this.isIncalculable) {
-            return 0;
-        }
-
         if (this.props.rating) return this.props.rating;
 
         return APCARating(this.props.comparisonValue!, this.props.value as number);

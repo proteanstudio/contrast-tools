@@ -14,13 +14,11 @@ export default class ProteanTabContainer extends Component<IProteanTabContainer>
     bindProps() {
         const tabContainer = this.elementRef?.current as IProteanTabContainer & IDict;
 
-        if (tabContainer) {
-            const { children, ref, ...propsToCopy } = this.props;
+        const { children, ref, ...propsToCopy } = this.props;
 
-            Object.entries(propsToCopy).forEach(([key, value]) => {
-                tabContainer[key] = value;
-            });
-        }
+        Object.entries(propsToCopy).forEach(([key, value]) => {
+            tabContainer[key] = value;
+        });
     }
 
     render() {

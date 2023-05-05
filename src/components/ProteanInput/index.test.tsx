@@ -1,12 +1,13 @@
 import { fireEvent, render } from '@testing-library/react';
 import ProteanInput from '.';
+import { jest } from '@jest/globals';
 
 describe('ProteanInput', () => {
     it('binds all named properties', () => {
-        const onchange = jest.fn().mockImplementation((event: CustomEvent) => {
+        const onchange = jest.fn<any>().mockImplementation((event: CustomEvent) => {
             (event.target as HTMLProteanInputElement).value = event.detail.value;
         });
-        const oninput = jest.fn().mockImplementation((event: CustomEvent) => {
+        const oninput = jest.fn<any>().mockImplementation((event: CustomEvent) => {
             (event.target as HTMLProteanInputElement).value = event.detail.value;
         });
 

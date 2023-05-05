@@ -1,6 +1,7 @@
 import { fireEvent, render } from '@testing-library/react';
 import APCADemo, { APCADemoProps } from '.';
 import { APCAcontrast, sRGBtoY } from 'apca-w3';
+import { jest } from '@jest/globals';
 
 describe('APCA Demo', () => {
     const foregroundColor = {

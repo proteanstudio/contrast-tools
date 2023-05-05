@@ -13,29 +13,80 @@ describe('App', () => {
         expect(container.querySelector('h1')?.textContent?.trim()).toEqual('Contrast tools');
 
         const tabContainer = container.querySelector('protean-tab-container');
-        expect(tabContainer?.value).toEqual('wcag-30');
+        expect(tabContainer?.value).toEqual('apca');
 
         const darkModeToggle = container.querySelector<HTMLProteanCheckboxElement>('.dark-mode-toggle');
         expect(darkModeToggle?.checked).toEqual(false);
         expect(localStorage.getItem('darkModeEnabled')).toEqual(null);
 
-        const APCAContrastValue = APCAcontrast(sRGBtoY([26, 26, 26]), sRGBtoY([199, 181, 251]));
+        const APCAContrastValue = APCAcontrast(sRGBtoY([255, 255, 255]), sRGBtoY([110, 69, 228]));
         const APCAContrastValueElem = container.querySelector<HTMLDivElement>('.apca-demo .contrast-value')!;
 
         expect(APCAContrastValueElem.textContent).toContain(APCAContrastValue.toFixed(2));
 
-        const legacyContrastValue = legacyContrast([26, 26, 26], [199, 181, 251]);
+        const legacyContrastValue = legacyContrast([255, 255, 255], [110, 69, 228]);
 
         const legacyContrastValueElem = container.querySelector<HTMLDivElement>('.ratio-demo .contrast-value')!;
 
         expect(legacyContrastValueElem.textContent).toContain(legacyContrastValue.toFixed(2));
     });
 
+    it('inits from query params', () => {
+        const origLocation = global.location;
+        delete (global as any).location;
+        global.location = {
+            search: '?text=000000&background=ffffff',
+        } as Location;
+
+        const { container } = render(<App />);
+
+        const APCAContrastValue = APCAcontrast(sRGBtoY([0, 0, 0]), sRGBtoY([255, 255, 255]));
+        const APCAContrastValueElem = container.querySelector<HTMLDivElement>('.apca-demo .contrast-value')!;
+
+        expect(APCAContrastValueElem.textContent).toContain(APCAContrastValue.toFixed(2));
+
+        global.location = origLocation;
+    });
+
+    it('falls back to default from invalid query params', () => {
+        const origLocation = global.location;
+        delete (global as any).location;
+        global.location = {
+            search: '?text=foobar&background=ffffff',
+        } as Location;
+
+        const { container } = render(<App />);
+
+        const APCAContrastValue = APCAcontrast(sRGBtoY([255, 255, 255]), sRGBtoY([110, 69, 228]));
+        const APCAContrastValueElem = container.querySelector<HTMLDivElement>('.apca-demo .contrast-value')!;
+
+        expect(APCAContrastValueElem.textContent).toContain(APCAContrastValue.toFixed(2));
+
+        global.location = origLocation;
+    });
+
+    it('falls back to default with missing query params', () => {
+        const origLocation = global.location;
+        delete (global as any).location;
+        global.location = {
+            search: '?text=background=ffffff',
+        } as Location;
+
+        const { container } = render(<App />);
+
+        const APCAContrastValue = APCAcontrast(sRGBtoY([255, 255, 255]), sRGBtoY([110, 69, 228]));
+        const APCAContrastValueElem = container.querySelector<HTMLDivElement>('.apca-demo .contrast-value')!;
+
+        expect(APCAContrastValueElem.textContent).toContain(APCAContrastValue.toFixed(2));
+
+        global.location = origLocation;
+    });
+
     it('changes tabs', () => {
         const { container } = render(<App />);
 
         const tabContainer = container.querySelector('protean-tab-container')!;
-        expect(tabContainer.value).toEqual('wcag-30');
+        expect(tabContainer.value).toEqual('apca');
 
         fireEvent(
             tabContainer,
@@ -90,12 +141,12 @@ describe('App', () => {
     it('updates state onColorChange', async () => {
         const { container } = render(<App />);
 
-        let APCAContrastValue = APCAcontrast(sRGBtoY([26, 26, 26]), sRGBtoY([199, 181, 251]));
+        let APCAContrastValue = APCAcontrast(sRGBtoY([255, 255, 255]), sRGBtoY([110, 69, 228]));
         const APCAContrastValueElem = container.querySelector<HTMLDivElement>('.apca-demo .contrast-value')!;
 
         expect(APCAContrastValueElem.textContent).toContain(APCAContrastValue.toFixed(2));
 
-        let legacyContrastValue = legacyContrast([26, 26, 26], [199, 181, 251]);
+        let legacyContrastValue = legacyContrast([255, 255, 255], [110, 69, 228]);
 
         const legacyContrastValueElem = container.querySelector<HTMLDivElement>('.ratio-demo .contrast-value')!;
 
@@ -106,33 +157,33 @@ describe('App', () => {
             '.ratio-demo .foreground-input'
         )! as unknown as HTMLProteanInputElement;
 
-        expect(fgInput.value).toEqual('#1a1a1a');
-        expect(fgRatioInput.value).toEqual('#1a1a1a');
+        expect(fgInput.value).toEqual('#ffffff');
+        expect(fgRatioInput.value).toEqual('#ffffff');
 
         const fgValue = container.querySelector<HTMLDivElement>('.apca-demo .color-values')!;
         const fgRatioValue = container.querySelector<HTMLDivElement>('.ratio-demo .color-values')!;
 
-        expect(fgValue.textContent).toContain('#1a1a1a');
-        expect(fgValue.textContent).toContain('rgb(26, 26, 26)');
-        expect(fgRatioValue.textContent).toContain('#1a1a1a');
-        expect(fgRatioValue.textContent).toContain('rgb(26, 26, 26)');
+        expect(fgValue.textContent).toContain('#ffffff');
+        expect(fgValue.textContent).toContain('rgb(255, 255, 255)');
+        expect(fgRatioValue.textContent).toContain('#ffffff');
+        expect(fgRatioValue.textContent).toContain('rgb(255, 255, 255)');
 
         fireEvent(
             fgInput,
             new CustomEvent('input', {
                 detail: {
-                    value: '#ff',
-                    formattedValue: '#ff',
+                    value: '#00',
+                    formattedValue: '#00',
                 },
             })
         );
 
-        await waitFor(() => expect(fgInput.value).toEqual('#ff'));
-        expect(fgRatioInput.value).toEqual('#ff');
-        expect(fgValue.textContent).toContain('#ffffff');
-        expect(fgValue.textContent).toContain('rgb(255, 255, 255)');
-        expect(fgRatioValue.textContent).toContain('#ffffff');
-        expect(fgRatioValue.textContent).toContain('rgb(255, 255, 255)');
+        await waitFor(() => expect(fgInput.value).toEqual('#00'));
+        expect(fgRatioInput.value).toEqual('#00');
+        expect(fgValue.textContent).toContain('#000000');
+        expect(fgValue.textContent).toContain('rgb(0, 0, 0)');
+        expect(fgRatioValue.textContent).toContain('#000000');
+        expect(fgRatioValue.textContent).toContain('rgb(0, 0, 0)');
     });
 
     it('updates state onHexSwap', () => {
@@ -143,8 +194,8 @@ describe('App', () => {
             '.ratio-demo .foreground-input'
         )! as unknown as HTMLProteanInputElement;
 
-        expect(fgInput.value).toEqual('#1a1a1a');
-        expect(fgRatioInput.value).toEqual('#1a1a1a');
+        expect(fgInput.value).toEqual('#ffffff');
+        expect(fgRatioInput.value).toEqual('#ffffff');
 
         const ratioRGBRadio = container.querySelector<HTMLInputElement>(
             '.ratio-demo input[type="radio"][value="rgb"]'
@@ -152,7 +203,16 @@ describe('App', () => {
 
         fireEvent(ratioRGBRadio, new MouseEvent('click', { bubbles: true }));
 
-        expect(fgInput.value).toEqual('rgb(26, 26, 26)');
-        expect(fgRatioInput.value).toEqual('rgb(26, 26, 26)');
+        expect(fgInput.value).toEqual('rgb(255, 255, 255)');
+        expect(fgRatioInput.value).toEqual('rgb(255, 255, 255)');
+
+        const ratioHexRadio = container.querySelector<HTMLInputElement>(
+            '.ratio-demo input[type="radio"][value="hex"]'
+        )!;
+
+        fireEvent(ratioHexRadio, new MouseEvent('click', { bubbles: true }));
+
+        expect(fgInput.value).toEqual('#ffffff');
+        expect(fgRatioInput.value).toEqual('#ffffff');
     });
 });

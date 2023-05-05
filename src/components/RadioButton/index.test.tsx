@@ -1,5 +1,6 @@
 import { fireEvent, render } from '@testing-library/react';
 import RadioButton, { RadioButtonProps } from '.';
+import { jest } from '@jest/globals';
 
 describe('RadioButton', () => {
     it('renders default state', () => {
