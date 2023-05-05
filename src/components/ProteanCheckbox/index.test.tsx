@@ -1,9 +1,10 @@
 import { fireEvent, render } from '@testing-library/react';
 import ProteanCheckbox from '.';
+import { jest } from '@jest/globals';
 
 describe('ProteanCheckbox', () => {
     it('binds all named properties', () => {
-        const onchange = jest.fn().mockImplementation((event: CustomEvent) => {
+        const onchange = jest.fn<any>().mockImplementation((event: CustomEvent) => {
             (event.target as HTMLProteanCheckboxElement).checked = event.detail.checked;
         });
 

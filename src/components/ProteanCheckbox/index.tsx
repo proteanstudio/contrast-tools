@@ -12,15 +12,13 @@ export default class ProteanCheckbox extends Component<IProteanCheckbox> {
     }
 
     bindProps() {
-        const checkbox = this.elementRef?.current as IProteanCheckbox & IDict;
+        const checkbox = this.elementRef.current as IProteanCheckbox & IDict;
 
-        if (checkbox) {
-            const { children, ref, ...propsToCopy } = this.props;
+        const { children, ref, ...propsToCopy } = this.props;
 
-            Object.entries(propsToCopy).forEach(([key, value]) => {
-                checkbox[key] = value;
-            });
-        }
+        Object.entries(propsToCopy).forEach(([key, value]) => {
+            checkbox[key] = value;
+        });
     }
 
     render() {

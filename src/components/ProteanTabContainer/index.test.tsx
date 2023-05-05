@@ -1,15 +1,16 @@
 import { fireEvent, render } from '@testing-library/react';
 import ProteanTabContainer from '.';
+import { jest } from '@jest/globals';
 
 describe('ProteanTabContainer', () => {
     it('binds all named properties', () => {
-        const onchange = jest.fn().mockImplementation((event: CustomEvent) => {
+        const onchange = jest.fn<any>().mockImplementation((event: CustomEvent) => {
             (event.target as HTMLProteanTabContainerElement).value = event.detail.value;
         });
 
         const props: IProteanTabContainer = {
             className: 'test-class',
-            value: 'wcag-30',
+            value: 'apca',
             name: 'test-name',
             onchange,
         };
@@ -25,7 +26,7 @@ describe('ProteanTabContainer', () => {
         expect(proteanTabContainerElement.className).toEqual('test-class');
         expect(proteanTabContainerElement.onchange).toEqual(onchange);
         expect(onchange).toHaveBeenCalledTimes(0);
-        expect(proteanTabContainerElement.value).toEqual('wcag-30');
+        expect(proteanTabContainerElement.value).toEqual('apca');
         expect(proteanTabContainerElement.name).toEqual('test-name');
         expect(proteanTabContainerElement.querySelector('.child-items')).not.toBeNull();
 

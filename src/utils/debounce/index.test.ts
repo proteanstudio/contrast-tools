@@ -1,5 +1,6 @@
 import wait from '../test-helpers/wait';
 import debounce from './';
+import { jest } from '@jest/globals';
 
 describe('debounce', () => {
     it('debounces at default 100ms', async () => {
@@ -66,9 +67,7 @@ describe('debounce', () => {
     it('accepts arguments', async () => {
         const setTimeoutSpy = jest.spyOn(window, 'setTimeout');
 
-        const fn = jest.fn().mockImplementation((num: number, str: string) => {
-            /*  */
-        });
+        const fn = jest.fn();
         const debouncedFn = debounce(fn, 2);
 
         debouncedFn(0, 'not this time');

@@ -12,15 +12,13 @@ export default class ProteanInput extends Component<IProteanInput> {
     }
 
     bindProps() {
-        const input = this.elementRef?.current as IProteanInput & IDict;
+        const input = this.elementRef.current as IProteanInput & IDict;
 
-        if (input) {
-            const { children, ref, ...propsToCopy } = this.props;
+        const { children, ref, ...propsToCopy } = this.props;
 
-            Object.entries(propsToCopy).forEach(([key, value]) => {
-                input[key] = value;
-            });
-        }
+        Object.entries(propsToCopy).forEach(([key, value]) => {
+            input[key] = value;
+        });
     }
 
     render() {

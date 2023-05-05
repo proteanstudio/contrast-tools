@@ -4,7 +4,7 @@ import ProteanTabPane from '.';
 describe('ProteanTabPane', () => {
     it('binds all named properties', () => {
         const props: IProteanTabPane = {
-            value: 'wcag-30',
+            value: 'apca',
             name: 'test-name',
             label: 'test-label',
         };
@@ -17,7 +17,7 @@ describe('ProteanTabPane', () => {
 
         const proteanTabPaneElement = container.querySelector('protean-tab-pane')!;
 
-        expect(proteanTabPaneElement.getAttribute('value')).toEqual('wcag-30');
+        expect(proteanTabPaneElement.getAttribute('value')).toEqual('apca');
         expect(proteanTabPaneElement.getAttribute('name')).toEqual('test-name');
         expect(proteanTabPaneElement.getAttribute('label')).toEqual('test-label');
         expect(proteanTabPaneElement.querySelector('.child-items')).not.toBeNull();

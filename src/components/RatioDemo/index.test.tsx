@@ -1,6 +1,7 @@
 import { fireEvent, render } from '@testing-library/react';
 import RatioDemo, { RatioDemoProps } from '.';
 import legacyContrast from '../../utils/legacy-ratio';
+import { jest } from '@jest/globals';
 
 describe('Ratio Demo', () => {
     const foregroundColor = {
