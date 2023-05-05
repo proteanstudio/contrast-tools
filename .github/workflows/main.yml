@@ -19,5 +19,18 @@ jobs:
     - run: yarn build
     - uses: actions/upload-artifact@v3
       with:
-        name: upload-built-assets
+        name: github-pages
         path: docs/
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
