@@ -29,19 +29,36 @@ export default class APCADemo extends Component<APCADemoProps> {
                     onHexSwap={this.props.onHexSwap}
                 />
                 <section>
-                    <h2>Color contrast in WCAG 3.0</h2>
+                    <h2>APCA and WCAG 3.0</h2>
                     <p>
-                        Color contrast value in WCAG 3.0 is calculated using the{' '}
+                        The{' '}
                         <a href="https://www.myndex.com/APCA/" rel="noreferrer" target="_blank">
-                            Advanced Perception of Color Algorithm (APCA)
-                        </a>
-                        . Unlike previous contrast calculations, the APCA considers the context in which colors are used
-                        to determine their readability. The font size, font weight, and sequence of background and text
-                        colors all impact the final WCAG rating.
+                            {' '}
+                            Advanced Perception of Color Algorithm (APCA){' '}
+                        </a>{' '}
+                        considers the context in which colors are used to determine their readability. Font size, font
+                        weight, and the sequence of background and text colors all impact the recommended contrast value
+                        (L<sup>c</sup>) for text.
                     </p>
                     <p>
-                        WCAG 3.0 ratings for text contrast are based on the proximity of a calculated contrast value (L
-                        <sup>c</sup>) to its target score on the APCA Lookup Table below.
+                        APCA was once included in{' '}
+                        <a
+                            href="https://www.w3.org/TR/wcag-3.0/#visual-contrast-of-text"
+                            rel="noreferrer"
+                            target="_blank"
+                        >
+                            WCAG 3.0
+                        </a>{' '}
+                        for color contrast evaluation but has{' '}
+                        <a href="https://w3c.github.io/silver/guidelines/" rel="noreferrer" target="_blank">
+                            since been removed
+                        </a>
+                        . The proposed WCAG 3.0 ratings for text contrast were based on the proximity of a calculated
+                        contrast value to its target score on the APCA Lookup Table below.
+                    </p>
+                    <p>
+                        The table key details how the color combination above would have scored in the the proposed WCAG
+                        3.0 rating system.
                     </p>
                     <section>
                         <h3>APCA Lookup Table</h3>

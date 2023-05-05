@@ -2,6 +2,7 @@ import { act, render, fireEvent, waitFor } from '@testing-library/react';
 import ContrastChecker, { ContrastCheckerProps } from '.';
 import wait from '../../utils/test-helpers/wait';
 import { APCAcontrast, sRGBtoY } from 'apca-w3';
+import { jest } from '@jest/globals';
 
 describe('ContrastChecker', () => {
     const foregroundColor = {
@@ -36,8 +37,8 @@ describe('ContrastChecker', () => {
         const component = container.children[0];
         expect(component).toHaveClass('contrast-checker');
 
-        const fgInput = container.querySelector('.foreground-input')! as unknown as HTMLProteanInputElement;
-        const bgInput = container.querySelector('.background-input')! as unknown as HTMLProteanInputElement;
+        const fgInput = container.querySelector<HTMLProteanInputElement>('.foreground-input')!;
+        const bgInput = container.querySelector<HTMLProteanInputElement>('.background-input')!;
 
         expect(fgInput.value).toEqual('#1a1a1a');
         expect(fgInput.type).toEqual('color-code');
@@ -68,8 +69,8 @@ describe('ContrastChecker', () => {
         };
         const { container } = render(<ContrastChecker {...props} />);
 
-        const fgInput = container.querySelector('.foreground-input')! as unknown as HTMLProteanInputElement;
-        const bgInput = container.querySelector('.background-input')! as unknown as HTMLProteanInputElement;
+        const fgInput = container.querySelector<HTMLProteanInputElement>('.foreground-input')!;
+        const bgInput = container.querySelector<HTMLProteanInputElement>('.background-input')!;
 
         expect(fgInput.value).toEqual('#1a1a1a');
         expect(bgInput.value).toEqual('#c7b5fb');
@@ -215,7 +216,7 @@ describe('ContrastChecker', () => {
         };
         const { container } = render(<ContrastChecker {...props} />);
 
-        const fgInput = container.querySelector('.foreground-color-input')! as unknown as HTMLProteanInputElement;
+        const fgInput = container.querySelector<HTMLProteanInputElement>('.foreground-color-input')!;
 
         expect(fgInput.value).toEqual('#1a1a1a');
 
@@ -256,7 +257,7 @@ describe('ContrastChecker', () => {
         };
         const { container } = render(<ContrastChecker {...props} />);
 
-        const bgInput = container.querySelector('.background-input')! as unknown as HTMLProteanInputElement;
+        const bgInput = container.querySelector<HTMLProteanInputElement>('.background-input')!;
 
         expect(bgInput.value).toEqual('#c7b5fb');
 
@@ -333,7 +334,7 @@ describe('ContrastChecker', () => {
         };
         const { container } = render(<ContrastChecker {...props} />);
 
-        const bgInput = container.querySelector('.background-color-input')! as unknown as HTMLProteanInputElement;
+        const bgInput = container.querySelector<HTMLProteanInputElement>('.background-color-input')!;
 
         expect(bgInput.value).toEqual('#c7b5fb');
 
@@ -376,7 +377,10 @@ describe('ContrastChecker', () => {
 
         expect(props.onHexSwap).toHaveBeenCalledTimes(0);
 
-        const fgInput = container.querySelector('.foreground-input')! as unknown as HTMLProteanInputElement;
+        const fgInput = container.querySelector<HTMLProteanInputElement>('.foreground-input')!;
+        const fgColorInput = container.querySelector<HTMLProteanInputElement>('.foreground-color-input')!;
+        const bgInput = container.querySelector<HTMLProteanInputElement>('.background-input')!;
+        const bgColorInput = container.querySelector<HTMLProteanInputElement>('.background-color-input')!;
 
         expect(fgInput.value).toEqual('#1a1a1a');
         expect(fgInput.format).toEqual('hex');
@@ -392,7 +396,7 @@ describe('ContrastChecker', () => {
         rerender(<ContrastChecker {...props} />);
 
         fireEvent(
-            fgInput,
+            fgColorInput,
             new CustomEvent('input', {
                 detail: {
                     value: 'rgb(26, 256, 26)',
@@ -402,6 +406,18 @@ describe('ContrastChecker', () => {
         );
 
         await waitFor(() => expect(fgInput.errors).toEqual(['Please enter a valid rgb color code']));
+        expect(props.onColorChange).toHaveBeenCalledTimes(0);
+
+        fireEvent(
+            bgColorInput,
+            new CustomEvent('input', {
+                detail: {
+                    value: 'rgb(26, 256, 26)',
+                    formattedValue: 'rgb(26, 256, 26)',
+                },
+            })
+        );
+        await waitFor(() => expect(bgInput.errors).toEqual(['Please enter a valid rgb color code']));
         expect(props.onColorChange).toHaveBeenCalledTimes(0);
 
         fireEvent(
@@ -428,7 +444,7 @@ describe('ContrastChecker', () => {
         expect(props.onColorChange).toHaveBeenCalledWith(updatedForegroundColor, backgroundColor);
     });
 
-    it('swaps foreground and background', async () => {
+    it('swaps foreground and background', () => {
         let props: ContrastCheckerProps = {
             foregroundColor,
             backgroundColor,
@@ -441,7 +457,7 @@ describe('ContrastChecker', () => {
 
         const { container, rerender } = render(<ContrastChecker {...props} />);
 
-        const colorSwapBtn = container.querySelector('protean-button')!;
+        const colorSwapBtn = container.querySelector<HTMLProteanButtonElement>('.swap-colors')!;
 
         fireEvent.click(colorSwapBtn);
 
@@ -456,5 +472,42 @@ describe('ContrastChecker', () => {
 
         expect(props.onColorChange).toHaveBeenCalledTimes(2);
         expect(props.onColorChange).toHaveBeenCalledWith(foregroundColor, backgroundColor);
+    });
+
+    it('copies colors to clipboard ', async () => {
+        const writeTextMock = jest.fn().mockImplementation(() => Promise.resolve());
+
+        (window.navigator as any).clipboard = { writeText: writeTextMock };
+
+        let props: ContrastCheckerProps = {
+            foregroundColor,
+            backgroundColor,
+            contrastValue: APCAcontrast(sRGBtoY(foregroundColor.rgb), sRGBtoY(backgroundColor.rgb)),
+            isAPCA: true,
+            isHex: true,
+            onColorChange: jest.fn(),
+            onHexSwap: jest.fn(),
+        };
+
+        const { container } = render(<ContrastChecker {...props} />);
+
+        const copyBtn = container.querySelector<HTMLProteanButtonElement>('.copy-button')!;
+
+        jest.useFakeTimers();
+
+        fireEvent.click(copyBtn);
+
+        expect(writeTextMock).toHaveBeenCalledTimes(1);
+        expect(writeTextMock).toHaveBeenCalledWith(`${location.origin}?text=1a1a1a&background=c7b5fb`);
+
+        await waitFor(() => expect(container.querySelector('.copy-confirmation')).toBeInTheDocument());
+
+        await act(() => {
+            jest.runOnlyPendingTimers();
+        });
+
+        await waitFor(() => expect(container.querySelector('.copy-confirmation')).toBeNull());
+
+        (window.navigator as any).clipboard = undefined;
     });
 });

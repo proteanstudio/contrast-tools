@@ -7,6 +7,7 @@ import ProteanCheckbox from '../ProteanCheckbox';
 import ProteanTabContainer from '../ProteanTabContainer';
 import legacyContrast from '../../utils/legacy-ratio';
 import { APCAcontrast, sRGBtoY } from 'apca-w3';
+import { cleanHex } from '../../utils/colors';
 
 interface AppState {
     activeTab: string;
@@ -27,24 +28,28 @@ export default class App extends Component<{}, AppState> {
             document.documentElement.classList.remove('light');
         }
 
-        const foregroundColor = {
-            hexString: '#1a1a1a',
-            rgbString: 'rgb(26, 26, 26)',
-            activeColor: '#1a1a1a',
-            hexNumber: parseInt('1a1a1a', 16),
-            rgb: [26, 26, 26],
-        };
+        const params = new URLSearchParams(location.search);
 
-        const backgroundColor = {
-            hexString: '#c7b5fb',
-            rgbString: 'rgb(199, 181, 251)',
-            activeColor: '#c7b5fb',
-            hexNumber: parseInt('c7b5fb', 16),
-            rgb: [199, 181, 251],
-        };
+        let foregroundColor = cleanHex('#ffffff').colorData;
+        let backgroundColor = cleanHex('#6e45e4').colorData;
+
+        if (params.has('text') && params.has('background')) {
+            const textParam = `#${params.get('text')!}`;
+            const bgParam = `#${params.get('background')!}`;
+
+            const { isValid: validText, colorData: cleanText } = cleanHex(textParam);
+            const { isValid: validBg, colorData: cleanBg } = cleanHex(bgParam);
+
+            if (validText && validBg) {
+                foregroundColor = cleanText;
+                backgroundColor = cleanBg;
+            }
+        }
+
+        const activeTab = params.get('tab') ?? 'apca';
 
         this.state = {
-            activeTab: 'wcag-30',
+            activeTab,
             darkModeEnabled,
             foregroundColor,
             backgroundColor,
@@ -57,7 +62,14 @@ export default class App extends Component<{}, AppState> {
     onTabChange = (event: CustomEvent) => {
         if ((event.target as HTMLElement).localName !== 'protean-tab-container') return;
 
-        this.setState({ activeTab: event.detail.value });
+        const activeTab = event.detail.value;
+
+        const params = new URLSearchParams(location.search);
+        params.set('tab', activeTab);
+
+        history.replaceState(null, '', `${location.origin}?${params.toString()}`);
+
+        this.setState({ activeTab });
     };
 
     onLightModeToggle = (event: CustomEvent) => {
@@ -112,7 +124,7 @@ export default class App extends Component<{}, AppState> {
                     />
                 </div>
                 <ProteanTabContainer value={this.state.activeTab} onchange={this.onTabChange}>
-                    <ProteanTabPane value="wcag-30" label="WCAG 3.0">
+                    <ProteanTabPane value="apca" label="APCA">
                         <APCADemo
                             foregroundColor={this.state.foregroundColor}
                             backgroundColor={this.state.backgroundColor}
@@ -122,7 +134,7 @@ export default class App extends Component<{}, AppState> {
                             onHexSwap={this.onHexSwap}
                         />
                     </ProteanTabPane>
-                    <protean-tab-pane value="wcag-21" label="WCAG 2.1">
+                    <ProteanTabPane value="wcag-21" label="WCAG 2.1">
                         <RatioDemo
                             foregroundColor={this.state.foregroundColor}
                             backgroundColor={this.state.backgroundColor}
@@ -131,7 +143,7 @@ export default class App extends Component<{}, AppState> {
                             onColorChange={this.onColorChange}
                             onHexSwap={this.onHexSwap}
                         />
-                    </protean-tab-pane>
+                    </ProteanTabPane>
                 </ProteanTabContainer>
             </div>
         );

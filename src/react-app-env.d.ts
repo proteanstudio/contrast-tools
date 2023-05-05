@@ -6,6 +6,11 @@ interface IDict<T = unknown> {
     [key: string]: T;
 }
 
+interface IComponentProps<T=unknown> {
+    children?: unknown;
+    ref?: RefObject<T>;
+}
+
 interface IColorData {
     hexString: string;
     rgbString: string;
@@ -14,18 +19,16 @@ interface IColorData {
     rgb: number[];
 }
 
-interface IProteanButton {
-    className?: string;
+interface IProteanButton extends IComponentProps<IProteanButton> {
+    class?: string;
     a11yLabel?: string;
     disabled?: boolean;
     type?: string;
     variant?: string;
-    children?: unknown;
-    ref?: unknown;
     onClick?: (event?: CustomEvent) => void;
 }
 
-interface IProteanCheckbox {
+interface IProteanCheckbox  extends IComponentProps<IProteanCheckbox>{
     className?: string;
     a11yLabel?: string;
     alignment?: 'left' | 'right';
@@ -35,23 +38,20 @@ interface IProteanCheckbox {
     label?: string;
     onchange?: (event: CustomEvent<any>) => void;
     variant?: string;
-    ref?: RefObject<IProteanCheckbox>;
 }
 
-interface IProteanClickElsewhere {
+interface IProteanClickElsewhere extends IComponentProps<IProteanClickElsewhere> {
     onchange?: (event: CustomEvent<any>) => void;
     children?: unknown;
     ref?: unknown;
 }
 
-interface IProteanIcon {
+interface IProteanIcon extends IComponentProps<IProteanClickElsewhere> {
     type?: string;
     use?: string;
-    children?: unknown;
-    ref?: unknown;
 }
 
-interface IProteanInput {
+interface IProteanInput extends IComponentProps<IProteanInput>{
     className?: string;
     a11yLabel?: string;
     ariaExpanded?: boolean | undefined;
@@ -70,38 +70,31 @@ interface IProteanInput {
     suppressMessages?: boolean;
     type?: string;
     value?: string;
-    ref?: RefObject<IProteanInput>;
 }
 
-interface IProteanMessage {
+interface IProteanMessage extends IComponentProps<IProteanMessage>{
     className?: string;
     level?: string;
     type?: string;
     variant?: string;
-    children?: unknown;
-    ref?: unknown;
 }
 
-interface IProteanOptgroup {
+interface IProteanOptgroup extends IComponentProps<IProteanOptgroup>{
     className?: string;
     disabled?: boolean;
     label?: string;
-    children?: unknown;
-    ref?: unknown;
 }
 
-interface IProteanOption {
+interface IProteanOption extends IComponentProps<IProteanOption> {
     active?: boolean;
     disabled?: boolean;
     disabledGroup?: boolean;
     label?: string;
     selected?: boolean;
     value?: string;
-    children?: unknown;
-    ref?: unknown;
 }
 
-interface IProteanSelect {
+interface IProteanSelect extends IComponentProps<IProteanSelect> {
     className?: string;
     a11yLabel?: string;
     disabled?: boolean;
@@ -112,26 +105,20 @@ interface IProteanSelect {
     optional?: boolean;
     selectedOptions?: string[];
     value?: string;
-    children?: unknown;
-    ref?: unknown;
 }
 
-interface IProteanTabContainer {
+interface IProteanTabContainer extends IComponentProps<IProteanTabContainer> {
     className?: string;
     name?: string;
     onchange?: (event: CustomEvent<any>) => void;
     value?: string;
-    children?: React.ReactNode;
-    ref?: RefObject<IProteanTabContainer>;
 }
 
-interface IProteanTabPane {
+interface IProteanTabPane extends IComponentProps<IProteanTabContainer> {
     className?: string;
     label?: string;
     name?: string;
     value?: string;
-    children?: React.ReactNode;
-    ref?: RefObject<IProteanTabContainer>;
 }
 
 declare namespace JSX {

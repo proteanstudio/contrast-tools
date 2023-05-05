@@ -19,11 +19,12 @@
 
     .radio-outer {
         stroke-width: 2;
-        stroke: var(--action-color);
+        stroke: var(--protean-checkbox-outline-color);
         fill: none;
     }
 
     &[data-checked='true'] .radio-outer {
+        stroke: var(--action-color);
         fill: var(--action-color);
     }
 

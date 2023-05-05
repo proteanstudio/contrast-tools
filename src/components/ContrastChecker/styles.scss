@@ -16,10 +16,6 @@
             &.field-container {
                 flex: 1 0 calc(100% - 10rem);
             }
-
-            &.sample-container {
-                flex: 1 1 100%;
-            }
         }
 
         @include breakpoint(s) {
@@ -74,7 +70,7 @@
         }
     }
 
-    protean-button {
+    .swap-colors {
         transition: transform 0.4s ease-in-out;
         @include breakpoint(m) {
             transform: rotate(-90deg);
@@ -95,5 +91,51 @@
                 --protean-checkbox-margin: 0.5rem 1rem 1rem;
             }
         }
+    }
+
+    .sample-container {
+        @include breakpoint(m) {
+            flex: 1 1;
+        }
+
+        @include breakpoint(s) {
+            flex: 1 1 100%;
+        }
+    }
+
+    .copy-container {
+        display: flex;
+        justify-content: flex-end;
+        position: relative;
+
+        @include breakpoint(m) {
+            flex: 0 0;
+            margin-left: 0.75rem;
+        }
+
+        @include breakpoint(s) {
+            margin: 1rem 0;
+            flex-basis: 100%;
+            justify-content: center;
+        }
+    }
+
+    .copy-button {
+        white-space: nowrap;
+
+        protean-icon {
+            margin-left: 0.25rem;
+        }
+    }
+
+    .copy-confirmation {
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        right: 1rem;
+        display: block;
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
+        font-weight: 600;
+        background-color: var(--code-background-color);
     }
 }

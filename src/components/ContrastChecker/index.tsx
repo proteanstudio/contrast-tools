@@ -5,6 +5,7 @@ import SampleText from '../SampleText';
 import debounce from '../../utils/debounce/';
 import createGuid from '../../utils/guid';
 import './styles.scss';
+import { ICleanColor, cleanHex, cleanRGB } from '../../utils/colors';
 
 export interface ContrastCheckerProps {
     foregroundColor: IColorData;
@@ -19,21 +20,20 @@ export interface ContrastCheckerProps {
 interface ContrastCheckerState {
     foregroundErrors?: string[];
     backgroundErrors?: string[];
-}
-
-interface CleanColor {
-    hexString: string;
-    rgbString: string;
-    hexNumber: number;
-    rgb: number[];
-    isValid: boolean;
+    canCopy: boolean;
+    showCopyConfirmation: boolean;
 }
 
 export default class ContrastChecker extends Component<ContrastCheckerProps, ContrastCheckerState> {
     constructor(props: ContrastCheckerProps) {
         super(props);
 
-        this.state = {};
+        const canCopy = typeof navigator.clipboard?.writeText === 'function';
+
+        this.state = {
+            canCopy,
+            showCopyConfirmation: false,
+        };
     }
 
     radioName: string = `color-type-${createGuid()}`;
@@ -41,11 +41,6 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
     get inputFormat(): 'hex' | 'rgb' {
         return this.props.isHex ? 'hex' : 'rgb';
     }
-
-    getRGBString = (rgb: number[]): string => {
-        const [r, g, b] = rgb;
-        return `rgb(${r}, ${g}, ${b})`;
-    };
 
     hexToRGB(hex: string): string {
         const r = parseInt(hex.substring(1, 3), 16);
@@ -61,126 +56,17 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
         this.props.onColorChange(fg, bg);
     };
 
-    cleanHex = (color: string, type: 'foreground' | 'background'): CleanColor => {
-        let workingColor = color.substring(1);
-        let colorObj: {
-            r: string;
-            g: string;
-            b: string;
-            [key: string]: string;
-        };
+    getCleanColor = (color: string, format: 'hex' | 'rgb', type: 'foreground' | 'background'): ICleanColor => {
+        const cleanMethod = format === 'rgb' ? cleanRGB : cleanHex;
+        const clean = cleanMethod(color);
 
-        switch (workingColor.length) {
-            case 1:
-                colorObj = {
-                    r: workingColor + workingColor,
-                    g: workingColor + workingColor,
-                    b: workingColor + workingColor,
-                };
-                break;
-            case 2:
-                colorObj = {
-                    r: workingColor,
-                    g: workingColor,
-                    b: workingColor,
-                };
-                break;
-            case 3:
-                colorObj = {
-                    r: workingColor.substring(0, 1) + workingColor.substring(0, 1),
-                    g: workingColor.substring(1, 2) + workingColor.substring(1, 2),
-                    b: workingColor.substring(2, 3) + workingColor.substring(2, 3),
-                };
-                break;
-            case 6:
-                colorObj = {
-                    r: workingColor.substring(0, 2),
-                    g: workingColor.substring(2, 4),
-                    b: workingColor.substring(4, 6),
-                };
-                break;
-            default:
-                this.setError(type);
-                return {
-                    hexString: '',
-                    rgbString: '',
-                    hexNumber: 0,
-                    rgb: [],
-                    isValid: false,
-                };
-        }
-
-        for (const colorVal in colorObj!) {
-            if (!/^[0-9A-F]{2}$/i.test(colorObj[colorVal])) {
-                this.setError(type);
-                return {
-                    hexString: '',
-                    rgbString: '',
-                    hexNumber: 0,
-                    rgb: [],
-                    isValid: false,
-                };
-            }
-        }
-
-        this.clearError(type);
-        const { r, g, b }: IDict<number | string> = colorObj;
-        workingColor = r + g + b;
-
-        const rgb = [r, g, b].map((num) => parseInt(num, 16));
-
-        return {
-            hexString: `#${workingColor}`,
-            rgbString: this.getRGBString(rgb),
-            hexNumber: parseInt(workingColor, 16),
-            rgb: Object.values(colorObj).map((num) => parseInt(num, 16)),
-            isValid: true,
-        };
-    };
-
-    cleanRGB = (color: string, type: 'foreground' | 'background'): CleanColor => {
-        const regex = /rgb\(\d{1,3}, \d{1,3}, \d{1,3}\)/g;
-
-        if (!regex.test(color)) {
-            this.setError(type);
-            return {
-                hexString: '',
-                rgbString: '',
-                hexNumber: 0,
-                rgb: [],
-                isValid: false,
-            };
-        }
-
-        const { workingColor, isValid, rgb } = color
-            .match(/\d{1,3}/g)
-            ?.reduce<{ workingColor: string; isValid: boolean; rgb: number[] }>(
-                (acc, item) => {
-                    let num = Number(item);
-                    if (num > 255) {
-                        this.setError(type);
-                        acc.isValid = false;
-                    }
-
-                    acc.workingColor += num.toString(16).padStart(2, '0');
-                    acc.rgb.push(num);
-
-                    return acc;
-                },
-                { workingColor: '', isValid: true, rgb: [] }
-            )!;
-
-        if (isValid) {
+        if (clean.isValid) {
             this.clearError(type);
+        } else {
+            this.setError(type);
         }
 
-        return {
-            hexString: `#${workingColor}`,
-            rgbString: this.getRGBString(rgb),
-            hexNumber: parseInt(workingColor!, 16),
-            rgb,
-            isValid,
-        };
+        return clean;
     };
 
     setError = (type: 'foreground' | 'background'): void => {
@@ -229,25 +115,14 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
     onColorInput = (color: string, type: 'foreground' | 'background') => {
         let fg = { ...this.props.foregroundColor };
         let bg = { ...this.props.backgroundColor };
-        let cleanColorObj: CleanColor;
+        const cleanColorObj = this.getCleanColor(color, this.inputFormat, type);
 
-        if (this.props.isHex) {
-            cleanColorObj = this.cleanHex(color, type);
-        } else {
-            cleanColorObj = this.cleanRGB(color, type);
-        }
+        const { isValid, colorData } = cleanColorObj;
 
-        let { isValid, ...filteredCleanColorObj } = cleanColorObj;
         if (type === 'foreground') {
-            fg = {
-                ...filteredCleanColorObj,
-                activeColor: color,
-            };
+            fg = colorData;
         } else {
-            bg = {
-                ...filteredCleanColorObj,
-                activeColor: color,
-            };
+            bg = colorData;
         }
 
         if (isValid) {
@@ -261,6 +136,22 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
         const isHex = (event.target as HTMLInputElement).value === 'hex';
 
         this.props.onHexSwap(isHex);
+    };
+
+    copyURL = async () => {
+        const params = new URLSearchParams(location.search);
+        params.set('text', this.props.foregroundColor.hexString.slice(1));
+        params.set('background', this.props.backgroundColor.hexString.slice(1));
+
+        const url = `${location.origin}?${params.toString()}`;
+
+        await navigator.clipboard.writeText(url);
+
+        this.setState({ showCopyConfirmation: true });
+
+        setTimeout(() => {
+            this.setState({ showCopyConfirmation: false });
+        }, 1500);
     };
 
     render() {
@@ -302,7 +193,12 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
                             <span>{this.props.contrastValue.toFixed(2)}:1</span>
                         )}
                     </h2>
-                    <protean-button variant="icon" onClick={this.swapColors} a11y-label="Swap colors">
+                    <protean-button
+                        class="swap-colors"
+                        variant="icon"
+                        onClick={this.swapColors}
+                        a11y-label="Swap colors"
+                    >
                         <protean-icon type="swap"></protean-icon>
                     </protean-button>
                 </div>
@@ -355,6 +251,19 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
                         foregroundColor={this.props.foregroundColor.hexString}
                         backgroundColor={this.props.backgroundColor.hexString}
                     />
+                </div>
+                <div className="copy-container">
+                    {this.state.showCopyConfirmation && (
+                        <span aria-live="polite" className="copy-confirmation">
+                            Link copied
+                        </span>
+                    )}
+                    {this.state.canCopy && (
+                        <protean-button class="copy-button" variant="secondary" onClick={this.copyURL}>
+                            <span>Share these colors</span>
+                            <protean-icon type="clipboard"></protean-icon>
+                        </protean-button>
+                    )}
                 </div>
             </section>
         );
