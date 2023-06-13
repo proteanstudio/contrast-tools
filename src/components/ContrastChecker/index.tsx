@@ -36,7 +36,7 @@ export default class ContrastChecker extends Component<ContrastCheckerProps, Con
         };
     }
 
-    radioName: string = `color-type-${createGuid()}`;
+    radioName = `color-type-${createGuid()}`;
 
     get inputFormat(): 'hex' | 'rgb' {
         return this.props.isHex ? 'hex' : 'rgb';

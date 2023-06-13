@@ -1,5 +1,4 @@
 /// <reference types="node" />
-/// <reference types="react" />
 /// <reference types="react-dom" />
 
 interface IDict<T = unknown> {
@@ -36,12 +35,12 @@ interface IProteanCheckbox  extends IComponentProps<IProteanCheckbox>{
     disabled?: boolean;
     indeterminate?: boolean;
     label?: string;
-    onchange?: (event: CustomEvent<any>) => void;
+    onchange?: (event: CustomEvent) => void;
     variant?: string;
 }
 
 interface IProteanClickElsewhere extends IComponentProps<IProteanClickElsewhere> {
-    onchange?: (event: CustomEvent<any>) => void;
+    onchange?: (event: CustomEvent) => void;
     children?: unknown;
     ref?: unknown;
 }
@@ -101,7 +100,7 @@ interface IProteanSelect extends IComponentProps<IProteanSelect> {
     errors?: string[];
     label?: string;
     multiple?: boolean;
-    onchange?: (event: CustomEvent<any>) => void;
+    onchange?: (event: CustomEvent) => void;
     optional?: boolean;
     selectedOptions?: string[];
     value?: string;
@@ -110,7 +109,7 @@ interface IProteanSelect extends IComponentProps<IProteanSelect> {
 interface IProteanTabContainer extends IComponentProps<IProteanTabContainer> {
     className?: string;
     name?: string;
-    onchange?: (event: CustomEvent<any>) => void;
+    onchange?: (event: CustomEvent) => void;
     value?: string;
 }
 

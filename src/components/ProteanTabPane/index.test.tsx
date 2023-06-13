@@ -15,7 +15,7 @@ describe('ProteanTabPane', () => {
             </ProteanTabPane>
         );
 
-        const proteanTabPaneElement = container.querySelector('protean-tab-pane')!;
+        const proteanTabPaneElement = container.querySelector('protean-tab-pane') as HTMLProteanTabPaneElement;
 
         expect(proteanTabPaneElement.getAttribute('value')).toEqual('apca');
         expect(proteanTabPaneElement.getAttribute('name')).toEqual('test-name');

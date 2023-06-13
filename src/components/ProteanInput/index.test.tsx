@@ -4,10 +4,10 @@ import { jest } from '@jest/globals';
 
 describe('ProteanInput', () => {
     it('binds all named properties', () => {
-        const onchange = jest.fn<any>().mockImplementation((event: CustomEvent) => {
+        const onchange = jest.fn<(event: CustomEvent) => void>().mockImplementation((event: CustomEvent) => {
             (event.target as HTMLProteanInputElement).value = event.detail.value;
         });
-        const oninput = jest.fn<any>().mockImplementation((event: CustomEvent) => {
+        const oninput = jest.fn<(event: CustomEvent) => void>().mockImplementation((event: CustomEvent) => {
             (event.target as HTMLProteanInputElement).value = event.detail.value;
         });
 
@@ -34,7 +34,7 @@ describe('ProteanInput', () => {
 
         const { container } = render(<ProteanInput {...props} />);
 
-        const proteanInputElement = container.querySelector('protean-input')!;
+        const proteanInputElement = container.querySelector('protean-input') as HTMLProteanInputElement;
 
         expect(proteanInputElement.className).toEqual('test-class');
         expect(proteanInputElement.a11yLabel).toEqual('test-a11y-label');

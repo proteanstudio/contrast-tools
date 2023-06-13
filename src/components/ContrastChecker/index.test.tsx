@@ -37,8 +37,8 @@ describe('ContrastChecker', () => {
         const component = container.children[0];
         expect(component).toHaveClass('contrast-checker');
 
-        const fgInput = container.querySelector<HTMLProteanInputElement>('.foreground-input')!;
-        const bgInput = container.querySelector<HTMLProteanInputElement>('.background-input')!;
+        const fgInput = container.querySelector('.foreground-input') as HTMLProteanInputElement;
+        const bgInput = container.querySelector('.background-input') as HTMLProteanInputElement;
 
         expect(fgInput.value).toEqual('#1a1a1a');
         expect(fgInput.type).toEqual('color-code');
@@ -50,10 +50,10 @@ describe('ContrastChecker', () => {
         expect(fgCVElement.textContent).toContain('#1a1a1a|rgb(26, 26, 26)');
         expect(bgCVElement.textContent).toContain('#c7b5fb|rgb(199, 181, 251)');
 
-        const contrastValueElement = container.querySelector<HTMLElement>('.contrast-value')!;
+        const contrastValueElement = container.querySelector('.contrast-value') as HTMLElement;
         expect(contrastValueElement.textContent?.trim()).toContain('68 Lc');
 
-        const checkedRadio = container.querySelector<HTMLInputElement>('input[checked]')!;
+        const checkedRadio = container.querySelector('input[checked]') as HTMLInputElement;
         expect(checkedRadio.value).toEqual('hex');
     });
 
@@ -69,8 +69,8 @@ describe('ContrastChecker', () => {
         };
         const { container } = render(<ContrastChecker {...props} />);
 
-        const fgInput = container.querySelector<HTMLProteanInputElement>('.foreground-input')!;
-        const bgInput = container.querySelector<HTMLProteanInputElement>('.background-input')!;
+        const fgInput = container.querySelector('.foreground-input') as HTMLProteanInputElement;
+        const bgInput = container.querySelector('.background-input') as HTMLProteanInputElement;
 
         expect(fgInput.value).toEqual('#1a1a1a');
         expect(bgInput.value).toEqual('#c7b5fb');
@@ -216,7 +216,7 @@ describe('ContrastChecker', () => {
         };
         const { container } = render(<ContrastChecker {...props} />);
 
-        const fgInput = container.querySelector<HTMLProteanInputElement>('.foreground-color-input')!;
+        const fgInput = container.querySelector('.foreground-color-input') as HTMLProteanInputElement;
 
         expect(fgInput.value).toEqual('#1a1a1a');
 
@@ -235,7 +235,7 @@ describe('ContrastChecker', () => {
         expect(fgInput.errors).toEqual(undefined);
         expect(props.onColorChange).toHaveBeenCalledTimes(1);
 
-        let updatedForegroundColor: IColorData = {
+        const updatedForegroundColor: IColorData = {
             hexString: '#1a252e',
             rgbString: 'rgb(26, 37, 46)',
             activeColor: '#1a252e',
@@ -257,7 +257,7 @@ describe('ContrastChecker', () => {
         };
         const { container } = render(<ContrastChecker {...props} />);
 
-        const bgInput = container.querySelector<HTMLProteanInputElement>('.background-input')!;
+        const bgInput = container.querySelector('.background-input') as HTMLProteanInputElement;
 
         expect(bgInput.value).toEqual('#c7b5fb');
 
@@ -334,7 +334,7 @@ describe('ContrastChecker', () => {
         };
         const { container } = render(<ContrastChecker {...props} />);
 
-        const bgInput = container.querySelector<HTMLProteanInputElement>('.background-color-input')!;
+        const bgInput = container.querySelector('.background-color-input') as HTMLProteanInputElement;
 
         expect(bgInput.value).toEqual('#c7b5fb');
 
@@ -353,7 +353,7 @@ describe('ContrastChecker', () => {
         expect(bgInput.errors).toEqual(undefined);
         expect(props.onColorChange).toHaveBeenCalledTimes(1);
 
-        let updatedBackgroundColor: IColorData = {
+        const updatedBackgroundColor: IColorData = {
             hexString: '#7209b7',
             rgbString: 'rgb(114, 9, 183)',
             activeColor: '#7209b7',
@@ -364,7 +364,7 @@ describe('ContrastChecker', () => {
     });
 
     it('switches to rgb format', async () => {
-        let props: ContrastCheckerProps = {
+        const props: ContrastCheckerProps = {
             foregroundColor,
             backgroundColor,
             contrastValue: APCAcontrast(sRGBtoY(foregroundColor.rgb), sRGBtoY(backgroundColor.rgb)),
@@ -377,15 +377,15 @@ describe('ContrastChecker', () => {
 
         expect(props.onHexSwap).toHaveBeenCalledTimes(0);
 
-        const fgInput = container.querySelector<HTMLProteanInputElement>('.foreground-input')!;
-        const fgColorInput = container.querySelector<HTMLProteanInputElement>('.foreground-color-input')!;
-        const bgInput = container.querySelector<HTMLProteanInputElement>('.background-input')!;
-        const bgColorInput = container.querySelector<HTMLProteanInputElement>('.background-color-input')!;
+        const fgInput = container.querySelector('.foreground-input') as HTMLProteanInputElement;
+        const fgColorInput = container.querySelector('.foreground-color-input') as HTMLProteanInputElement;
+        const bgInput = container.querySelector('.background-input') as HTMLProteanInputElement;
+        const bgColorInput = container.querySelector('.background-color-input') as HTMLProteanInputElement;
 
         expect(fgInput.value).toEqual('#1a1a1a');
         expect(fgInput.format).toEqual('hex');
 
-        const rgbRadioElement = container.querySelector<HTMLInputElement>('input[type="radio"][value="rgb"]')!;
+        const rgbRadioElement = container.querySelector('input[type="radio"][value="rgb"]') as HTMLInputElement;
 
         fireEvent(rgbRadioElement, new MouseEvent('click', { bubbles: true }));
 
@@ -445,7 +445,7 @@ describe('ContrastChecker', () => {
     });
 
     it('swaps foreground and background', () => {
-        let props: ContrastCheckerProps = {
+        const props: ContrastCheckerProps = {
             foregroundColor,
             backgroundColor,
             contrastValue: APCAcontrast(sRGBtoY(foregroundColor.rgb), sRGBtoY(backgroundColor.rgb)),
@@ -457,7 +457,7 @@ describe('ContrastChecker', () => {
 
         const { container, rerender } = render(<ContrastChecker {...props} />);
 
-        const colorSwapBtn = container.querySelector<HTMLProteanButtonElement>('.swap-colors')!;
+        const colorSwapBtn = container.querySelector('.swap-colors') as HTMLProteanButtonElement;
 
         fireEvent.click(colorSwapBtn);
 
@@ -477,9 +477,9 @@ describe('ContrastChecker', () => {
     it('copies colors to clipboard ', async () => {
         const writeTextMock = jest.fn().mockImplementation(() => Promise.resolve());
 
-        (window.navigator as any).clipboard = { writeText: writeTextMock };
+        (window.navigator as unknown as IDict).clipboard = { writeText: writeTextMock };
 
-        let props: ContrastCheckerProps = {
+        const props: ContrastCheckerProps = {
             foregroundColor,
             backgroundColor,
             contrastValue: APCAcontrast(sRGBtoY(foregroundColor.rgb), sRGBtoY(backgroundColor.rgb)),
@@ -491,7 +491,7 @@ describe('ContrastChecker', () => {
 
         const { container } = render(<ContrastChecker {...props} />);
 
-        const copyBtn = container.querySelector<HTMLProteanButtonElement>('.copy-button')!;
+        const copyBtn = container.querySelector('.copy-button') as HTMLProteanButtonElement;
 
         jest.useFakeTimers();
 
@@ -508,6 +508,6 @@ describe('ContrastChecker', () => {
 
         await waitFor(() => expect(container.querySelector('.copy-confirmation')).toBeNull());
 
-        (window.navigator as any).clipboard = undefined;
+        (window.navigator as unknown as IDict).clipboard = undefined;
     });
 });

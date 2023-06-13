@@ -23,6 +23,7 @@ export default class LookupTableCell extends Component<LookupTableCellProps> {
     get rating(): number {
         if (this.props.rating) return this.props.rating;
 
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         return APCARating(this.props.comparisonValue!, this.props.value as number);
     }
 

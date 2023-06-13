@@ -33,12 +33,12 @@ describe('Ratio Demo', () => {
         const component = container.children[0];
         expect(component).toHaveClass('ratio-demo');
 
-        const contrastValueContainer = container.querySelector<HTMLDivElement>('.contrast-value')!;
-        const sampleTextItem = container.querySelector<HTMLDivElement>('.sample-text')!;
-        const normalAAGradeItem = container.querySelector<HTMLDivElement>('.normal-aa-grade')!;
-        const normalAAAGradeItem = container.querySelector<HTMLDivElement>('.normal-aaa-grade')!;
-        const largeAAGradeItem = container.querySelector<HTMLDivElement>('.large-aa-grade')!;
-        const largeAAAGradeItem = container.querySelector<HTMLDivElement>('.large-aaa-grade')!;
+        const contrastValueContainer = container.querySelector('.contrast-value') as HTMLDivElement;
+        const sampleTextItem = container.querySelector('.sample-text') as HTMLDivElement;
+        const normalAAGradeItem = container.querySelector('.normal-aa-grade') as HTMLDivElement;
+        const normalAAAGradeItem = container.querySelector('.normal-aaa-grade') as HTMLDivElement;
+        const largeAAGradeItem = container.querySelector('.large-aa-grade') as HTMLDivElement;
+        const largeAAAGradeItem = container.querySelector('.large-aaa-grade') as HTMLDivElement;
 
         const fgColor = sampleTextItem.style.color;
         const bgColor = sampleTextItem.style.backgroundColor;
@@ -66,7 +66,7 @@ describe('Ratio Demo', () => {
 
         expect(props.onColorChange).toHaveBeenCalledTimes(0);
 
-        const colorSwapBtn = container.querySelector('.contrast-checker protean-button')!;
+        const colorSwapBtn = container.querySelector('.contrast-checker protean-button') as HTMLProteanButtonElement;
 
         fireEvent.click(colorSwapBtn);
 
@@ -88,7 +88,7 @@ describe('Ratio Demo', () => {
 
         expect(props.onHexSwap).toHaveBeenCalledTimes(0);
 
-        const rgbRadio = container.querySelector<HTMLInputElement>('input[type="radio"][value="rgb"]')!;
+        const rgbRadio = container.querySelector('input[type="radio"][value="rgb"]') as HTMLInputElement;
 
         fireEvent.click(rgbRadio);
 
@@ -97,7 +97,7 @@ describe('Ratio Demo', () => {
     });
 
     it('correctly calculates 4.5 grades', () => {
-        let props: RatioDemoProps = {
+        const props: RatioDemoProps = {
             contrastValue: legacyContrast(foregroundColor.rgb, backgroundColor.rgb),
             foregroundColor,
             backgroundColor,
@@ -108,9 +108,9 @@ describe('Ratio Demo', () => {
 
         const { container, rerender } = render(<RatioDemo {...props} />);
 
-        const contrastValueContainer = container.querySelector<HTMLDivElement>('.contrast-value')!;
-        const normalAAGradeItem = container.querySelector<HTMLDivElement>('.normal-aa-grade')!;
-        const largeAAAGradeItem = container.querySelector<HTMLDivElement>('.large-aaa-grade')!;
+        const contrastValueContainer = container.querySelector('.contrast-value') as HTMLDivElement;
+        const normalAAGradeItem = container.querySelector('.normal-aa-grade') as HTMLDivElement;
+        const largeAAAGradeItem = container.querySelector('.large-aaa-grade') as HTMLDivElement;
 
         expect(contrastValueContainer.textContent).toContain('9.47');
         expect(normalAAGradeItem.textContent).toEqual('pass');
@@ -132,7 +132,7 @@ describe('Ratio Demo', () => {
     });
 
     it('correctly calculates 7 grade', () => {
-        let props: RatioDemoProps = {
+        const props: RatioDemoProps = {
             contrastValue: legacyContrast(foregroundColor.rgb, backgroundColor.rgb),
             foregroundColor,
             backgroundColor,
@@ -143,8 +143,8 @@ describe('Ratio Demo', () => {
 
         const { container, rerender } = render(<RatioDemo {...props} />);
 
-        const contrastValueContainer = container.querySelector<HTMLDivElement>('.contrast-value')!;
-        const normalAAAGradeItem = container.querySelector<HTMLDivElement>('.normal-aaa-grade')!;
+        const contrastValueContainer = container.querySelector('.contrast-value') as HTMLDivElement;
+        const normalAAAGradeItem = container.querySelector('.normal-aaa-grade') as HTMLDivElement;
 
         expect(contrastValueContainer.textContent).toContain('9.47');
         expect(normalAAAGradeItem.textContent).toEqual('pass');
@@ -163,7 +163,7 @@ describe('Ratio Demo', () => {
     });
 
     it('correctly calculates 3 grade', () => {
-        let props: RatioDemoProps = {
+        const props: RatioDemoProps = {
             contrastValue: legacyContrast(foregroundColor.rgb, backgroundColor.rgb),
             foregroundColor,
             backgroundColor,
@@ -174,8 +174,8 @@ describe('Ratio Demo', () => {
 
         const { container, rerender } = render(<RatioDemo {...props} />);
 
-        const contrastValueContainer = container.querySelector<HTMLDivElement>('.contrast-value')!;
-        const largeAAGradeItem = container.querySelector<HTMLDivElement>('.large-aa-grade')!;
+        const contrastValueContainer = container.querySelector('.contrast-value') as HTMLDivElement;
+        const largeAAGradeItem = container.querySelector('.large-aa-grade') as HTMLDivElement;
 
         expect(contrastValueContainer.textContent).toContain('9.47');
         expect(largeAAGradeItem.textContent).toEqual('pass');

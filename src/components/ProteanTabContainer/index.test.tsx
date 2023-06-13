@@ -4,7 +4,7 @@ import { jest } from '@jest/globals';
 
 describe('ProteanTabContainer', () => {
     it('binds all named properties', () => {
-        const onchange = jest.fn<any>().mockImplementation((event: CustomEvent) => {
+        const onchange = jest.fn<(event: CustomEvent) => void>().mockImplementation((event: CustomEvent) => {
             (event.target as HTMLProteanTabContainerElement).value = event.detail.value;
         });
 
@@ -21,7 +21,9 @@ describe('ProteanTabContainer', () => {
             </ProteanTabContainer>
         );
 
-        const proteanTabContainerElement = container.querySelector('protean-tab-container')!;
+        const proteanTabContainerElement = container.querySelector(
+            'protean-tab-container'
+        ) as HTMLProteanTabContainerElement;
 
         expect(proteanTabContainerElement.className).toEqual('test-class');
         expect(proteanTabContainerElement.onchange).toEqual(onchange);

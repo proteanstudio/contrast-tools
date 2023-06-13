@@ -14,6 +14,7 @@ export default class ProteanTabContainer extends Component<IProteanTabContainer>
     bindProps() {
         const tabContainer = this.elementRef?.current as IProteanTabContainer & IDict;
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { children, ref, ...propsToCopy } = this.props;
 
         Object.entries(propsToCopy).forEach(([key, value]) => {
