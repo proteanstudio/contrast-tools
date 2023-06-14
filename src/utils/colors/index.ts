@@ -26,11 +26,12 @@ export const cleanRGB = (activeColor: string): ICleanColor => {
         };
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const { workingColor, isValid, rgb } = activeColor
         .match(/\d{1,3}/g)!
         .reduce<{ workingColor: string; isValid: boolean; rgb: number[] }>(
             (acc, item) => {
-                let num = Number(item);
+                const num = Number(item);
                 if (num > 255) {
                     acc.isValid = false;
                 }
@@ -48,7 +49,7 @@ export const cleanRGB = (activeColor: string): ICleanColor => {
             activeColor,
             hexString: `#${workingColor}`,
             rgbString: getRGBString(rgb as RGBArray),
-            hexNumber: parseInt(workingColor!, 16),
+            hexNumber: parseInt(workingColor, 16),
             rgb,
         },
         isValid,
@@ -106,7 +107,7 @@ export const cleanHex = (activeColor: string): ICleanColor => {
             };
     }
 
-    for (const colorVal in colorObj!) {
+    for (const colorVal in colorObj) {
         if (!/^[0-9A-F]{2}$/i.test(colorObj[colorVal])) {
             return {
                 colorData: {

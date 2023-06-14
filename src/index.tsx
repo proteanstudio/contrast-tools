@@ -5,8 +5,8 @@ import { defineCustomElements } from 'protean-elements/loader';
 
 defineCustomElements();
 
-const rootElement = document.querySelector<HTMLDivElement>('#root');
-const root = createRoot(rootElement!);
+const rootElement = document.querySelector('#root') as HTMLDivElement;
+const root = createRoot(rootElement);
 
 root.render(
     <StrictMode>

@@ -14,7 +14,7 @@ describe('LookupTableCell', () => {
         expect(component.className.trim()).toEqual('lookup-table-cell');
         expect(component.localName).toEqual('div');
 
-        const cellValueElement = container.querySelector<HTMLDivElement>('.cell-value')!;
+        const cellValueElement = container.querySelector('.cell-value') as HTMLDivElement;
 
         expect(cellValueElement.textContent?.trim()).toEqual('90');
         expect(cellValueElement.getAttribute('aria-label')).toEqual(null);
@@ -54,7 +54,7 @@ describe('LookupTableCell', () => {
 
         const { container } = render(<LookupTableCell {...props} />);
 
-        const cellValueElement = container.querySelector<HTMLDivElement>('.cell-value')!;
+        const cellValueElement = container.querySelector('.cell-value') as HTMLDivElement;
 
         expect(cellValueElement.getAttribute('aria-label')).toEqual('Font weight 100');
     });
@@ -68,11 +68,11 @@ describe('LookupTableCell', () => {
 
         const { container } = render(<LookupTableCell {...props} />);
 
-        const component = container.querySelector<HTMLDivElement>('.lookup-table-cell')!;
+        const component = container.querySelector('.lookup-table-cell') as HTMLDivElement;
 
         expect(component).toHaveClass('prohibited');
 
-        const cellValueElement = container.querySelector<HTMLDivElement>('.cell-value')!;
+        const cellValueElement = container.querySelector('.cell-value') as HTMLDivElement;
 
         expect(cellValueElement.textContent?.trim()).toEqual('X');
 
@@ -90,11 +90,11 @@ describe('LookupTableCell', () => {
 
         const { container } = render(<LookupTableCell {...props} />);
 
-        const component = container.querySelector<HTMLDivElement>('.lookup-table-cell')!;
+        const component = container.querySelector('.lookup-table-cell') as HTMLDivElement;
 
         expect(component).toHaveClass('copyright');
 
-        const cellValueElement = container.querySelector<HTMLDivElement>('.cell-value')!;
+        const cellValueElement = container.querySelector('.cell-value') as HTMLDivElement;
 
         expect(cellValueElement.textContent?.trim()).toEqual('©');
 
@@ -112,11 +112,11 @@ describe('LookupTableCell', () => {
 
         const { container } = render(<LookupTableCell {...props} />);
 
-        const component = container.querySelector<HTMLDivElement>('.lookup-table-cell')!;
+        const component = container.querySelector('.lookup-table-cell') as HTMLDivElement;
 
         expect(component).toHaveClass('header');
 
-        const cellValueElement = container.querySelector<HTMLDivElement>('.cell-value')!;
+        const cellValueElement = container.querySelector('.cell-value') as HTMLDivElement;
 
         expect(cellValueElement.textContent?.trim()).toEqual('10px');
 
@@ -134,11 +134,11 @@ describe('LookupTableCell', () => {
 
         const { container } = render(<LookupTableCell {...props} />);
 
-        const component = container.querySelector<HTMLDivElement>('.lookup-table-cell')!;
+        const component = container.querySelector('.lookup-table-cell') as HTMLDivElement;
 
         expect(component).toHaveClass('body-plus');
 
-        const cellValueElement = container.querySelector<HTMLDivElement>('.cell-value')!;
+        const cellValueElement = container.querySelector('.cell-value') as HTMLDivElement;
 
         expect(cellValueElement.textContent?.trim()).toEqual('N+');
 
@@ -156,11 +156,11 @@ describe('LookupTableCell', () => {
 
         const { container } = render(<LookupTableCell {...props} />);
 
-        const component = container.querySelector<HTMLDivElement>('.lookup-table-cell')!;
+        const component = container.querySelector('.lookup-table-cell') as HTMLDivElement;
 
         expect(component).toHaveClass('not-recommended');
 
-        const cellValueElement = container.querySelector<HTMLDivElement>('.cell-value')!;
+        const cellValueElement = container.querySelector('.cell-value') as HTMLDivElement;
 
         expect(cellValueElement.textContent?.trim()).toEqual('N');
 
@@ -178,11 +178,11 @@ describe('LookupTableCell', () => {
 
         const { container } = render(<LookupTableCell {...props} />);
 
-        const component = container.querySelector<HTMLDivElement>('.lookup-table-cell')!;
+        const component = container.querySelector('.lookup-table-cell') as HTMLDivElement;
 
         expect(component).toHaveClass('rating-2');
 
-        const cellValueElement = container.querySelector<HTMLDivElement>('.cell-value')!;
+        const cellValueElement = container.querySelector('.cell-value') as HTMLDivElement;
 
         expect(cellValueElement.textContent?.trim()).toEqual('100');
 
@@ -203,11 +203,11 @@ describe('LookupTableCell', () => {
 
         const { container } = render(<LookupTableCell {...props} />);
 
-        const component = container.querySelector<HTMLDivElement>('.lookup-table-cell')!;
+        const component = container.querySelector('.lookup-table-cell') as HTMLDivElement;
 
         expect(component).toHaveClass('rating-2', 'body-plus');
 
-        const cellValueElement = container.querySelector<HTMLDivElement>('.cell-value')!;
+        const cellValueElement = container.querySelector('.cell-value') as HTMLDivElement;
 
         expect(cellValueElement.textContent?.trim()).toEqual('100+');
 
@@ -228,11 +228,11 @@ describe('LookupTableCell', () => {
 
         const { container } = render(<LookupTableCell {...props} />);
 
-        const component = container.querySelector<HTMLDivElement>('.lookup-table-cell')!;
+        const component = container.querySelector('.lookup-table-cell') as HTMLDivElement;
 
         expect(component).toHaveClass('rating-2', 'not-recommended');
 
-        const cellValueElement = container.querySelector<HTMLDivElement>('.cell-value')!;
+        const cellValueElement = container.querySelector('.cell-value') as HTMLDivElement;
 
         expect(cellValueElement.textContent?.trim()).toEqual('100');
 
@@ -253,11 +253,11 @@ describe('LookupTableCell', () => {
 
         const { container } = render(<LookupTableCell {...props} />);
 
-        const component = container.querySelector<HTMLDivElement>('.lookup-table-cell')!;
+        const component = container.querySelector('.lookup-table-cell') as HTMLDivElement;
 
         expect(component).toHaveClass('rating-4');
 
-        const cellValueElement = container.querySelector<HTMLDivElement>('.cell-value')!;
+        const cellValueElement = container.querySelector('.cell-value') as HTMLDivElement;
 
         expect(cellValueElement.textContent?.trim()).toEqual('100');
 

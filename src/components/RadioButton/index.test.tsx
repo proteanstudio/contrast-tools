@@ -19,7 +19,7 @@ describe('RadioButton', () => {
 
         expect(wrapper).toHaveClass('radio-button');
 
-        const input = container.querySelector('input')!;
+        const input = container.querySelector('input') as HTMLInputElement;
 
         expect(input).toHaveClass('sr');
         expect(input.type).toEqual('radio');
@@ -28,7 +28,7 @@ describe('RadioButton', () => {
         expect(input.disabled).toEqual(false);
         expect(input.checked).toEqual(true);
 
-        const labelElement = container.querySelector('label')!;
+        const labelElement = container.querySelector('label') as HTMLLabelElement;
         expect(labelElement.htmlFor).toEqual('radio-button-1000');
         expect(labelElement.textContent).toContain('test label');
         expect(container.querySelector('.radio-inner')).not.toBeNull();
@@ -51,7 +51,7 @@ describe('RadioButton', () => {
 
         const { container } = render(<RadioButton {...props} />);
 
-        let input = container.querySelector('input')!;
+        const input = container.querySelector('input') as HTMLInputElement;
 
         expect(handleChange).toHaveBeenCalledTimes(0);
         expect(input.checked).toEqual(true);

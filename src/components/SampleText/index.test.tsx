@@ -18,7 +18,7 @@ describe('SampleText', () => {
         expect(component.style.backgroundColor).toEqual('rgb(199, 181, 251)');
         expect(component.style.color).toEqual('rgb(26, 26, 26)');
 
-        const mainTextElement = container.querySelector<HTMLDivElement>('.main-text')!;
+        const mainTextElement = container.querySelector('.main-text') as HTMLDivElement;
 
         expect(mainTextElement.style.fontSize).toEqual('16px');
         expect(mainTextElement.style.fontWeight).toEqual('600');

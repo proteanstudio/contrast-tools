@@ -6,10 +6,11 @@
         "jest": true
       },
     "parser": "@typescript-eslint/parser",
-    "extends": ["eslint:recommended"],
+    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
     "plugins": ["react", "jest", "import", "testing-library", "@typescript-eslint"],
     "rules": {
-        "no-unused-vars": "error",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": ["error"],
         "no-undef": "off" //prevent errors from types
     },
     "ignorePatterns": ["*.config.js", "docs/**/*"]
