@@ -41,24 +41,32 @@ export default class APCADemo extends Component<APCADemoProps> {
                         (L<sup>c</sup>) for text.
                     </p>
                     <p>
-                        APCA was once included in{' '}
+                        APCA was included in previous working drafts of the{' '}
                         <a
                             href="https://www.w3.org/TR/wcag-3.0/#visual-contrast-of-text"
                             rel="noreferrer"
                             target="_blank"
                         >
-                            WCAG 3.0
+                            WCAG 3.0 text contrast guidelines
                         </a>{' '}
-                        for color contrast evaluation but has{' '}
+                        . However, the{' '}
                         <a href="https://w3c.github.io/silver/guidelines/" rel="noreferrer" target="_blank">
-                            since been removed
-                        </a>
-                        . The proposed WCAG 3.0 ratings for text contrast were based on the proximity of a calculated
+                            W3C Editor's Draft of WCAG 3.0
+                        </a>{' '}
+                        from June 2nd, 2023 reverted all guidelines to "Placeholder" status and removed prior guideline
+                        content, including text contrast and APCA.
+                    </p>
+                    <p>
+                        The proposed WCAG 3.0 ratings for text contrast were based on the proximity of a calculated
                         contrast value to its target score on the APCA Lookup Table below.
                     </p>
                     <p>
-                        The table key details how the color combination above would have scored in the the proposed WCAG
-                        3.0 rating system.
+                        Although APCA’s eventual role in WCAG 3.0 is unclear, the APCA Readability Criterion (ARC) is
+                        developing as an independent standard for visual contrast. You can learn more in the{' '}
+                        <a href="https://readtech.org/ARC/" rel="noreferrer" target="_blank">
+                            ARC public working draft
+                        </a>{' '}
+                        .
                     </p>
                     <section>
                         <h3>APCA Lookup Table</h3>
