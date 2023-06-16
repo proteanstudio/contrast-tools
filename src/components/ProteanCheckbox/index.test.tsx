@@ -4,7 +4,7 @@ import { jest } from '@jest/globals';
 
 describe('ProteanCheckbox', () => {
     it('binds all named properties', () => {
-        const onchange = jest.fn<any>().mockImplementation((event: CustomEvent) => {
+        const onchange = jest.fn<(event: CustomEvent) => void>().mockImplementation((event: CustomEvent) => {
             (event.target as HTMLProteanCheckboxElement).checked = event.detail.checked;
         });
 
@@ -21,7 +21,7 @@ describe('ProteanCheckbox', () => {
         };
         const { container } = render(<ProteanCheckbox {...props} />);
 
-        const proteanCheckboxElement = container.querySelector('protean-checkbox')!;
+        const proteanCheckboxElement = container.querySelector('protean-checkbox') as HTMLProteanCheckboxElement;
 
         expect(proteanCheckboxElement.className).toEqual('test-checkbox');
         expect(proteanCheckboxElement.a11yLabel).toEqual('test-a11y-label');

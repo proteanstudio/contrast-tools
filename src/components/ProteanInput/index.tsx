@@ -14,6 +14,7 @@ export default class ProteanInput extends Component<IProteanInput> {
     bindProps() {
         const input = this.elementRef.current as IProteanInput & IDict;
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { children, ref, ...propsToCopy } = this.props;
 
         Object.entries(propsToCopy).forEach(([key, value]) => {

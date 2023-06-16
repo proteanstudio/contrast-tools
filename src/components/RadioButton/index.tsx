@@ -12,7 +12,7 @@ export interface RadioButtonProps {
 }
 
 export default class RadioButton extends Component<RadioButtonProps> {
-    radioId: string = `radio-button-${createGuid()}`;
+    radioId = `radio-button-${createGuid()}`;
 
     render() {
         return (

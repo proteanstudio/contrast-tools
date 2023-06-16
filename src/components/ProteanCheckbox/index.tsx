@@ -14,6 +14,7 @@ export default class ProteanCheckbox extends Component<IProteanCheckbox> {
     bindProps() {
         const checkbox = this.elementRef.current as IProteanCheckbox & IDict;
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { children, ref, ...propsToCopy } = this.props;
 
         Object.entries(propsToCopy).forEach(([key, value]) => {

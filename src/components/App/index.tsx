@@ -19,8 +19,8 @@ interface AppState {
     isHex: boolean;
 }
 
-export default class App extends Component<{}, AppState> {
-    constructor(props: {}) {
+export default class App extends Component<IDict, AppState> {
+    constructor(props: IDict) {
         super(props);
 
         const darkModeEnabled = localStorage.getItem('darkModeEnabled') === 'true';
@@ -34,8 +34,8 @@ export default class App extends Component<{}, AppState> {
         let backgroundColor = cleanHex('#6e45e4').colorData;
 
         if (params.has('text') && params.has('background')) {
-            const textParam = `#${params.get('text')!}`;
-            const bgParam = `#${params.get('background')!}`;
+            const textParam = `#${params.get('text') as string}`;
+            const bgParam = `#${params.get('background') as string}`;
 
             const { isValid: validText, colorData: cleanText } = cleanHex(textParam);
             const { isValid: validBg, colorData: cleanBg } = cleanHex(bgParam);

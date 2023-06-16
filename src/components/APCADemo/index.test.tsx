@@ -36,15 +36,15 @@ describe('APCA Demo', () => {
         const component = container.children[0];
         expect(component).toHaveClass('apca-demo');
 
-        const contrastValueContainer = container.querySelector<HTMLDivElement>('.contrast-value')!;
-        const sampleTextItem = container.querySelector<HTMLDivElement>('.sample-container .sample-text')!;
+        const contrastValueContainer = container.querySelector<HTMLDivElement>('.contrast-value');
+        const sampleTextItem = container.querySelector<HTMLDivElement>('.sample-container .sample-text');
 
-        const fgColor = sampleTextItem.style.color;
-        const bgColor = sampleTextItem.style.backgroundColor;
+        const fgColor = sampleTextItem?.style.color;
+        const bgColor = sampleTextItem?.style.backgroundColor;
 
         expect(fgColor).toEqual('rgb(26, 26, 26)');
         expect(bgColor).toEqual('rgb(199, 181, 251)');
-        expect(contrastValueContainer.textContent).toContain('68');
+        expect(contrastValueContainer?.textContent).toContain('68');
     });
 
     it('fires onColorChange', () => {
@@ -62,7 +62,7 @@ describe('APCA Demo', () => {
 
         expect(props.onColorChange).toHaveBeenCalledTimes(0);
 
-        const colorSwapBtn = container.querySelector('.contrast-checker protean-button')!;
+        const colorSwapBtn = container.querySelector('.contrast-checker protean-button') as HTMLProteanButtonElement;
 
         fireEvent.click(colorSwapBtn);
 
@@ -85,7 +85,7 @@ describe('APCA Demo', () => {
 
         expect(props.onHexSwap).toHaveBeenCalledTimes(0);
 
-        const rgbRadio = container.querySelector<HTMLInputElement>('input[type="radio"][value="rgb"]')!;
+        const rgbRadio = container.querySelector('input[type="radio"][value="rgb"]') as HTMLInputElement;
 
         fireEvent.click(rgbRadio);
 
